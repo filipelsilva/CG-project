@@ -26,26 +26,20 @@ function createScene() {
 
 	scene = new THREE.Scene();
 
-	scene.add(new THREE.AxesHelper(1000));
+	scene.add(new THREE.AxesHelper(100));
 }
 
 function createCamera() {
 	'use strict';
 
-	camera = new THREE.OrthographicCamera(window.innerWidth/-2, window.innerWidth/2, window.innerHeight/2, window.innerHeight/-2, -1000, 1000);
+	camera = new THREE.OrthographicCamera(window.innerWidth/-2, 
+											window.innerWidth/2, 
+											window.innerHeight/2, 
+											window.innerHeight/-2, 
+											-1000, 
+											1000);
 
 	return camera;
-}
-
-function onResize() {
-	'use strict';
-
-	renderer.setSize(window.innerWidth, window.innerHeight);
-
-	if (window.innerHeight > 0 && window.innerWidth > 0) {
-		camera.aspect = window.innerWidth / window.innerHeight;
-		camera.updateProjectionMatrix();
-	}
 }
 
 function onKeyDown(e) {
@@ -137,8 +131,10 @@ function onResize() {
 	renderer.setSize(window.innerWidth, window.innerHeight);
 
 	if (window.innerHeight > 0 && window.innerWidth > 0) {
-		// TODO isto não funciona, mas também não é para esta entrega
-		camera.aspect = window.innerWidth / window.innerHeight;
+		camera.left = window.innerWidth/-2;
+		camera.right = window.innerWidth/2;
+		camera.top = window.innerHeight/2;
+		camera.bottom = window.innerHeight/-2;
 		camera.updateProjectionMatrix();
 	}
 }
@@ -162,8 +158,6 @@ function init() {
 	createScene();
 	createCamera();
 	createObjects();
-
-	render();
 
 	window.addEventListener("keydown", onKeyDown);
 	window.addEventListener("resize", onResize);
