@@ -1,9 +1,9 @@
 'use strict';
 
-var camera, scene, renderer;
-var material, geometry, group;
-var objects = [];
-var keyMap = [];
+let camera, scene, renderer;
+let material, geometry, group;
+const objects = [];
+const keyMap = [];
 
 function createObjects() {
 	material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
@@ -152,53 +152,53 @@ function createCamera() {
 }
 
 function doKeyPress() {
-	if (keyMap[81] == true || keyMap[113] == true) { // Q/q
+	if (keyMap[81] || keyMap[113]) { // Q/q
 		group.rotation.y += 0.01;
 		// rodar o objeto todo para um lado
 	}
 
-	if (keyMap[87] == true || keyMap[119] == true) { // W/w
+	if (keyMap[87] || keyMap[119]) { // W/w
 		group.rotation.y -= 0.01;
 		// rodar o objeto todo para o lado oposto
 	}
 
-	if (keyMap[65] == true || keyMap[97] == true) { // A/a
+	if (keyMap[65] || keyMap[97]) { // A/a
 		// rodar parte do objeto para um lado
 	}
 
-	if (keyMap[83] == true || keyMap[115] == true) { // S/s
+	if (keyMap[83] || keyMap[115]) { // S/s
 		// rodar parte do objeto para o lado oposto
 	}
 
-	if (keyMap[90] == true || keyMap[122] == true) { // Z/z
+	if (keyMap[90] || keyMap[122]) { // Z/z
 		// rodar unico objeto para o lado oposto
 	}
 
-	if (keyMap[88] == true || keyMap[120] == true) { // X/x
+	if (keyMap[88] || keyMap[120]) { // X/x
 		// rodar unico objeto para o lado oposto
 	}
 
-	if (keyMap[37] == true) { // left
+	if (keyMap[37]) { // left
 		group.position.x -= 1;
 	}
 
-	if (keyMap[38] == true) { // up
+	if (keyMap[38]) { // up
 		group.position.y += 1;
 	}
 
-	if (keyMap[39] == true) { // right
+	if (keyMap[39]) { // right
 		group.position.x += 1;
 	}
 
-	if (keyMap[40] == true) { // down
+	if (keyMap[40]) { // down
 		group.position.y -= 1;
 	}
 
-	if (keyMap[68] == true || keyMap[100] == true) { // D/d
+	if (keyMap[68] || keyMap[100]) { // D/d
 		group.position.z += 1;
 	}
 
-	if (keyMap[67] == true || keyMap[99] == true) { // C/c
+	if (keyMap[67] || keyMap[99]) { // C/c
 		group.position.z -= 1;
 	}
 }
@@ -248,14 +248,14 @@ function doOneTimeEvent(code) {
 }
 
 function onKeyDown(event) {
-	var code = event.keyCode;
+	const code = event.keyCode;
 	if (!doOneTimeEvent(code)) {
 		keyMap[code] = true;
 	}
 }
 
 function onKeyUp(event) {
-	var code = event.keyCode;
+	const code = event.keyCode;
 	keyMap[code] = false;
 }
 
