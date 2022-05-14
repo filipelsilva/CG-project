@@ -84,6 +84,33 @@ function onKeyDown(e) {
 			// rodar unico objeto para o lado oposto
 			break;
 
+		// TODO ainda não aceita vários keypresses ao mesmo tempo, já há ideia para solução
+		case 37: // left
+			group.position.x -= 1;
+			break;
+
+		case 38: // up
+			group.position.y += 1;
+			break;
+
+		case 39: // right
+			group.position.x += 1;
+			break;
+
+		case 40: // down
+			group.position.y -= 1;
+			break;
+
+		case 68:  // D
+		case 100: // d
+			group.position.z += 1;
+			break;
+
+		case 67: // C
+		case 99: // c
+			group.position.z -= 1;
+			break;
+
 		case 69:  // E
 		case 101: // e
 			scene.traverse(function (node) {
