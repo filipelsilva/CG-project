@@ -147,18 +147,6 @@ function onKeyDown(e) {
 	}
 }
 
-function onResize() {
-	'use strict';
-
-	renderer.setSize(window.innerWidth, window.innerHeight);
-
-	if (window.innerHeight > 0 && window.innerWidth > 0) {
-		// TODO isto não funciona, mas também não é para esta entrega
-		camera.aspect = window.innerWidth / window.innerHeight;
-		camera.updateProjectionMatrix();
-	}
-}
-
 function render() {
 	'use strict';
 
