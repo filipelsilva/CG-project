@@ -1,22 +1,34 @@
 let camera, scene, renderer;
 
-let material1, material2, geometry1, geometry2, cube1, cube2, group;
+let material1, material2, geometry1, geometry2, cone1, cube2, group;
+
 
 function createObjects() {
-	material1 = new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: true });
-	material2 = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
-	geometry1 = new THREE.BoxGeometry(50,50,50);
-	geometry2 = new THREE.BoxGeometry(25,25,25);
-	geometry2.translate(-25/2, -25/2, 0);
+	material1 = new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: false });
+	material2 = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: false });
+	material3 = new THREE.MeshBasicMaterial({ color: 0x0000ff, wireframe: false });
 
-	cube1 = new THREE.Mesh(geometry1, material1);
+	geometry1 = new THREE.ConeGeometry(50,200,70);
+	geometry2 = new THREE.BoxGeometry(30,650,50);
+	geometry3 = new THREE.SphereGeometry(50, 20 ,20);
+
+	cone1 = new THREE.Mesh(geometry1, material1);
 	cube2 = new THREE.Mesh(geometry2, material2);
-	cube1.position.set(0, 0, 0);
-	cube2.position.set(-25/2, 25, 0);
+	sphere3 = new THREE.Mesh(geometry3, material3);
+
+	cone1.position.set(-550, 250, -500);
+	cone1.rotation.z = -(Math.PI / 4) - (Math.PI /12);
+
+	cube2.position.set(-500, 0, -200);
+	cube2.rotation.z = Math.PI / 24;
+
+	sphere3.position.set(-530, 100, 0);
+
 
 	group = new THREE.Group();
-	group.add(cube1);
+	group.add(cone1);
 	group.add(cube2);
+	group.add(sphere3);
 
 	scene.add(group);
 }
@@ -25,6 +37,7 @@ function createScene() {
 	'use strict';
 
 	scene = new THREE.Scene();
+	scene.background = new THREE.Color( 0xf8ea8b );
 
 	scene.add(new THREE.AxesHelper(1000));
 }
@@ -172,7 +185,7 @@ function init() {
 function animate() {
 	'use strict';
 
-	group.rotation.y += 0.01;
+	//group.rotation.y += 0.01;
 
 	renderer.render(scene, camera);
 
