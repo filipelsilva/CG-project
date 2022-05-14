@@ -112,15 +112,16 @@ function createObjects() {
 	cube16.rotation.x = -Math.PI /12;
 
 	group = new THREE.Group();
+	move_group = new THREE.Group();
 	group.add(cone1);
 	group.add(cube2);
-	group.add(sphere3);
+	move_group.add(sphere3);
 	group.add(pyramid4);
 	group.add(cylinder5);
 	group.add(cube6);
 	group.add(torus7);
-	group.add(cube8);
-	group.add(cube9);
+	move_group.add(cube8);
+	move_group.add(cube9);
 	group.add(cylinder10);
 	group.add(sphere11);
 	group.add(pyramid12);
@@ -130,6 +131,7 @@ function createObjects() {
 	group.add(cube16);
 
 	scene.add(group);
+	scene.add(move_group);
 }
 
 function createScene() {
@@ -187,11 +189,11 @@ function doKeyPress() {
 	}
 
 	if (keyMap[37] == true) { // left
-		group.position.x -= 1;
+		move_group.position.x -= 1;
 	}
 
 	if (keyMap[38] == true) { // up
-		group.position.y += 1;
+		move_group.position.y += 1;
 	}
 
 	if (keyMap[39] == true) { // right
