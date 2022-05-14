@@ -1,6 +1,6 @@
 let camera, scene, renderer;
 
-let material1, material2, geometry1, geometry2, cone1, cube2, group;
+let material1, material2, geometry1, geometry2, cone1, cube2, group, move_group;
 
 var keyMap = [];
 
@@ -60,40 +60,40 @@ function createObjects() {
 	cube16 = new THREE.Mesh(geometry16, material16);
 
 
-	cone1.position.set(-550, 250, -500);
+	cone1.position.set(-550, 250, -320);
 	cone1.rotation.z = -(Math.PI / 4) - (Math.PI /12);
 
-	cube2.position.set(-500, 0, -200);
+	cube2.position.set(-500, 0, -100);
 	cube2.rotation.z = Math.PI / 24;
 
-	sphere3.position.set(-530, 120, 0);
+	sphere3.position.set(-530, 120, 100);
 
-	pyramid4.position.set(-500, 0, -500);
+	pyramid4.position.set(-500, 0, -320);
 	pyramid4.rotation.z = (Math.PI / 4) * 2.5;
 	pyramid4.rotation.x =  Math.PI /50;
 
-	cylinder5.position.set(-320, -10, -100);
+	cylinder5.position.set(-320, -10, -200);
 	cylinder5.rotation.z = -(Math.PI / 4) * 1.4;
 
-	cube6.position.set(-480,-225,0);
+	cube6.position.set(-480,-225,150);
 	cube6.rotation.y = -Math.PI / 8;
 	cube6.rotation.z = -Math.PI / 24;
 
 	torus7.position.set(-215, 215, 0);
 
-	cube8.position.set(-100, -10, 500);
+	cube8.position.set(-100, -10, 680);
 	cube8.rotation.z = Math.PI /2.8;
 
-	cube9.position.set(-125, -200, 0);
+	cube9.position.set(-125, -200, -500);
 	cube9.rotation.z = Math.PI /4;
 	cube9.rotation.x = Math.PI /12;
 
-	cylinder10.position.set(225, -70, -100);
+	cylinder10.position.set(225, -70, 680);
 	cylinder10.rotation.z = Math.PI / 2;
 
-	sphere11.position.set(350, -225, 50);
+	sphere11.position.set(350, -225, 450);
 
-	pyramid12.position.set(550, -80, -300);
+	pyramid12.position.set(550, -80, 580);
 	pyramid12.rotation.z = -Math.PI/1.05 ;
 	pyramid12.rotation.y = Math.PI/24 ;
 
@@ -104,10 +104,10 @@ function createObjects() {
 	torus14.rotation.x = -Math.PI /2.5;
 	torus14.rotation.z = Math.PI;
 
-	cone15.position.set(75, 75, 0);
+	cone15.position.set(75, 75, 200);
 	cone15.rotation.z = -Math.PI /3.7;
 
-	cube16.position.set(50, 230, 500);
+	cube16.position.set(50, 230, 400);
 	cube16.rotation.z = -Math.PI/4;
 	cube16.rotation.x = -Math.PI /12;
 
@@ -161,12 +161,12 @@ function doKeyPress() {
 	'use strict';
 
 	if (keyMap[81] == true || keyMap[113] == true) { // Q/q
-		group.rotation.y += 0.01;
+		move_group.rotation.y += 0.01;
 		// rodar o objeto todo para um lado
 	}
 
 	if (keyMap[87] == true || keyMap[119] == true) { // W/w
-		group.rotation.y -= 0.01;
+		move_group.rotation.y -= 0.01;
 		// rodar o objeto todo para o lado oposto
 	}
 
@@ -195,19 +195,19 @@ function doKeyPress() {
 	}
 
 	if (keyMap[39] == true) { // right
-		group.position.x += 1;
+		move_group.position.x += 1;
 	}
 
 	if (keyMap[40] == true) { // down
-		group.position.y -= 1;
+		move_group.position.y -= 1;
 	}
 
 	if (keyMap[68] == true || keyMap[100] == true) { // D/d
-		group.position.z += 1;
+		move_group.position.z += 1;
 	}
 
 	if (keyMap[67] == true || keyMap[99] == true) { // C/c
-		group.position.z -= 1;
+		move_group.position.z -= 1;
 	}
 }
 
