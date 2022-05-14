@@ -38,6 +38,10 @@ function createCamera() {
 											window.innerHeight/-2, 
 											-1000, 
 											1000);
+	camera.position.x = 1;
+	camera.position.y = 0;
+	camera.position.z = 0;
+	camera.lookAt(0, 0, 0);
 
 	return camera;
 }
@@ -46,6 +50,32 @@ function onKeyDown(e) {
 	'use strict';
 
 	switch (e.keyCode) {
+		case 49: // 1
+			camera.position.x = 1;
+			camera.position.y = 0;
+			camera.position.z = 0;
+			camera.lookAt(0, 0, 0);
+			break;
+		case 50: // 2
+			camera.position.x = 0;
+			camera.position.y = 1;
+			camera.position.z = 0;
+			camera.lookAt(0, 0, 0);
+			break;
+		case 51: // 3
+			camera.position.x = 0;
+			camera.position.y = 0;
+			camera.position.z = 1;
+			camera.lookAt(0, 0, 0);
+			break;
+		case 52: // 4
+			scene.traverse(function (node) {
+				if (node instanceof THREE.Mesh) {
+					node.material.wireframe = !node.material.wireframe;
+				}
+			});
+			break;
+
 		case 81: // Q
 		case 113: // q
 			group.rotation.y += 0.01;
@@ -105,20 +135,12 @@ function onKeyDown(e) {
 			group.position.z -= 1;
 			break;
 
+		//TODO Nao é necessario
 		case 69:  // E
 		case 101: // e
 			scene.traverse(function (node) {
 				if (node instanceof THREE.AxesHelper) {
 					node.visible = !node.visible;
-				}
-			});
-			break;
-
-		case 76:  // L
-		case 108: // l
-			scene.traverse(function (node) {
-				if (node instanceof THREE.Mesh) {
-					node.material.wireframe = !node.material.wireframe;
 				}
 			});
 			break;
@@ -166,7 +188,7 @@ function init() {
 function animate() {
 	'use strict';
 
-	group.rotation.y += 0.01;
+	//group.rotation.y += 0.01;
 
 	renderer.render(scene, camera);
 
