@@ -1,6 +1,8 @@
-let camera, scene, renderer;
+var camera, scene, renderer;
 
-let material1, material2, geometry1, geometry2, cube1, cube2, group;
+var material1, material2, geometry1, geometry2, cube1, cube2, group;
+
+var keyMap = [];
 
 function createObjects() {
 	material1 = new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: true });
@@ -32,12 +34,14 @@ function createScene() {
 function createCamera() {
 	'use strict';
 
-	camera = new THREE.OrthographicCamera(window.innerWidth/-2, 
-											window.innerWidth/2, 
-											window.innerHeight/2, 
-											window.innerHeight/-2, 
-											-1000, 
-											1000);
+	camera = new THREE.OrthographicCamera(
+		window.innerWidth/-2,
+		window.innerWidth/2,
+		window.innerHeight/2,
+		window.innerHeight/-2,
+		-1000,
+		1000
+	);
 	camera.position.x = 1;
 	camera.position.y = 0;
 	camera.position.z = 0;
@@ -46,10 +50,73 @@ function createCamera() {
 	return camera;
 }
 
-function onKeyDown(e) {
+function doKeyPress() {
 	'use strict';
 
-	switch (e.keyCode) {
+	if (keyMap[81] == true || keyMap[113] == true) { // Q/q
+		group.rotation.y += 0.01;
+		// rodar o objeto todo para um lado
+	}
+
+	if (keyMap[87] == true || keyMap[119] == true) { // W/w
+		group.rotation.y -= 0.01;
+		// rodar o objeto todo para o lado oposto
+	}
+
+	if (keyMap[65] == true || keyMap[97] == true) { // A/a
+		// rodar parte do objeto para um lado
+	}
+
+	if (keyMap[83] == true || keyMap[115] == true) { // S/s
+		// rodar parte do objeto para o lado oposto
+	}
+
+	if (keyMap[90] == true || keyMap[122] == true) { // Z/z
+		// rodar unico objeto para o lado oposto
+	}
+
+	if (keyMap[88] == true || keyMap[120] == true) { // X/x
+		// rodar unico objeto para o lado oposto
+	}
+
+	if (keyMap[37] == true) { // left
+		group.position.x -= 1;
+	}
+
+	if (keyMap[38] == true) { // up
+		group.position.y += 1;
+	}
+
+	if (keyMap[39] == true) { // right
+		group.position.x += 1;
+	}
+
+	if (keyMap[40] == true) { // down
+		group.position.y -= 1;
+	}
+
+	if (keyMap[68] == true || keyMap[100] == true) { // D/d
+		group.position.z += 1;
+	}
+
+	if (keyMap[67] == true || keyMap[99] == true) { // C/c
+		group.position.z -= 1;
+	}
+}
+
+function onKeyDown(event) {
+	var code = event.keyCode;
+	var flag = false;
+	switch (code) {
+		case 69:  // E
+		case 101: // e
+			flag = true;
+			scene.traverse(function (node) {
+				if (node instanceof THREE.AxesHelper) {
+					node.visible = !node.visible;
+				}
+			});
+		break;
 		case 49: // 1
 			camera.position.x = 1;
 			camera.position.y = 0;
@@ -75,76 +142,15 @@ function onKeyDown(e) {
 				}
 			});
 			break;
-
-		case 81: // Q
-		case 113: // q
-			group.rotation.y += 0.01;
-			// rodar o objeto todo para um lado
-			break;
-
-		case 87: // W
-		case 119: // w
-			group.rotation.y -= 0.01;
-			// rodar o objeto todo para o lado oposto
-			break;
-
-		case 65: // A
-		case 97: // a
-			// rodar parte do objeto para um lado
-			break;
-
-		case 83:  // S
-		case 115: // s
-			// rodar parte do objeto para o lado oposto
-			break;
-
-		case 90:  // Z
-		case 122: // z
-			// rodar unico objeto para o lado oposto
-			break;
-
-		case 88:  // X
-		case 120: // x
-			// rodar unico objeto para o lado oposto
-			break;
-
-		// TODO ainda não aceita vários keypresses ao mesmo tempo, já há ideia para solução
-		case 37: // left
-			group.position.x -= 1;
-			break;
-
-		case 38: // up
-			group.position.y += 1;
-			break;
-
-		case 39: // right
-			group.position.x += 1;
-			break;
-
-		case 40: // down
-			group.position.y -= 1;
-			break;
-
-		case 68:  // D
-		case 100: // d
-			group.position.z += 1;
-			break;
-
-		case 67: // C
-		case 99: // c
-			group.position.z -= 1;
-			break;
-
-		//TODO Nao é necessario
-		case 69:  // E
-		case 101: // e
-			scene.traverse(function (node) {
-				if (node instanceof THREE.AxesHelper) {
-					node.visible = !node.visible;
-				}
-			});
-			break;
 	}
+	if (flag == false) {
+		keyMap[code] = true;
+	}
+}
+
+function onKeyUp(event) {
+	var code = event.keyCode;
+	keyMap[code] = false;
 }
 
 function onResize() {
@@ -161,12 +167,6 @@ function onResize() {
 	}
 }
 
-function render() {
-	'use strict';
-
-	renderer.render(scene, camera);
-}
-
 function init() {
 	'use strict';
 
@@ -181,14 +181,15 @@ function init() {
 	createCamera();
 	createObjects();
 
-	window.addEventListener("keydown", onKeyDown);
+	window.addEventListener("keydown", onKeyDown, true);
+	window.addEventListener("keyup", onKeyUp, true);
 	window.addEventListener("resize", onResize);
 }
 
 function animate() {
 	'use strict';
 
-	//group.rotation.y += 0.01;
+	doKeyPress();
 
 	renderer.render(scene, camera);
 
