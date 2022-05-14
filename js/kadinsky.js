@@ -100,8 +100,7 @@ function doKeyPress() {
 	}
 }
 
-function onKeyDown(event) {
-	var code = event.keyCode;
+function doOneTimeEvent(code) {
 	var flag = false;
 	switch (code) {
 		case 69:  // E
@@ -114,32 +113,40 @@ function onKeyDown(event) {
 			});
 		break;
 		case 49: // 1
+			flag = true;
 			camera.position.x = 0;
 			camera.position.y = 0;
 			camera.position.z = 1;
 			camera.lookAt(0, 0, 0);
-			break;
+		break;
 		case 50: // 2
+			flag = true;
 			camera.position.x = 0;
 			camera.position.y = 1;
 			camera.position.z = 0;
 			camera.lookAt(0, 0, 0);
-			break;
+		break;
 		case 51: // 3
+			flag = true;
 			camera.position.x = 1;
 			camera.position.y = 0;
 			camera.position.z = 0;
 			camera.lookAt(0, 0, 0);
-			break;
+		break;
 		case 52: // 4
 			scene.traverse(function (node) {
 				if (node instanceof THREE.Mesh) {
 					node.material.wireframe = !node.material.wireframe;
 				}
 			});
-			break;
+		break;
 	}
-	if (flag == false) {
+	return flag;
+}
+
+function onKeyDown(event) {
+	var code = event.keyCode;
+	if (!doOneTimeEvent(code)) {
 		keyMap[code] = true;
 	}
 }
