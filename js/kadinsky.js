@@ -56,10 +56,11 @@ function onResize() {
 	renderer.setSize(window.innerWidth, window.innerHeight);
 
 	if (window.innerHeight > 0 && window.innerWidth > 0) {
-		camera.left = window.innerWidth/-2;
+		camera.aspect = window.innerWidth / window.innerHeight;
+		/*camera.left = window.innerWidth/-2;
 		camera.right = window.innerWidth/2;
 		camera.top = window.innerHeight/2;
-		camera.bottom = window.innerHeight/-2;
+		camera.bottom = window.innerHeight/-2;*/
 		camera.updateProjectionMatrix();
 	}
 }
