@@ -54,11 +54,13 @@ function onKeyDown(e) {
 	switch (e.keyCode) {
 		case 81: // Q
 		case 113: // q
+			group.rotation.y += 0.01;
 			// rodar o objeto todo para um lado
 			break;
 
 		case 87: // W
 		case 119: // w
+			group.rotation.y -= 0.01;
 			// rodar o objeto todo para o lado oposto
 			break;
 
@@ -90,6 +92,27 @@ function onKeyDown(e) {
 				}
 			});
 			break;
+
+		case 76:  // L
+		case 108: // l
+			scene.traverse(function (node) {
+				if (node instanceof THREE.Mesh) {
+					node.material.wireframe = !node.material.wireframe;
+				}
+			});
+			break;
+	}
+}
+
+function onResize() {
+	'use strict';
+
+	renderer.setSize(window.innerWidth, window.innerHeight);
+
+	if (window.innerHeight > 0 && window.innerWidth > 0) {
+		// TODO isto não funciona, mas também não é para esta entrega
+		camera.aspect = window.innerWidth / window.innerHeight;
+		camera.updateProjectionMatrix();
 	}
 }
 
@@ -123,7 +146,6 @@ function animate() {
 	'use strict';
 
 	group.rotation.y += 0.01;
-	cube2.rotation.z += 0.01;
 
 	renderer.render(scene, camera);
 
