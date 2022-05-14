@@ -2,6 +2,7 @@ let camera, scene, renderer;
 
 let material1, material2, geometry1, geometry2, cone1, cube2, group;
 
+var keyMap = [];
 
 function createObjects() {
 	material1 = new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: false });
@@ -12,6 +13,15 @@ function createObjects() {
 	material6 = new THREE.MeshBasicMaterial({ color: 0xff7300, wireframe: false });
 	material7 = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: false });
 	material8 = new THREE.MeshBasicMaterial({ color: 0x000000, wireframe: false });
+	material9 = new THREE.MeshBasicMaterial({ color: 0x45db00, wireframe: false });
+	material10 = new THREE.MeshBasicMaterial({ color: 0xfc8a8a, wireframe: false });
+	material11 = new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: false });
+	material12 = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: false });
+	material13 = new THREE.MeshBasicMaterial({ color: 0x000b70, wireframe: false });
+	material14 = new THREE.MeshBasicMaterial({ color: 0xddff00, wireframe: false });
+	material15 = new THREE.MeshBasicMaterial({ color: 0x9500ff, wireframe: false });
+	material16 = new THREE.MeshBasicMaterial({ color: 0xa14e00, wireframe: false });
+
 
 	geometry1 = new THREE.ConeGeometry(50,200,70);
 	geometry2 = new THREE.BoxGeometry(30,650,50);
@@ -21,6 +31,15 @@ function createObjects() {
 	geometry6 = new THREE.BoxGeometry(125, 125, 125);
 	geometry7 = new THREE.TorusGeometry(100,10, 30, 30);
 	geometry8 = new THREE.BoxGeometry(30,690,50);
+	geometry9 = new THREE.BoxGeometry(130,130,130);
+	geometry10 = new THREE.CylinderGeometry(15, 15, 900, 50);
+	geometry11 = new THREE.SphereGeometry(100, 20, 20);
+	geometry12 = new THREE.ConeGeometry(125, 350, 4);
+	geometry13 = new THREE.SphereGeometry(150, 20, 20);
+	geometry14 = new THREE.TorusGeometry(175, 12, 30, 30);
+	geometry15 = new THREE.ConeGeometry(50,200,70);
+	geometry16 = new THREE.BoxGeometry(125,125,125);
+
 
 
 	cone1 = new THREE.Mesh(geometry1, material1);
@@ -31,6 +50,15 @@ function createObjects() {
 	cube6 = new THREE.Mesh(geometry6, material6);
 	torus7 = new THREE.Mesh(geometry7, material7);
 	cube8 = new THREE.Mesh(geometry8, material8);
+	cube9 = new THREE.Mesh(geometry9, material9);
+	cylinder10 = new THREE.Mesh(geometry10, material10);
+	sphere11 = new THREE.Mesh(geometry11, material11);
+	pyramid12 = new THREE.Mesh(geometry12, material12);
+	sphere13 = new THREE.Mesh(geometry13, material13);
+	torus14 = new THREE.Mesh(geometry14, material14);
+	cone15 = new THREE.Mesh(geometry15, material15);
+	cube16 = new THREE.Mesh(geometry16, material16);
+
 
 	cone1.position.set(-550, 250, -500);
 	cone1.rotation.z = -(Math.PI / 4) - (Math.PI /12);
@@ -56,6 +84,33 @@ function createObjects() {
 	cube8.position.set(-100, -10, 500);
 	cube8.rotation.z = Math.PI /2.8;
 
+	cube9.position.set(-125, -200, 0);
+	cube9.rotation.z = Math.PI /4;
+	cube9.rotation.x = Math.PI /12;
+
+	cylinder10.position.set(225, -70, -100);
+	cylinder10.rotation.z = Math.PI / 2;
+
+	sphere11.position.set(350, -225, 50);
+
+	pyramid12.position.set(550, -80, -300);
+	pyramid12.rotation.z = -Math.PI/1.05 ;
+	pyramid12.rotation.y = Math.PI/24 ;
+
+	sphere13.position.set(350, 150, -550);
+
+	torus14.position.set(350, 150, -550)
+	torus14.rotation.y = -Math.PI / 4;
+	torus14.rotation.x = -Math.PI /2.5;
+	torus14.rotation.z = Math.PI;
+
+	cone15.position.set(75, 75, 0);
+	cone15.rotation.z = -Math.PI /3.7;
+
+	cube16.position.set(50, 230, 500);
+	cube16.rotation.z = -Math.PI/4;
+	cube16.rotation.x = -Math.PI /12;
+
 	group = new THREE.Group();
 	group.add(cone1);
 	group.add(cube2);
@@ -65,6 +120,14 @@ function createObjects() {
 	group.add(cube6);
 	group.add(torus7);
 	group.add(cube8);
+	group.add(cube9);
+	group.add(cylinder10);
+	group.add(sphere11);
+	group.add(pyramid12);
+	group.add(sphere13);
+	group.add(torus14);
+	group.add(cone15);
+	group.add(cube16);
 
 	scene.add(group);
 }
@@ -75,15 +138,133 @@ function createScene() {
 	scene = new THREE.Scene();
 	scene.background = new THREE.Color( 0xf8ea8b );
 
-	scene.add(new THREE.AxesHelper(1000));
+
+	scene.add(new THREE.AxesHelper(100));
 }
 
 function createCamera() {
 	'use strict';
 
-	camera = new THREE.OrthographicCamera(window.innerWidth/-2, window.innerWidth/2, window.innerHeight/2, window.innerHeight/-2, -1000, 1000);
+	camera = new THREE.OrthographicCamera(
+		window.innerWidth/-2,
+		window.innerWidth/2,
+		window.innerHeight/2,
+		window.innerHeight/-2,
+		-1000,
+		1000
+	);
 
 	return camera;
+}
+
+function doKeyPress() {
+	'use strict';
+
+	if (keyMap[81] == true || keyMap[113] == true) { // Q/q
+		group.rotation.y += 0.01;
+		// rodar o objeto todo para um lado
+	}
+
+	if (keyMap[87] == true || keyMap[119] == true) { // W/w
+		group.rotation.y -= 0.01;
+		// rodar o objeto todo para o lado oposto
+	}
+
+	if (keyMap[65] == true || keyMap[97] == true) { // A/a
+		// rodar parte do objeto para um lado
+	}
+
+	if (keyMap[83] == true || keyMap[115] == true) { // S/s
+		// rodar parte do objeto para o lado oposto
+	}
+
+	if (keyMap[90] == true || keyMap[122] == true) { // Z/z
+		// rodar unico objeto para o lado oposto
+	}
+
+	if (keyMap[88] == true || keyMap[120] == true) { // X/x
+		// rodar unico objeto para o lado oposto
+	}
+
+	if (keyMap[37] == true) { // left
+		group.position.x -= 1;
+	}
+
+	if (keyMap[38] == true) { // up
+		group.position.y += 1;
+	}
+
+	if (keyMap[39] == true) { // right
+		group.position.x += 1;
+	}
+
+	if (keyMap[40] == true) { // down
+		group.position.y -= 1;
+	}
+
+	if (keyMap[68] == true || keyMap[100] == true) { // D/d
+		group.position.z += 1;
+	}
+
+	if (keyMap[67] == true || keyMap[99] == true) { // C/c
+		group.position.z -= 1;
+	}
+}
+
+function doOneTimeEvent(code) {
+	var flag = false;
+	switch (code) {
+		case 69:  // E
+		case 101: // e
+			flag = true;
+			scene.traverse(function (node) {
+				if (node instanceof THREE.AxesHelper) {
+					node.visible = !node.visible;
+				}
+			});
+		break;
+		case 49: // 1
+			flag = true;
+			camera.position.x = 1;
+			camera.position.y = 0;
+			camera.position.z = 0;
+			camera.lookAt(0, 0, 0);
+		break;
+		case 50: // 2
+			flag = true;
+			camera.position.x = 0;
+			camera.position.y = 1;
+			camera.position.z = 0;
+			camera.lookAt(0, 0, 0);
+		break;
+		case 51: // 3
+			flag = true;
+			camera.position.x = 0;
+			camera.position.y = 0;
+			camera.position.z = 1;
+			camera.lookAt(0, 0, 0);
+		break;
+		case 52: // 4
+			scene.traverse(function (node) {
+				if (node instanceof THREE.Mesh) {
+					node.material.wireframe = !node.material.wireframe;
+				}
+			});
+		break;
+	}
+	return flag;
+}
+
+function onKeyDown(event) {
+	var code = event.keyCode;
+	if (!doOneTimeEvent(code)) {
+		keyMap[code] = true;
+	}
+}
+
+function onKeyUp(event) {
+	var code = event.keyCode;
+	keyMap[code] = false;
 }
 
 function onResize() {
@@ -92,102 +273,12 @@ function onResize() {
 	renderer.setSize(window.innerWidth, window.innerHeight);
 
 	if (window.innerHeight > 0 && window.innerWidth > 0) {
-		camera.aspect = window.innerWidth / window.innerHeight;
-		/*camera.left = window.innerWidth/-2;
+		camera.left = window.innerWidth/-2;
 		camera.right = window.innerWidth/2;
 		camera.top = window.innerHeight/2;
-		camera.bottom = window.innerHeight/-2;*/
+		camera.bottom = window.innerHeight/-2;
 		camera.updateProjectionMatrix();
 	}
-}
-
-function onKeyDown(e) {
-	'use strict';
-
-	switch (e.keyCode) {
-		case 81: // Q
-		case 113: // q
-			group.rotation.y += 0.01;
-			// rodar o objeto todo para um lado
-			break;
-
-		case 87: // W
-		case 119: // w
-			group.rotation.y -= 0.01;
-			// rodar o objeto todo para o lado oposto
-			break;
-
-		case 65: // A
-		case 97: // a
-			// rodar parte do objeto para um lado
-			break;
-
-		case 83:  // S
-		case 115: // s
-			// rodar parte do objeto para o lado oposto
-			break;
-
-		case 90:  // Z
-		case 122: // z
-			// rodar unico objeto para o lado oposto
-			break;
-
-		case 88:  // X
-		case 120: // x
-			// rodar unico objeto para o lado oposto
-			break;
-
-		// TODO ainda não aceita vários keypresses ao mesmo tempo, já há ideia para solução
-		case 37: // left
-			group.position.x -= 1;
-			break;
-
-		case 38: // up
-			group.position.y += 1;
-			break;
-
-		case 39: // right
-			group.position.x += 1;
-			break;
-
-		case 40: // down
-			group.position.y -= 1;
-			break;
-
-		case 68:  // D
-		case 100: // d
-			group.position.z += 1;
-			break;
-
-		case 67: // C
-		case 99: // c
-			group.position.z -= 1;
-			break;
-
-		case 69:  // E
-		case 101: // e
-			scene.traverse(function (node) {
-				if (node instanceof THREE.AxesHelper) {
-					node.visible = !node.visible;
-				}
-			});
-			break;
-
-		case 76:  // L
-		case 108: // l
-			scene.traverse(function (node) {
-				if (node instanceof THREE.Mesh) {
-					node.material.wireframe = !node.material.wireframe;
-				}
-			});
-			break;
-	}
-}
-
-function render() {
-	'use strict';
-
-	renderer.render(scene, camera);
 }
 
 function init() {
@@ -204,16 +295,15 @@ function init() {
 	createCamera();
 	createObjects();
 
-	render();
-
-	window.addEventListener("keydown", onKeyDown);
+	window.addEventListener("keydown", onKeyDown, true);
+	window.addEventListener("keyup", onKeyUp, true);
 	window.addEventListener("resize", onResize);
 }
 
 function animate() {
 	'use strict';
 
-	//group.rotation.y += 0.01;
+	doKeyPress();
 
 	renderer.render(scene, camera);
 
