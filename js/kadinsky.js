@@ -42,10 +42,6 @@ function createCamera() {
 		-1000,
 		1000
 	);
-	camera.position.x = 1;
-	camera.position.y = 0;
-	camera.position.z = 0;
-	camera.lookAt(0, 0, 0);
 
 	return camera;
 }
@@ -118,9 +114,9 @@ function onKeyDown(event) {
 			});
 		break;
 		case 49: // 1
-			camera.position.x = 1;
+			camera.position.x = 0;
 			camera.position.y = 0;
-			camera.position.z = 0;
+			camera.position.z = 1;
 			camera.lookAt(0, 0, 0);
 			break;
 		case 50: // 2
@@ -130,9 +126,9 @@ function onKeyDown(event) {
 			camera.lookAt(0, 0, 0);
 			break;
 		case 51: // 3
-			camera.position.x = 0;
+			camera.position.x = 1;
 			camera.position.y = 0;
-			camera.position.z = 1;
+			camera.position.z = 0;
 			camera.lookAt(0, 0, 0);
 			break;
 		case 52: // 4
