@@ -225,9 +225,9 @@ function doOneTimeEvent(code) {
 		break;
 		case 49: // 1
 			flag = true;
-			camera.position.x = 1;
+			camera.position.x = 0;
 			camera.position.y = 0;
-			camera.position.z = 0;
+			camera.position.z = 1;
 			camera.lookAt(0, 0, 0);
 		break;
 		case 50: // 2
@@ -239,9 +239,9 @@ function doOneTimeEvent(code) {
 		break;
 		case 51: // 3
 			flag = true;
-			camera.position.x = 0;
+			camera.position.x = 1;
 			camera.position.y = 0;
-			camera.position.z = 1;
+			camera.position.z = 0;
 			camera.lookAt(0, 0, 0);
 		break;
 		case 52: // 4
