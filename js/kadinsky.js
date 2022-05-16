@@ -122,7 +122,7 @@ function createObjects() {
 	objects[15].rotation.x = -Math.PI /12;
 
 	group = new THREE.Group();
-	group.add(objects[2]);
+	group.add(objects[6]);
 	group.add(objects[7]);
 	group.add(objects[8]);
 	scene.add(group);
