@@ -5,21 +5,49 @@ let material, geometry, group;
 const objects = [];
 const keyMap = [];
 
+function rotateAroundPoint(object, point, axis, rotation){
+    object.position.sub(point);
+    object.position.applyAxisAngle(axis, rotation);
+    object.position.add(point);
+    object.rotateOnAxis(axis, rotation);
+}
+
+function getObjectCenterPoint(mesh) {
+    var geometry = mesh.geometry;
+    geometry.computeBoundingBox();
+    var center = new THREE.Vector3();
+    geometry.boundingBox.getCenter(center);
+    return center;
+}
+
 function createObjects() {
 	material = new THREE.MeshBasicMaterial({ color: 0xffb700 });
 	geometry = new THREE.BoxGeometry(110,110,110);
 	objects.push(new THREE.Mesh(geometry, material));
 
-	objects[0].position.set(0, 0, 0);
-	objects[0].rotation.z = Math.PI /4;
-	objects[0].rotation.x = Math.PI /4;
+	material = new THREE.MeshBasicMaterial({ color: 0xffb700 });
+	geometry = new THREE.BoxGeometry(110,440,110);
+	objects.push(new THREE.Mesh(geometry, material));
 
-	group = new THREE.Group();
-	scene.add(group);
+	material = new THREE.MeshBasicMaterial({ color: 0xffb700 });
+	geometry = new THREE.BoxGeometry(440,110,110);
+	objects.push(new THREE.Mesh(geometry, material));
 
-	objects.map(obj => {
-		group.add(obj);
-	});
+	objects[0].position.set(50, 0, 0);
+	objects[1].position.set(0, objects[0].geometry.parameters.height * 3, 0);
+	objects[2].position.set(objects[0].geometry.parameters.height, objects[0].geometry.parameters.height * 3, 0);
+	objects[0].add(objects[1]);
+	objects[1].add(objects[2]);
+
+	scene.add(objects[0]);
+	// objects[0] = new THREE.objects[0]();
+	// scene.add(objects[0]);
+
+	// objects.map(obj => {
+	// 	objects[0].add(obj);
+	// 	// scene.add(obj);
+	// });
+
 }
 
 function createScene() {
@@ -41,53 +69,77 @@ function createCamera() {
 
 function doKeyPress() {
 	if (keyMap[81] || keyMap[113]) { // Q/q
-		group.rotation.y += 0.01;
 		// rodar o objeto todo para um lado
+		objects[0].rotation.y += 0.01;
 	}
 
 	if (keyMap[87] || keyMap[119]) { // W/w
-		group.rotation.y -= 0.01;
 		// rodar o objeto todo para o lado oposto
+		objects[0].rotation.y -= 0.01;
 	}
 
 	if (keyMap[65] || keyMap[97]) { // A/a
 		// rodar parte do objeto para um lado
+		rotateAroundPoint(
+			objects[1],
+			getObjectCenterPoint(objects[0]),
+			new THREE.Vector3(1, 0, 0),
+			0.01
+		);
 	}
 
 	if (keyMap[83] || keyMap[115]) { // S/s
 		// rodar parte do objeto para o lado oposto
+		rotateAroundPoint(
+			objects[1],
+			getObjectCenterPoint(objects[0]),
+			new THREE.Vector3(1, 0, 0),
+			-0.01
+		);
 	}
 
 	if (keyMap[90] || keyMap[122]) { // Z/z
 		// rodar unico objeto para o lado oposto
+		rotateAroundPoint(
+			objects[2],
+			getObjectCenterPoint(objects[1]),
+			new THREE.Vector3(0, 1, 0),
+			0.01
+		);
 	}
 
 	if (keyMap[88] || keyMap[120]) { // X/x
 		// rodar unico objeto para o lado oposto
+		rotateAroundPoint(
+			objects[2],
+			getObjectCenterPoint(objects[1]),
+			new THREE.Vector3(0, 1, 0),
+			-0.01
+		);
 	}
 
 	if (keyMap[37]) { // left
-		group.position.x -= 1;
+		objects[0].position.x -= 10;
 	}
 
 	if (keyMap[38]) { // up
-		group.position.y += 1;
+		objects[0].position.y += 10;
 	}
 
 	if (keyMap[39]) { // right
-		group.position.x += 1;
+		objects[0].position.x += 10;
 	}
 
 	if (keyMap[40]) { // down
-		group.position.y -= 1;
+		objects[0].position.y -= 10;
 	}
 
 	if (keyMap[68] || keyMap[100]) { // D/d
-		group.position.z += 1;
+		objects[0].position.z += 10;
 	}
 
 	if (keyMap[67] || keyMap[99]) { // C/c
-		group.position.z -= 1;
+		objects[0].position.z -= 10;
 	}
 }
 
