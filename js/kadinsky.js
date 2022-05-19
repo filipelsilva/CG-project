@@ -1,6 +1,7 @@
 'use strict';
 
 let last = 0;
+let axes = new THREE.AxesHelper(100);
 let camera, scene, renderer;
 let material, geometry, group;
 const objects = [];
@@ -54,7 +55,7 @@ function createObjects() {
 function createScene() {
 	scene = new THREE.Scene();
 	scene.background = new THREE.Color( 0x020122 );
-	scene.add(new THREE.AxesHelper(100));
+	scene.add(axes);
 }
 
 function createCamera() {
@@ -150,11 +151,7 @@ function doOneTimeEvent(code) {
 		case 69:  // E
 		case 101: // e
 			flag = true;
-			scene.traverse(function (node) {
-				if (node instanceof THREE.AxesHelper) {
-					node.visible = !node.visible;
-				}
-			});
+			axes.visible = !axes.visible;
 		break;
 		case 49: // 1
 			flag = true;
@@ -178,10 +175,9 @@ function doOneTimeEvent(code) {
 		camera.lookAt(0, 0, 0);
 		break;
 		case 52: // 4
-			scene.traverse(function (node) {
-				if (node instanceof THREE.Mesh) {
-					node.material.wireframe = !node.material.wireframe;
-				}
+			flag = true;
+			objects.map(obj => {
+				obj.material.wireframe = !obj.material.wireframe;
 			});
 		break;
 	}
