@@ -1,5 +1,6 @@
 'use strict';
 
+let last = 0;
 let camera, scene, renderer;
 let material, geometry, group;
 const objects = [];
@@ -13,9 +14,9 @@ function rotateAroundPoint(object, point, axis, rotation){
 }
 
 function getObjectCenterPoint(mesh) {
-	var geometry = mesh.geometry;
+	let center = new THREE.Vector3();
+	let geometry = mesh.geometry;
 	geometry.computeBoundingBox();
-	var center = new THREE.Vector3();
 	geometry.boundingBox.getCenter(center);
 	return center;
 }
@@ -67,15 +68,15 @@ function createCamera() {
 	);
 }
 
-function doKeyPress() {
+function doKeyPress(delta) {
 	if (keyMap[81] || keyMap[113]) { // Q/q
 		// rodar o objeto todo para um lado
-		objects[0].rotation.y += 0.01;
+		objects[0].rotation.y += 0.001 * delta;
 	}
 
 	if (keyMap[87] || keyMap[119]) { // W/w
 		// rodar o objeto todo para o lado oposto
-		objects[0].rotation.y -= 0.01;
+		objects[0].rotation.y -= 0.001 * delta;
 	}
 
 	if (keyMap[65] || keyMap[97]) { // A/a
@@ -84,7 +85,7 @@ function doKeyPress() {
 			objects[1],
 			getObjectCenterPoint(objects[0]),
 			new THREE.Vector3(1, 0, 0),
-			0.01
+			0.001 * delta
 		);
 	}
 
@@ -94,7 +95,7 @@ function doKeyPress() {
 			objects[1],
 			getObjectCenterPoint(objects[0]),
 			new THREE.Vector3(1, 0, 0),
-			-0.01
+			-0.001 * delta
 		);
 	}
 
@@ -104,7 +105,7 @@ function doKeyPress() {
 			objects[2],
 			getObjectCenterPoint(objects[1]),
 			new THREE.Vector3(0, 1, 0),
-			0.01
+			0.001 * delta
 		);
 	}
 
@@ -114,32 +115,32 @@ function doKeyPress() {
 			objects[2],
 			getObjectCenterPoint(objects[1]),
 			new THREE.Vector3(0, 1, 0),
-			-0.01
+			-0.001 * delta
 		);
 	}
 
 	if (keyMap[37]) { // left
-		objects[0].position.x -= 10;
+		objects[0].position.x -= 1 * delta;
 	}
 
 	if (keyMap[38]) { // up
-		objects[0].position.y += 10;
+		objects[0].position.y += 1 * delta;
 	}
 
 	if (keyMap[39]) { // right
-		objects[0].position.x += 10;
+		objects[0].position.x += 1 * delta;
 	}
 
 	if (keyMap[40]) { // down
-		objects[0].position.y -= 10;
+		objects[0].position.y -= 1 * delta;
 	}
 
 	if (keyMap[68] || keyMap[100]) { // D/d
-		objects[0].position.z += 10;
+		objects[0].position.z += 1 * delta;
 	}
 
 	if (keyMap[67] || keyMap[99]) { // C/c
-		objects[0].position.z -= 10;
+		objects[0].position.z -= 1 * delta;
 	}
 }
 
@@ -228,8 +229,11 @@ function init() {
 	window.addEventListener("resize", onResize);
 }
 
-function animate() {
-	doKeyPress();
+function animate(current) {
+	const delta = current - last;
+	last = current;
+
+	doKeyPress(delta);
 
 	renderer.render(scene, camera);
 
