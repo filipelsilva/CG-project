@@ -4,7 +4,7 @@ let last = 0;
 let axes = new THREE.AxesHelper(100);
 let camera, scene, renderer;
 let material, geometry, group;
-const objects = [];
+let articulate;
 const keyMap = [];
 
 function rotateAroundPoint(object, point, axis, rotation) {
@@ -23,17 +23,27 @@ function getObjectCenterPoint(mesh) {
 }
 
 function createObjects() {
+	let objects = [];
+	let tmp;
+	group = new THREE.Group();
+
 	material = new THREE.MeshBasicMaterial({ color: 0xffb700 });
 	geometry = new THREE.BoxGeometry(110,110,110);
-	objects.push(new THREE.Mesh(geometry, material));
+	tmp = new THREE.Mesh(geometry, material);
+	objects.push(tmp);
+	articulate = tmp;
 
 	material = new THREE.MeshBasicMaterial({ color: 0xffb700 });
 	geometry = new THREE.BoxGeometry(110,440,110);
-	objects.push(new THREE.Mesh(geometry, material));
+	tmp = new THREE.Mesh(geometry, material);
+	objects.push(tmp);
+	articulate.add(tmp);
 
 	material = new THREE.MeshBasicMaterial({ color: 0xffb700 });
 	geometry = new THREE.BoxGeometry(440,110,110);
-	objects.push(new THREE.Mesh(geometry, material));
+	tmp = new THREE.Mesh(geometry, material);
+	objects.push(tmp);
+	articulate.add(tmp);
 
 	objects[0].position.set(50, 0, 0);
 	objects[1].position.set(0, objects[0].geometry.parameters.height * 3, 0);
@@ -41,20 +51,13 @@ function createObjects() {
 	objects[0].add(objects[1]);
 	objects[1].add(objects[2]);
 
-	scene.add(objects[0]);
-	// objects[0] = new THREE.objects[0]();
-	// scene.add(objects[0]);
-
-	// objects.map(obj => {
-	// 	objects[0].add(obj);
-	// 	// scene.add(obj);
-	// });
-
+	group.add(articulate);
+	scene.add(group);
 }
 
 function createScene() {
 	scene = new THREE.Scene();
-	scene.background = new THREE.Color( 0x020122 );
+	scene.background = new THREE.Color(0x020122);
 	scene.add(axes);
 }
 
@@ -72,19 +75,19 @@ function createCamera() {
 function doKeyPress(delta) {
 	if (keyMap[81] || keyMap[113]) { // Q/q
 		// rodar o objeto todo para um lado
-		objects[0].rotation.y += 0.001 * delta;
+		articulate.rotation.z += 0.001 * delta;
 	}
 
 	if (keyMap[87] || keyMap[119]) { // W/w
 		// rodar o objeto todo para o lado oposto
-		objects[0].rotation.y -= 0.001 * delta;
+		articulate.rotation.z -= 0.001 * delta;
 	}
 
 	if (keyMap[65] || keyMap[97]) { // A/a
 		// rodar parte do objeto para um lado
 		rotateAroundPoint(
-			objects[1],
-			getObjectCenterPoint(objects[0]),
+			articulate.children[0],
+			getObjectCenterPoint(articulate),
 			new THREE.Vector3(1, 0, 0),
 			0.001 * delta
 		);
@@ -93,8 +96,8 @@ function doKeyPress(delta) {
 	if (keyMap[83] || keyMap[115]) { // S/s
 		// rodar parte do objeto para o lado oposto
 		rotateAroundPoint(
-			objects[1],
-			getObjectCenterPoint(objects[0]),
+			articulate.children[0],
+			getObjectCenterPoint(articulate),
 			new THREE.Vector3(1, 0, 0),
 			-0.001 * delta
 		);
@@ -103,8 +106,8 @@ function doKeyPress(delta) {
 	if (keyMap[90] || keyMap[122]) { // Z/z
 		// rodar unico objeto para o lado oposto
 		rotateAroundPoint(
-			objects[2],
-			getObjectCenterPoint(objects[1]),
+			articulate.children[0].children[0],
+			getObjectCenterPoint(articulate.children[0]),
 			new THREE.Vector3(0, 1, 0),
 			0.001 * delta
 		);
@@ -113,35 +116,35 @@ function doKeyPress(delta) {
 	if (keyMap[88] || keyMap[120]) { // X/x
 		// rodar unico objeto para o lado oposto
 		rotateAroundPoint(
-			objects[2],
-			getObjectCenterPoint(objects[1]),
+			articulate.children[0].children[0],
+			getObjectCenterPoint(articulate.children[0]),
 			new THREE.Vector3(0, 1, 0),
 			-0.001 * delta
 		);
 	}
 
 	if (keyMap[37]) { // left
-		objects[0].position.x -= 1 * delta;
+		articulate.position.x -= 1 * delta;
 	}
 
 	if (keyMap[38]) { // up
-		objects[0].position.y += 1 * delta;
+		articulate.position.y += 1 * delta;
 	}
 
 	if (keyMap[39]) { // right
-		objects[0].position.x += 1 * delta;
+		articulate.position.x += 1 * delta;
 	}
 
 	if (keyMap[40]) { // down
-		objects[0].position.y -= 1 * delta;
+		articulate.position.y -= 1 * delta;
 	}
 
 	if (keyMap[68] || keyMap[100]) { // D/d
-		objects[0].position.z += 1 * delta;
+		articulate.position.z += 1 * delta;
 	}
 
 	if (keyMap[67] || keyMap[99]) { // C/c
-		objects[0].position.z -= 1 * delta;
+		articulate.position.z -= 1 * delta;
 	}
 }
 
@@ -176,9 +179,15 @@ function doOneTimeEvent(code) {
 		break;
 		case 52: // 4
 			flag = true;
-			objects.map(obj => {
-				obj.material.wireframe = !obj.material.wireframe;
-			});
+			function changeWireframe(listMesh) {
+				listMesh.children.map(child => {
+					child.material.wireframe = !child.material.wireframe;
+					if (child.children.length != 0) {
+						changeWireframe(child);
+					}
+				});
+			}
+			changeWireframe(group);
 		break;
 	}
 	return flag;
