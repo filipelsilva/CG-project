@@ -6,7 +6,7 @@ let material, geometry, group;
 const objects = [];
 const keyMap = [];
 
-function rotateAroundPoint(object, point, axis, rotation){
+function rotateAroundPoint(object, point, axis, rotation) {
 	object.position.sub(point);
 	object.position.applyAxisAngle(axis, rotation);
 	object.position.add(point);
