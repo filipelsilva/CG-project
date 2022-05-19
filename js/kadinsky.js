@@ -35,9 +35,17 @@ function getObjectCenterPoint(mesh) {
 	return center;
 }
 
+function changeWireframe(listMeshes) {
+	listMeshes.children.map(child => {
+		child.material.wireframe = !child.material.wireframe;
+		if (child.children.length != 0) {
+			changeWireframe(child);
+		}
+	});
+}
+
 function createObjects() {
 	let objects = [];
-	let tmp;
 	group = new THREE.Group();
 
 	material = new THREE.MeshBasicMaterial({ color: 0xffb700 });
@@ -68,7 +76,6 @@ function createObjects() {
 	objects.push(new THREE.Mesh(geometry, material));
 
 	objects[3].position.set(150, -210, 100);
-	objects[0].add(objects[3]);
 
 	material = new THREE.MeshBasicMaterial({ color: 0xfffb00 });
 	geometry = new THREE.SphereGeometry(75, 20 ,20);
@@ -94,7 +101,6 @@ function createObjects() {
 	objects.push(new THREE.Mesh(geometry, material));
 
 	objects[7].position.set(-330, 130, -250);
-
 
 	material = new THREE.MeshBasicMaterial({ color: 0xff2f00 });
 	geometry = new THREE.CylinderGeometry(10, 10, 650, 50);
@@ -123,8 +129,6 @@ function createObjects() {
 
 	objects[11].position.set(240, -200, 100);
 	objects[11].rotation.z =Math.PI/30;
-	objects[3].add(objects[11]);
-	
 
 	material = new THREE.MeshBasicMaterial({ color: 0xff008c });
 	path = new CustomSinCurve( 250 );
@@ -133,7 +137,7 @@ function createObjects() {
 
 	objects[12].position.set(-365, 25, 0);
 	objects[12].rotation.z = 0.7*Math.PI/4
-	
+
 	material = new THREE.MeshBasicMaterial({ color: 0x6057ff });
 	geometry = new THREE.CylinderGeometry(70, 30, 120, 13);
 	objects.push(new THREE.Mesh(geometry, material));
@@ -157,8 +161,15 @@ function createObjects() {
 	objects[15].rotation.z = -1.6*Math.PI /3;
 	objects[15].rotation.z = -1.6*Math.PI /2;
 
+	objects[3].add(objects[11]);
+	objects[0].add(objects[3]);
+	objects[0].add(objects[1]);
+	articulate = objects[0];
+
 	objects.map(obj => {
-		group.add(obj);
+		if (obj != objects[1] && obj != objects[3] && obj != objects[11]) {
+			group.add(obj);
+		}
 	});
 
 	scene.add(group);
@@ -258,48 +269,36 @@ function doKeyPress(delta) {
 }
 
 function doOneTimeEvent(code) {
-	var flag = false;
 	switch (code) {
 		case 69:  // E
 		case 101: // e
-			flag = true;
 			axes.visible = !axes.visible;
-		break;
+			break;
 		case 49: // 1
-			flag = true;
 			camera.position.x = 0;
 			camera.position.y = 0;
 			camera.position.z = 1;
 			camera.lookAt(0, 0, 0);
-		break;
+			break;
 		case 50: // 2
-			flag = true;
 			camera.position.x = 0;
 			camera.position.y = 1;
 			camera.position.z = 0;
 			camera.lookAt(0, 0, 0);
-		break;
+			break;
 		case 51: // 3
-			flag = true;
 			camera.position.x = 1;
 			camera.position.y = 0;
 			camera.position.z = 0;
 			camera.lookAt(0, 0, 0);
-		break;
+			break;
 		case 52: // 4
-			flag = true;
-			function changeWireframe(listMesh) {
-				listMesh.children.map(child => {
-					child.material.wireframe = !child.material.wireframe;
-					if (child.children.length != 0) {
-						changeWireframe(child);
-					}
-				});
-			}
 			changeWireframe(group);
-		break;
+			break;
+		default:
+			return false;
 	}
-	return flag;
+	return true;
 }
 
 function onKeyDown(event) {
