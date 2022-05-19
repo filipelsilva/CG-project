@@ -6,18 +6,18 @@ const objects = [];
 const keyMap = [];
 
 function rotateAroundPoint(object, point, axis, rotation){
-    object.position.sub(point);
-    object.position.applyAxisAngle(axis, rotation);
-    object.position.add(point);
-    object.rotateOnAxis(axis, rotation);
+	object.position.sub(point);
+	object.position.applyAxisAngle(axis, rotation);
+	object.position.add(point);
+	object.rotateOnAxis(axis, rotation);
 }
 
 function getObjectCenterPoint(mesh) {
-    var geometry = mesh.geometry;
-    geometry.computeBoundingBox();
-    var center = new THREE.Vector3();
-    geometry.boundingBox.getCenter(center);
-    return center;
+	var geometry = mesh.geometry;
+	geometry.computeBoundingBox();
+	var center = new THREE.Vector3();
+	geometry.boundingBox.getCenter(center);
+	return center;
 }
 
 function createObjects() {
@@ -160,21 +160,21 @@ function doOneTimeEvent(code) {
 			camera.position.x = 0;
 			camera.position.y = 0;
 			camera.position.z = 1;
-			camera.lookAt(0, 0, 0);
+		camera.lookAt(0, 0, 0);
 		break;
 		case 50: // 2
 			flag = true;
 			camera.position.x = 0;
 			camera.position.y = 1;
 			camera.position.z = 0;
-			camera.lookAt(0, 0, 0);
+		camera.lookAt(0, 0, 0);
 		break;
 		case 51: // 3
 			flag = true;
 			camera.position.x = 1;
 			camera.position.y = 0;
 			camera.position.z = 0;
-			camera.lookAt(0, 0, 0);
+		camera.lookAt(0, 0, 0);
 		break;
 		case 52: // 4
 			scene.traverse(function (node) {
