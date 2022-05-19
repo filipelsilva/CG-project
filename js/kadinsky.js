@@ -37,13 +37,11 @@ function createObjects() {
 	geometry = new THREE.BoxGeometry(110,440,110);
 	tmp = new THREE.Mesh(geometry, material);
 	objects.push(tmp);
-	articulate.add(tmp);
 
 	material = new THREE.MeshBasicMaterial({ color: 0xffb700 });
 	geometry = new THREE.BoxGeometry(440,110,110);
 	tmp = new THREE.Mesh(geometry, material);
 	objects.push(tmp);
-	articulate.add(tmp);
 
 	objects[0].position.set(50, 0, 0);
 	objects[1].position.set(0, objects[0].geometry.parameters.height * 3, 0);
