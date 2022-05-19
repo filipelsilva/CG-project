@@ -47,10 +47,9 @@ function createObjects() {
 	objects[0].position.set(0, 0, 0);
 	objects[0].rotation.z = Math.PI /4;
 	objects[0].rotation.x = Math.PI /4;
-	articulate = objects[0];
 
-	material = new THREE.MeshBasicMaterial({ color: 0xffb700 });
-	geometry = new THREE.BoxGeometry(440,110,110);
+	material = new THREE.MeshBasicMaterial({ color: 0xffffff });
+	geometry = new THREE.TorusGeometry(120,11, 30, 30);
 	objects.push(new THREE.Mesh(geometry, material));
 
 	objects[1].position.set(0, 0, 0);
@@ -158,10 +157,10 @@ function createObjects() {
 	objects[15].rotation.z = -1.6*Math.PI /3;
 	objects[15].rotation.z = -1.6*Math.PI /2;
 
-	group = new THREE.Group();
 	objects.map(obj => {
 		group.add(obj);
 	});
+
 	scene.add(group);
 }
 
