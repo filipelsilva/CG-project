@@ -1,9 +1,41 @@
 'use strict';
 
+let last = 0;
+let axes = new THREE.AxesHelper(100);
 let camera, scene, renderer;
-let material, geometry, group;
+let material, geometry, group, path, articulate;
 const objects = [];
 const keyMap = [];
+
+class CustomSinCurve extends THREE.Curve {
+
+	constructor( scale = 1 ) {
+		super();
+		this.scale = scale;
+	}
+	getPoint( t, optionalTarget = new THREE.Vector3() ) {
+		const tx = t * 3 - 1.5;
+		const ty = Math.sin( Math.PI/1.1 * t );
+		const tz = 0;
+
+		return optionalTarget.set( tx, ty, tz ).multiplyScalar( this.scale );
+	}
+}
+
+function rotateAroundPoint(object, point, axis, rotation) {
+	object.position.sub(point);
+	object.position.applyAxisAngle(axis, rotation);
+	object.position.add(point);
+	object.rotateOnAxis(axis, rotation);
+}
+
+function getObjectCenterPoint(mesh) {
+	let center = new THREE.Vector3();
+	let geometry = mesh.geometry;
+	geometry.computeBoundingBox();
+	geometry.boundingBox.getCenter(center);
+	return center;
+}
 
 function createObjects() {
 	material = new THREE.MeshBasicMaterial({ color: 0xffb700 });
@@ -13,6 +45,7 @@ function createObjects() {
 	objects[0].position.set(0, 0, 0);
 	objects[0].rotation.z = Math.PI /4;
 	objects[0].rotation.x = Math.PI /4;
+	articulate = objects[0];
 
 	material = new THREE.MeshBasicMaterial({ color: 0xffffff });
 	geometry = new THREE.TorusGeometry(120,11, 30, 30);
@@ -23,16 +56,18 @@ function createObjects() {
 	objects[1].rotation.y = Math.PI /4;
 
 	material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
-	geometry = new THREE.SphereGeometry(90, 20 ,20);
+	geometry = new THREE.OctahedronGeometry(120, 0);
 	objects.push(new THREE.Mesh(geometry, material));
 
 	objects[2].position.set(-400, -170, 100);
+	objects[2].rotation.z = Math.PI /3;
 
 	material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
 	geometry = new THREE.SphereGeometry(60, 20 ,20);
 	objects.push(new THREE.Mesh(geometry, material));
 
-	objects[3].position.set(300, -130, 50);
+	objects[3].position.set(150, -210, 100);
+	objects[0].add(objects[3]);
 
 	material = new THREE.MeshBasicMaterial({ color: 0xfffb00 });
 	geometry = new THREE.SphereGeometry(75, 20 ,20);
@@ -41,10 +76,11 @@ function createObjects() {
 	objects[4].position.set(100, 220, 40);
 
 	material = new THREE.MeshBasicMaterial({ color: 0x00ffff });
-	geometry = new THREE.SphereGeometry(40, 20 ,20);
+	geometry = new THREE.IcosahedronGeometry(120, 0);
 	objects.push(new THREE.Mesh(geometry, material));
 
-	objects[5].position.set(370, 150, 200);
+	objects[5].position.set(350, 100, 100);
+	//objects[5].rotation.z = Math.PI /3;
 
 	material = new THREE.MeshBasicMaterial({ color: 0xfc01a8 });
 	geometry = new THREE.SphereGeometry(35, 20 ,20);
@@ -56,50 +92,70 @@ function createObjects() {
 	geometry = new THREE.SphereGeometry(110, 20 ,20);
 	objects.push(new THREE.Mesh(geometry, material));
 
-	objects[7].position.set(-330, 130, 150);
+	objects[7].position.set(-330, 130, -250);
 
-
-	material = new THREE.MeshBasicMaterial({ color: 0x01fc93 });
-	geometry = new THREE.CylinderGeometry(12, 12, 650, 50);
-	objects.push(new THREE.Mesh(geometry, material));
-
-	objects[8].position.set(-600, -10, -200);
-	objects[8].rotation.z = (Math.PI / 25) ;
 
 	material = new THREE.MeshBasicMaterial({ color: 0xff2f00 });
-	geometry = new THREE.CylinderGeometry(15, 15, 650, 50);
-	objects.push(new THREE.Mesh(geometry, material));
-
-	objects[9].position.set(-350, 270, 100);
-	objects[9].rotation.z = -(Math.PI / 2.1) ;
-
-	material = new THREE.MeshBasicMaterial({ color: 0xffed47 });
 	geometry = new THREE.CylinderGeometry(10, 10, 650, 50);
 	objects.push(new THREE.Mesh(geometry, material));
 
-	objects[10].position.set(350, -270, -100);
-	objects[10].rotation.z = -(Math.PI / 2.2) ;
+	objects[8].position.set(350, -270, -100);
+	objects[8].rotation.z = -(Math.PI / 2.2) ;
 
-	material = new THREE.MeshBasicMaterial({ color: 0xff4784 });
+	material = new THREE.MeshBasicMaterial({ color: 0x01fc93 });
 	geometry = new THREE.CylinderGeometry(25, 25, 650, 50);
 	objects.push(new THREE.Mesh(geometry, material));
 
-	objects[11].position.set(550, 0, -250);
-	objects[11].rotation.z = -(Math.PI / 25) ;
+	objects[9].position.set(600, 0, -250);
+	objects[9].rotation.z = -(Math.PI / 25) ;
 
 	material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
 	geometry = new THREE.ConeGeometry(45, 150, 4);
 	objects.push(new THREE.Mesh(geometry, material));
 
-	objects[12].position.set(-420, 75, 300);
-	objects[12].rotation.z = -1.2*(Math.PI / 4) ;
+	objects[10].position.set(-420, 75, -110);
+	objects[10].rotation.z = -1.2*(Math.PI / 4) ;
 
 	material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
 	geometry = new THREE.ConeGeometry(25, 100, 50);
 	objects.push(new THREE.Mesh(geometry, material));
 
-	objects[13].position.set(350, -100, 300);
-	objects[13].rotation.z =2.8*(Math.PI / 4) ;
+	objects[11].position.set(240, -200, 100);
+	objects[11].rotation.z =Math.PI/30;
+	objects[3].add(objects[11]);
+	
+
+	material = new THREE.MeshBasicMaterial({ color: 0xff008c });
+	path = new CustomSinCurve( 250 );
+	geometry = new THREE.TubeGeometry(path, 30, 8, 13);
+	objects.push(new THREE.Mesh(geometry, material));
+
+	objects[12].position.set(-365, 25, 0);
+	objects[12].rotation.z = 0.7*Math.PI/4
+	
+	material = new THREE.MeshBasicMaterial({ color: 0x6057ff });
+	geometry = new THREE.CylinderGeometry(70, 30, 120, 13);
+	objects.push(new THREE.Mesh(geometry, material));
+
+	objects[13].position.set(-180, -100, 0);
+	objects[13].rotation.z = -1.2*Math.PI/6
+
+	material = new THREE.MeshBasicMaterial({ color: 0xff57cd });
+	geometry = new THREE.OctahedronGeometry(70, 0);
+	objects.push(new THREE.Mesh(geometry, material));
+
+	objects[14].position.set(400, -130, 100);
+	objects[14].rotation.z = -1.6*Math.PI /3;
+	objects[14].rotation.z = -1.6*Math.PI /2;
+
+	material = new THREE.MeshBasicMaterial({ color: 0xc1c1c1 });
+	geometry = new THREE.BoxGeometry(80, 80, 80 );
+	objects.push(new THREE.Mesh(geometry, material));
+
+	objects[15].position.set(510, 250, 300);
+	objects[15].rotation.z = -1.6*Math.PI /3;
+	objects[15].rotation.z = -1.6*Math.PI /2;
+
 
 
 	group = new THREE.Group();
@@ -127,55 +183,80 @@ function createCamera() {
 	);
 }
 
-function doKeyPress() {
+function doKeyPress(delta) {
 	if (keyMap[81] || keyMap[113]) { // Q/q
-		group.rotation.y += 0.01;
 		// rodar o objeto todo para um lado
+		articulate.rotation.z += 0.001 * delta;
 	}
 
 	if (keyMap[87] || keyMap[119]) { // W/w
-		group.rotation.y -= 0.01;
 		// rodar o objeto todo para o lado oposto
+		articulate.rotation.z -= 0.001 * delta;
 	}
 
 	if (keyMap[65] || keyMap[97]) { // A/a
 		// rodar parte do objeto para um lado
+		console.log(articulate.children[0]);
+		rotateAroundPoint(
+			articulate.children[0],
+			getObjectCenterPoint(articulate),
+			new THREE.Vector3(0, 1, 0),
+			0.001 * delta
+		);
 	}
 
 	if (keyMap[83] || keyMap[115]) { // S/s
 		// rodar parte do objeto para o lado oposto
+		rotateAroundPoint(
+			articulate.children[0],
+			getObjectCenterPoint(articulate),
+			new THREE.Vector3(0, 1, 0),
+			-0.001 * delta
+		);
 	}
 
 	if (keyMap[90] || keyMap[122]) { // Z/z
 		// rodar unico objeto para o lado oposto
+		rotateAroundPoint(
+			articulate.children[0].children[0],
+			getObjectCenterPoint(articulate.children[0]),
+			new THREE.Vector3(0, 1, 0),
+			0.001 * delta
+		);
 	}
 
 	if (keyMap[88] || keyMap[120]) { // X/x
 		// rodar unico objeto para o lado oposto
+		rotateAroundPoint(
+			articulate.children[0].children[0],
+			getObjectCenterPoint(articulate.children[0]),
+			new THREE.Vector3(0, 1, 0),
+			-0.001 * delta
+		);
 	}
 
 	if (keyMap[37]) { // left
-		group.position.x -= 1;
+		articulate.position.x -= 1 * delta;
 	}
 
 	if (keyMap[38]) { // up
-		group.position.y += 1;
+		articulate.position.y += 1 * delta;
 	}
 
 	if (keyMap[39]) { // right
-		group.position.x += 1;
+		articulate.position.x += 1 * delta;
 	}
 
 	if (keyMap[40]) { // down
-		group.position.y -= 1;
+		articulate.position.y -= 1 * delta;
 	}
 
 	if (keyMap[68] || keyMap[100]) { // D/d
-		group.position.z += 1;
+		articulate.position.z += 1 * delta;
 	}
 
 	if (keyMap[67] || keyMap[99]) { // C/c
-		group.position.z -= 1;
+		articulate.position.z -= 1 * delta;
 	}
 }
 
@@ -264,8 +345,11 @@ function init() {
 	window.addEventListener("resize", onResize);
 }
 
-function animate() {
-	doKeyPress();
+function animate(current) {
+	const delta = current - last;
+	last = current;
+
+	doKeyPress(delta);
 
 	renderer.render(scene, camera);
 
