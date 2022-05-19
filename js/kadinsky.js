@@ -4,7 +4,6 @@ let last = 0;
 let axes = new THREE.AxesHelper(100);
 let camera, scene, renderer;
 let material, geometry, group, path, articulate;
-const objects = [];
 const keyMap = [];
 
 class CustomSinCurve extends THREE.Curve {
@@ -38,6 +37,10 @@ function getObjectCenterPoint(mesh) {
 }
 
 function createObjects() {
+	let objects = [];
+	let tmp;
+	group = new THREE.Group();
+
 	material = new THREE.MeshBasicMaterial({ color: 0xffb700 });
 	geometry = new THREE.BoxGeometry(110,110,110);
 	objects.push(new THREE.Mesh(geometry, material));
@@ -47,8 +50,8 @@ function createObjects() {
 	objects[0].rotation.x = Math.PI /4;
 	articulate = objects[0];
 
-	material = new THREE.MeshBasicMaterial({ color: 0xffffff });
-	geometry = new THREE.TorusGeometry(120,11, 30, 30);
+	material = new THREE.MeshBasicMaterial({ color: 0xffb700 });
+	geometry = new THREE.BoxGeometry(440,110,110);
 	objects.push(new THREE.Mesh(geometry, material));
 
 	objects[1].position.set(0, 0, 0);
@@ -160,16 +163,12 @@ function createObjects() {
 
 	group = new THREE.Group();
 	scene.add(group);
-
-	objects.map(obj => {
-		group.add(obj);
-	});
 }
 
 function createScene() {
 	scene = new THREE.Scene();
-	scene.background = new THREE.Color( 0x020122 );
-	scene.add(new THREE.AxesHelper(100));
+	scene.background = new THREE.Color(0x020122);
+	scene.add(axes);
 }
 
 function createCamera() {
@@ -196,7 +195,6 @@ function doKeyPress(delta) {
 
 	if (keyMap[65] || keyMap[97]) { // A/a
 		// rodar parte do objeto para um lado
-		console.log(articulate.children[0]);
 		rotateAroundPoint(
 			articulate.children[0],
 			getObjectCenterPoint(articulate),
@@ -266,11 +264,7 @@ function doOneTimeEvent(code) {
 		case 69:  // E
 		case 101: // e
 			flag = true;
-			scene.traverse(function (node) {
-				if (node instanceof THREE.AxesHelper) {
-					node.visible = !node.visible;
-				}
-			});
+			axes.visible = !axes.visible;
 		break;
 		case 49: // 1
 			flag = true;
@@ -294,11 +288,16 @@ function doOneTimeEvent(code) {
 			camera.lookAt(0, 0, 0);
 		break;
 		case 52: // 4
-			scene.traverse(function (node) {
-				if (node instanceof THREE.Mesh) {
-					node.material.wireframe = !node.material.wireframe;
-				}
-			});
+			flag = true;
+			function changeWireframe(listMesh) {
+				listMesh.children.map(child => {
+					child.material.wireframe = !child.material.wireframe;
+					if (child.children.length != 0) {
+						changeWireframe(child);
+					}
+				});
+			}
+			changeWireframe(group);
 		break;
 	}
 	return flag;
