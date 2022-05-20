@@ -13,6 +13,7 @@ class SceneCreator {
 
 	createAxes() {
 		this.axes = new THREE.AxesHelper(100);
+		this.axes.visible = false;
 		this.addToScene(this.axes);
 		return this.axes;
 	}
