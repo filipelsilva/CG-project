@@ -7,14 +7,10 @@ class SceneCreator {
 		this.createLights();
 	}
 
-	addToScene(toAdd) {
-		this.scene.add(toAdd);
-	}
-
 	createAxes() {
 		this.axes = new THREE.AxesHelper(100);
 		this.axes.visible = false;
-		this.addToScene(this.axes);
+		this.scene.add(this.axes);
 		return this.axes;
 	}
 
@@ -22,12 +18,12 @@ class SceneCreator {
 		const light1 = new THREE.DirectionalLight(0xffffff, 1);
 		light1.position.set(1000, 1000, 1000);
 		light1.castShadow = true;
-		this.addToScene(light1);
+		this.scene.add(light1);
 
 		const light2 = new THREE.DirectionalLight(0xffffff, 1);
 		light2.position.set(-1000, 1000, -1000);
 		light2.castShadow = true;
-		this.addToScene(light2);
+		this.scene.add(light2);
 	}
 
 	createCamera() {
@@ -39,7 +35,7 @@ class SceneCreator {
 			-1000,
 			1000
 		);
-		this.addToScene(this.camera);
+		this.scene.add(this.camera);
 		return this.camera;
 	}
 }
