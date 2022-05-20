@@ -46,15 +46,14 @@ class ObjectCreator {
 		geometry = new THREE.SphereGeometry(60, 20, 20);
 		obj2_1 = new THREE.Mesh(geometry, material);
 
-		obj2_1.position.set(150, -210, 100);
+		obj2_1.position.set(-100, -270, 0);
 
 		// neto
 		material = new THREE.MeshStandardMaterial({ color: 0xff0000 });
 		geometry = new THREE.ConeGeometry(25, 100, 50);
 		obj3 = new THREE.Mesh(geometry, material);
 
-		obj3.position.set(240, -200, 100);
-		obj3.rotation.z = Math.PI/30;
+		obj3.position.set(80, -70, 0);
 
 		obj2_1.add(obj3);
 		obj1.add(obj2_1);
@@ -79,7 +78,7 @@ class ObjectCreator {
 		geometry = new THREE.SphereGeometry(75, 20 ,20);
 		objects.push(new THREE.Mesh(geometry, material));
 
-		objects[1].position.set(100, 220, 40);
+		objects[1].position.set(100, 220, -240);
 
 		material = new THREE.MeshStandardMaterial({ color: 0x00ffff });
 		geometry = new THREE.IcosahedronGeometry(120, 0);

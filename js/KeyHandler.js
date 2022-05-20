@@ -44,7 +44,7 @@ class KeyHandler {
 			this.rotateAroundPoint(
 				articulate.children[0],
 				this.getObjectCenterPoint(articulate),
-				new THREE.Vector3(0, 1, 0),
+				new THREE.Vector3(-1.5, 0.5, 0),
 				0.001 * delta
 			);
 		}
@@ -53,7 +53,7 @@ class KeyHandler {
 			this.rotateAroundPoint(
 				articulate.children[0],
 				this.getObjectCenterPoint(articulate),
-				new THREE.Vector3(0, 1, 0),
+				new THREE.Vector3(-1.5, 0.5, 0),
 				-0.001 * delta
 			);
 		}
@@ -62,7 +62,7 @@ class KeyHandler {
 			this.rotateAroundPoint(
 				articulate.children[0].children[0],
 				this.getObjectCenterPoint(articulate.children[0]),
-				new THREE.Vector3(0, 0, 1),
+				new THREE.Vector3(1, 1, 1),
 				0.001 * delta
 			);
 		}
@@ -71,7 +71,7 @@ class KeyHandler {
 			this.rotateAroundPoint(
 				articulate.children[0].children[0],
 				this.getObjectCenterPoint(articulate.children[0]),
-				new THREE.Vector3(0, 0, 1),
+				new THREE.Vector3(1, 1, 1),
 				-0.001 * delta
 			);
 		}
