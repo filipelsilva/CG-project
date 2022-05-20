@@ -78,13 +78,13 @@ function createObjects() {
 	geometry = new THREE.SphereGeometry(60, 20 ,20);
 	objects.push(new THREE.Mesh(geometry, material));
 
-	objects[3].position.set(150, -210, 100);
+	objects[3].position.set(-100, -270, 0);
 
 	material = new THREE.MeshStandardMaterial({ color: 0xfffb00 });
 	geometry = new THREE.SphereGeometry(75, 20 ,20);
 	objects.push(new THREE.Mesh(geometry, material));
 
-	objects[4].position.set(100, 220, 40);
+	objects[4].position.set(100, 220, -240);
 
 	material = new THREE.MeshStandardMaterial({ color: 0x00ffff });
 	geometry = new THREE.IcosahedronGeometry(120, 0);
@@ -131,15 +131,15 @@ function createObjects() {
 	geometry = new THREE.ConeGeometry(25, 100, 50);
 	objects.push(new THREE.Mesh(geometry, material));
 
-	objects[11].position.set(240, -200, 100);
-	objects[11].rotation.z =Math.PI/30;
+	objects[11].position.set(80, -70, 0);
+	//objects[11].rotation.z =-Math.PI/3;
 
 	material = new THREE.MeshStandardMaterial({ color: 0xff008c });
 	path = new CustomSinCurve( 250 );
 	geometry = new THREE.TubeGeometry(path, 30, 8, 13);
 	objects.push(new THREE.Mesh(geometry, material));
 
-	objects[12].position.set(-365, 25, 0);
+	objects[12].position.set(-365, 25, -200);
 	objects[12].rotation.z = 0.7*Math.PI/4
 	
 	material = new THREE.MeshStandardMaterial({ color: 0x6057ff });
@@ -222,7 +222,7 @@ function doKeyPress(delta) {
 		rotateAroundPoint(
 			articulate.children[0],
 			getObjectCenterPoint(articulate),
-			new THREE.Vector3(0, 1, 0),
+			new THREE.Vector3(-1, 1, 1),
 			0.001 * delta
 		);
 	}
@@ -232,7 +232,7 @@ function doKeyPress(delta) {
 		rotateAroundPoint(
 			articulate.children[0],
 			getObjectCenterPoint(articulate),
-			new THREE.Vector3(0, 1, 0),
+			new THREE.Vector3(-1, 1, 1),
 			-0.001 * delta
 		);
 	}
@@ -242,7 +242,7 @@ function doKeyPress(delta) {
 		rotateAroundPoint(
 			articulate.children[0].children[0],
 			getObjectCenterPoint(articulate.children[0]),
-			new THREE.Vector3(0, 0, 1),
+			new THREE.Vector3(1, 1, 1),
 			0.001 * delta
 		);
 	}
@@ -252,7 +252,7 @@ function doKeyPress(delta) {
 		rotateAroundPoint(
 			articulate.children[0].children[0],
 			getObjectCenterPoint(articulate.children[0]),
-			new THREE.Vector3(0, 0, 1),
+			new THREE.Vector3(1, 1, 1),
 			-0.001 * delta
 		);
 	}
