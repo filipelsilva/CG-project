@@ -36,8 +36,6 @@ function init() {
 	renderer.setSize(window.innerWidth, window.innerHeight);
 	document.body.appendChild(renderer.domElement);
 
-	keyHandler = new KeyHandler();
-
 	window.addEventListener("keydown", keyHandler.onKeyDown.bind(keyHandler), true);
 	window.addEventListener("keyup", keyHandler.onKeyUp.bind(keyHandler), true);
 	window.addEventListener("resize", onResize);
