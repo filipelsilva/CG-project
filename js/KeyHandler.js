@@ -76,29 +76,34 @@ class KeyHandler {
 			);
 		}
 
+		const vector = new THREE.Vector3(0,0,0);
+
 		if (this.keyMap[37]) { // left
-			articulate.position.x -= 1 * delta;
+			vector.add(new THREE.Vector3(-1 * delta, 0, 0));
 		}
 
 		if (this.keyMap[38]) { // up
-			articulate.position.y += 1 * delta;
+			vector.add(new THREE.Vector3(0, 1 * delta, 0));
 		}
 
 		if (this.keyMap[39]) { // right
-			articulate.position.x += 1 * delta;
+			vector.add(new THREE.Vector3(1 * delta, 0, 0));
 		}
 
 		if (this.keyMap[40]) { // down
-			articulate.position.y -= 1 * delta;
+			vector.add(new THREE.Vector3(0, -1 * delta, 0));
 		}
 
 		if (this.keyMap[68] || this.keyMap[100]) { // D/d
-			articulate.position.z += 1 * delta;
+			vector.add(new THREE.Vector3(0, 0, 1 * delta));
 		}
 
 		if (this.keyMap[67] || this.keyMap[99]) { // C/c
-			articulate.position.z -= 1 * delta;
+			vector.add(new THREE.Vector3(0, 0, -1 * delta));
 		}
+
+		vector.normalize();
+		articulate.position.add(vector);
 	}
 
 	// Handler for toggles, e.g. axesHelper.
