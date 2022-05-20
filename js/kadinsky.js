@@ -208,13 +208,13 @@ function createCamera() {
 function doKeyPress(delta) {
 	if (keyMap[81] || keyMap[113]) { // Q/q
 		// rodar o objeto todo para um lado
-		articulate.rotation.z += 0.001 * delta;
+		articulate.rotation.x += 0.001 * delta;
 		//articulate.rotateX(Math.PI * 0.001 * delta)
 	}
 
 	if (keyMap[87] || keyMap[119]) { // W/w
 		// rodar o objeto todo para o lado oposto
-		articulate.rotation.z -= 0.001 * delta;
+		articulate.rotation.x -= 0.001 * delta;
 	}
 
 	if (keyMap[65] || keyMap[97]) { // A/a
