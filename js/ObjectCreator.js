@@ -32,7 +32,14 @@ class ObjectCreator {
 		obj1.rotation.z = Math.PI/4;
 		obj1.rotation.x = Math.PI/4;
 
-		// avó
+		// pai1
+		material = new THREE.MeshStandardMaterial({ color: 0x00ff00 });
+		geometry = new THREE.SphereGeometry(60, 20, 20);
+		obj2_1 = new THREE.Mesh(geometry, material);
+
+		obj2_1.position.set(-100, -270, 0);
+
+		// pai2
 		material = new THREE.MeshStandardMaterial({ color: 0xffffff });
 		geometry = new THREE.TorusGeometry(120, 11, 30, 30);
 		obj2_2 = new THREE.Mesh(geometry, material);
@@ -40,13 +47,6 @@ class ObjectCreator {
 		obj2_2.position.set(0, 0, 0);
 		obj2_2.rotation.x = -Math.PI/2.5;
 		obj2_2.rotation.y = Math.PI/4;
-
-		// pai
-		material = new THREE.MeshStandardMaterial({ color: 0x00ff00 });
-		geometry = new THREE.SphereGeometry(60, 20, 20);
-		obj2_1 = new THREE.Mesh(geometry, material);
-
-		obj2_1.position.set(-100, -270, 0);
 
 		// neto
 		material = new THREE.MeshStandardMaterial({ color: 0xff0000 });
