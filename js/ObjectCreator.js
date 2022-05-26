@@ -8,7 +8,7 @@ class CustomSinCurve extends THREE.Curve {
 		const tx = t * 3 - 1.5;
 		const ty = Math.sin(Math.PI/1.1 * t);
 		const tz = 0;
-		return optionalTarget.set(tx, ty, tz).multiplyScalar(keyHandler.scale);
+		return optionalTarget.set(tx, ty, tz).multiplyScalar(this.scale);
 	}
 }
 
