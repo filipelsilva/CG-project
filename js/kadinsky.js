@@ -1,6 +1,7 @@
 'use strict';
 
-let last = 0;
+let clock = new THREE.Clock();
+let delta = 0;
 
 let keyHandler = new KeyHandler();
 let sceneCreator = new SceneCreator();
@@ -42,8 +43,7 @@ function init() {
 }
 
 function animate(current) {
-	const delta = current - last;
-	last = current;
+	delta = clock.getDelta();
 
 	keyHandler.doKeyPress(delta);
 

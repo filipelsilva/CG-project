@@ -33,11 +33,11 @@ class KeyHandler {
 	// Handler for the movement of the objects.
 	doKeyPress(delta) {
 		if (this.keyMap[81] || this.keyMap[113]) { // Q/q
-			articulate.rotation.x += 0.001 * delta;
+			articulate.rotation.x += 1 * delta;
 		}
 
 		if (this.keyMap[87] || this.keyMap[119]) { // W/w
-			articulate.rotation.x -= 0.001 * delta;
+			articulate.rotation.x -= 1 * delta;
 		}
 
 		if (this.keyMap[65] || this.keyMap[97]) { // A/a
@@ -46,7 +46,7 @@ class KeyHandler {
 				articulate.children[0],
 				this.getObjectCenterPoint(articulate),
 				rotation.normalize(),
-				0.001 * delta
+				1 * delta
 			);
 		}
 
@@ -56,7 +56,7 @@ class KeyHandler {
 				articulate.children[0],
 				this.getObjectCenterPoint(articulate),
 				rotation.normalize(),
-				-0.001 * delta
+				-1 * delta
 			);
 		}
 
@@ -66,7 +66,7 @@ class KeyHandler {
 				articulate.children[0].children[0],
 				this.getObjectCenterPoint(articulate.children[0]),
 				rotation.normalize(),
-				0.001 * delta
+				1 * delta
 			);
 		}
 
@@ -76,7 +76,7 @@ class KeyHandler {
 				articulate.children[0].children[0],
 				this.getObjectCenterPoint(articulate.children[0]),
 				rotation.normalize(),
-				-0.001 * delta
+				-1 * delta
 			);
 		}
 
