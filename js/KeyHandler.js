@@ -19,6 +19,7 @@ class KeyHandler {
 		object.position.sub(point);
 		object.position.applyAxisAngle(axis, rotation);
 		object.position.add(point);
+		object.rotateOnAxis(axis, rotation);
 	}
 
 	getObjectCenterPoint(mesh) {
@@ -40,37 +41,41 @@ class KeyHandler {
 		}
 
 		if (this.keyMap[65] || this.keyMap[97]) { // A/a
+			let rotation = new THREE.Vector3(-1.5, 0.5, 0);
 			this.rotateAroundPoint(
 				articulate.children[0],
 				this.getObjectCenterPoint(articulate),
-				new THREE.Vector3(-1.5, 0.5, 0),
+				rotation.normalize(),
 				0.001 * delta
 			);
 		}
 
 		if (this.keyMap[83] || this.keyMap[115]) { // S/s
+			let rotation = new THREE.Vector3(-1.5, 0.5, 0);
 			this.rotateAroundPoint(
 				articulate.children[0],
 				this.getObjectCenterPoint(articulate),
-				new THREE.Vector3(-1.5, 0.5, 0),
+				rotation.normalize(),
 				-0.001 * delta
 			);
 		}
 
 		if (this.keyMap[90] || this.keyMap[122]) { // Z/z
+			let rotation = new THREE.Vector3(1, 1, 1);
 			this.rotateAroundPoint(
 				articulate.children[0].children[0],
 				this.getObjectCenterPoint(articulate.children[0]),
-				new THREE.Vector3(1, 1, 1),
+				rotation.normalize(),
 				0.001 * delta
 			);
 		}
 
 		if (this.keyMap[88] || this.keyMap[120]) { // X/x
+			let rotation = new THREE.Vector3(1, 1, 1);
 			this.rotateAroundPoint(
 				articulate.children[0].children[0],
 				this.getObjectCenterPoint(articulate.children[0]),
-				new THREE.Vector3(1, 1, 1),
+				rotation.normalize(),
 				-0.001 * delta
 			);
 		}
