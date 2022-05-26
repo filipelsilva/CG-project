@@ -1,7 +1,7 @@
 class CustomSinCurve extends THREE.Curve {
 	constructor(scale = 1) {
 		super();
-		keyHandler.scale = scale;
+		this.scale = scale;
 	}
 
 	getPoint(t, optionalTarget = new THREE.Vector3()) {
