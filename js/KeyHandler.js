@@ -19,7 +19,6 @@ class KeyHandler {
 		object.position.sub(point);
 		object.position.applyAxisAngle(axis, rotation);
 		object.position.add(point);
-		object.rotateOnAxis(axis, rotation);
 	}
 
 	getObjectCenterPoint(mesh) {
