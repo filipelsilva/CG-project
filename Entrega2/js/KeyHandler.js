@@ -2,6 +2,7 @@ class KeyHandler {
 	constructor() {
 		this.keyMap = [];
 		this.inverted = false;
+		this.spaceshipCameraOn = false;
 	}
 
 	onKeyDown(event) {
@@ -14,6 +15,9 @@ class KeyHandler {
 	onKeyUp(event) {
 		const code = event.keyCode;
 		this.keyMap[code] = false;
+		if (code == 38 || code == 40){
+			this.inverted = false;
+		}
 	}
 
 	rotateAroundPoint(object, point, axis, rotation) {
@@ -42,8 +46,6 @@ class KeyHandler {
 		}
 		
 		if (this.keyMap[38]) { // up
-			console.log(sphere.phi);
-			console.log(this.inverted);
 			if(sphere.phi-0.01*Math.PI/8 < 0){
 				this.inverted = !this.inverted;
 				spaceship.getSpaceship().position.setFromSphericalCoords(distance, sphere.phi+0.01*Math.PI/8, sphere.theta-Math.PI);
@@ -67,8 +69,6 @@ class KeyHandler {
 		}
 
 		if (this.keyMap[40]) { // down
-			console.log(sphere.phi);
-			console.log(this.inverted);
 			if(sphere.phi+0.01*Math.PI/8 > Math.PI){
 				this.inverted = !this.inverted;
 				spaceship.getSpaceship().position.setFromSphericalCoords(distance, sphere.phi-0.01*Math.PI/8, sphere.theta-Math.PI);
@@ -109,15 +109,18 @@ class KeyHandler {
 			case 49: // 1
 				scene.activeCamera = sceneCreator.cameras[0];
 				camera = scene.activeCamera;
+				this.spaceshipCameraOn = false;
 				break;
 			case 50: // 2
-				scene.activeCamera = sceneCreator.cameras[1]
+				scene.activeCamera = sceneCreator.cameras[1];
 				camera = scene.activeCamera;
+				this.spaceshipCameraOn = false;
 				break;
 			case 51: // 3
-				scene.activeCamera = sceneCreator.cameras[2]
+				scene.activeCamera = sceneCreator.cameras[2];
 				camera = scene.activeCamera;
-				camera.lookAt(spaceship.getSpaceship().position);
+				camera.lookAt(spaceship.getSpaceship().position.x, spaceship.getSpaceship().position.y, spaceship.getSpaceship().position.z);
+				this.spaceshipCameraOn = true;
 				break;
 			case 52: // 4
 				function changeWireframe(listMesh) {

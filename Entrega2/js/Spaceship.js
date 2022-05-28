@@ -44,9 +44,9 @@ class Spaceship {
 		this.spaceship = new THREE.Object3D();
 		this.spaceship.add(this.body);
 
-		//this.axes = new THREE.AxesHelper(100);
-		//this.axes.visible = true;
-		//this.spaceship.add(this.axes);
+		this.axes = new THREE.AxesHelper(100);
+		this.axes.visible = true;
+		this.spaceship.add(this.axes);
 		
 		// Random position with correct distance
 		this.spaceship.position.setFromSphericalCoords(distance, Math.random() * (Math.PI*2 - 0 + 1) + 0, Math.random() * (Math.PI*2 - 0 + 1) + 0);
@@ -70,9 +70,11 @@ class Spaceship {
 			1,
 			10000
 		);
-		this.spaceship.add(camera);
-		camera.position.setFromSphericalCoords(distance + 2*H, Math.PI/2, Math.PI);
-		camera.lookAt(this.spaceship.position);
+		let offset = new THREE.Vector3(0, 100, 0);
+		let spaceshipPosition = new THREE.Vector3();
+		this.spaceship.getWorldPosition(spaceshipPosition);
+		camera.position.copy(spaceshipPosition).add(offset);
+		camera.lookAt(this.spaceship.position.x, this.spaceship.position.y, this.spaceship.position.z);
 		return camera;
 	}
 }

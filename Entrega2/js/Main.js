@@ -28,10 +28,15 @@ function onResize() {
 	renderer.setSize(window.innerWidth, window.innerHeight);
 
 	if (window.innerHeight > 0 && window.innerWidth > 0) {
-		camera.left = window.innerWidth/-2;
-		camera.right = window.innerWidth/2;
-		camera.top = window.innerHeight/2;
-		camera.bottom = window.innerHeight/-2;
+		if (camera === sceneCreator.cameras[0]){
+			camera.left = window.innerWidth/-2;
+			camera.right = window.innerWidth/2;
+			camera.top = window.innerHeight/2;
+			camera.bottom = window.innerHeight/-2;
+		}
+		else{
+			camera.aspect = window.innerWidth / window.innerHeight;
+		}
 		camera.updateProjectionMatrix();
 	}
 }
@@ -53,9 +58,24 @@ function animate(current) {
 	delta = clock.getDelta();
 
 	keyHandler.doKeyPress(delta);
+	if (keyHandler.spaceshipCameraOn){
+		let offset = new THREE.Vector3(0,0,0);
+		let spaceshipPosition = new THREE.Vector3();
+		spaceship.getSpaceship().getWorldPosition(spaceshipPosition);
+		if (spaceshipPosition.y < 0) {
+			offset.y = -100;
+		}
+		else {
+			offset.y = 100;
+		}
+		camera.position.copy(spaceshipPosition).add(offset);
+
+		let nosePosition = new THREE.Vector3();
+		spaceship.nose.getWorldPosition(nosePosition);
+		camera.lookAt(nosePosition.x, nosePosition.y, nosePosition.z);
+	}
 	renderer.render(scene, camera);
 	spaceship.getSpaceship().lookAt(planet.getPlanet().position);
-	//camera.lookAt(spaceship.getSpaceship().position);
 
 	requestAnimationFrame(animate);
 }
