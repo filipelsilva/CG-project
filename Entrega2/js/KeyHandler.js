@@ -70,16 +70,12 @@ class KeyHandler {
 				axes.visible = !axes.visible;
 				break;
 			case 49: // 1
-				camera.position.x = 0;
-				camera.position.y = 0;
-				camera.position.z = 1;
-				camera.lookAt(0, 0, 0);
+				scene.activeCamera = sceneCreator.cameras[0];
+				camera = scene.activeCamera;
 				break;
 			case 50: // 2
-				camera.position.x = 0;
-				camera.position.y = 1;
-				camera.position.z = 0;
-				camera.lookAt(0, 0, 0);
+				scene.activeCamera = sceneCreator.cameras[1]
+				camera = scene.activeCamera;
 				break;
 			case 51: // 3
 				camera.position.x = 1;

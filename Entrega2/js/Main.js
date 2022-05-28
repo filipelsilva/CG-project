@@ -12,7 +12,7 @@ let keyHandler = new KeyHandler();
 let sceneCreator = new SceneCreator();
 
 let scene = sceneCreator.scene;
-let camera = sceneCreator.camera;
+let camera = scene.activeCamera;
 let axes = sceneCreator.axes;
 
 let planet = new Planet(R);
@@ -54,6 +54,7 @@ function animate(current) {
 
 	keyHandler.doKeyPress(delta);
 	renderer.render(scene, camera);
+	spaceship.getSpaceship().lookAt(planet.getPlanet().position);
 
 	requestAnimationFrame(animate);
 }
