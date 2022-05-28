@@ -16,11 +16,11 @@ let camera = sceneCreator.camera;
 let axes = sceneCreator.axes;
 
 let planet = new Planet(R);
-let spaceship = new Spaceship(H, distance);
-
 scene.add(planet.getPlanet());
+
+let spaceship = new Spaceship(H, distance, planet);
 scene.add(spaceship.getSpaceship());
-spaceship.getSpaceship().scale.set(3,3,3);
+spaceship.getSpaceship().scale.set(3,3,3); //TODO remover
 
 let renderer;
 
@@ -53,7 +53,6 @@ function animate(current) {
 	delta = clock.getDelta();
 
 	keyHandler.doKeyPress(delta);
-
 	renderer.render(scene, camera);
 
 	requestAnimationFrame(animate);

@@ -8,7 +8,7 @@ class SceneCreator {
 	}
 
 	createAxes() {
-		this.axes = new THREE.AxesHelper(100);
+		this.axes = new THREE.AxesHelper(1000);
 		this.axes.visible = false;
 		this.scene.add(this.axes);
 		return this.axes;
