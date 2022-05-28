@@ -1,6 +1,7 @@
 class KeyHandler {
 	constructor() {
 		this.keyMap = [];
+		this.inverted = false;
 	}
 
 	onKeyDown(event) {
@@ -33,21 +34,57 @@ class KeyHandler {
 	// Handler for the movement of the objects.
 	doKeyPress(delta) {
 		const vector = new THREE.Vector3(0,0,0);
+		let sphere = new THREE.Spherical();
+		sphere.setFromCartesianCoords(spaceship.getSpaceship().position.x, spaceship.getSpaceship().position.y, spaceship.getSpaceship().position.z);
 
 		if (this.keyMap[37]) { // left
-			vector.add(new THREE.Vector3(-1 * delta, 0, 0));
+			spaceship.getSpaceship().position.setFromSphericalCoords(distance, sphere.phi, sphere.theta-0.01*Math.PI/8);
 		}
-
+		
 		if (this.keyMap[38]) { // up
-			vector.add(new THREE.Vector3(0, 1 * delta, 0));
+			console.log(sphere.phi);
+			console.log(this.inverted);
+			if(sphere.phi-0.01*Math.PI/8 < 0){
+				this.inverted = !this.inverted;
+				spaceship.getSpaceship().position.setFromSphericalCoords(distance, sphere.phi+0.01*Math.PI/8, sphere.theta-Math.PI);
+			}
+			else if (!this.inverted){
+				spaceship.getSpaceship().position.setFromSphericalCoords(distance, sphere.phi-0.01*Math.PI/8, sphere.theta);
+			}
+			else if (this.inverted) {
+				if(sphere.phi+0.01*Math.PI/8 > Math.PI){
+					this.inverted = !this.inverted;
+					spaceship.getSpaceship().position.setFromSphericalCoords(distance, sphere.phi-0.01*Math.PI/8, sphere.theta-Math.PI);
+				}
+				else {
+					spaceship.getSpaceship().position.setFromSphericalCoords(distance, sphere.phi+0.01*Math.PI/8, sphere.theta);
+				}
+			}
 		}
 
 		if (this.keyMap[39]) { // right
-			vector.add(new THREE.Vector3(1 * delta, 0, 0));
+			spaceship.getSpaceship().position.setFromSphericalCoords(distance, sphere.phi, sphere.theta+0.01*Math.PI/8);
 		}
 
 		if (this.keyMap[40]) { // down
-			vector.add(new THREE.Vector3(0, -1 * delta, 0));
+			console.log(sphere.phi);
+			console.log(this.inverted);
+			if(sphere.phi+0.01*Math.PI/8 > Math.PI){
+				this.inverted = !this.inverted;
+				spaceship.getSpaceship().position.setFromSphericalCoords(distance, sphere.phi-0.01*Math.PI/8, sphere.theta-Math.PI);
+			}
+			else if (!this.inverted){
+				spaceship.getSpaceship().position.setFromSphericalCoords(distance, sphere.phi+0.01*Math.PI/8, sphere.theta);
+			}
+			else if (this.inverted) {
+				if(sphere.phi-0.01*Math.PI/8 < 0){
+					this.inverted = !this.inverted;
+					spaceship.getSpaceship().position.setFromSphericalCoords(distance, sphere.phi+0.01*Math.PI/8, sphere.theta-Math.PI);
+				}
+				else {
+					spaceship.getSpaceship().position.setFromSphericalCoords(distance, sphere.phi-0.01*Math.PI/8, sphere.theta);
+				}
+			}
 		}
 
 		if (this.keyMap[68] || this.keyMap[100]) { // D/d
@@ -78,10 +115,9 @@ class KeyHandler {
 				camera = scene.activeCamera;
 				break;
 			case 51: // 3
-				camera.position.x = 1;
-				camera.position.y = 0;
-				camera.position.z = 0;
-				camera.lookAt(0, 0, 0);
+				scene.activeCamera = sceneCreator.cameras[2]
+				camera = scene.activeCamera;
+				camera.lookAt(spaceship.getSpaceship().position);
 				break;
 			case 52: // 4
 				function changeWireframe(listMesh) {

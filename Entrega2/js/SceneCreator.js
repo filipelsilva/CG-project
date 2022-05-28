@@ -2,10 +2,11 @@ class SceneCreator {
 	constructor() {
 		this.scene = new THREE.Scene();
 		this.scene.background = new THREE.Color(0x020122);
-		this.cameras = [this.createOrthographicCamera(), this.createPerspectiveCamera()];
+		this.cameras = [this.createOrthographicCamera(), this.createPerspectiveCamera(), spaceship.camera];
 		this.scene.activeCamera = this.cameras[0];
 		this.axes = this.createAxes();
 		this.createLights();
+		this.cameras.forEach((cam) => this.scene.add(cam));
 	}
 
 	createAxes() {
@@ -36,7 +37,6 @@ class SceneCreator {
 			-1000,
 			1000
 		);
-		this.scene.add(camera);
 		return camera;
 	}
 
@@ -51,7 +51,6 @@ class SceneCreator {
 		camera.position.y = 0;
 		camera.position.z = 800;
 		camera.lookAt(this.scene.position);
-		this.scene.add(camera);
 		return camera;
 	}
 }

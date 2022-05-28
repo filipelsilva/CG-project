@@ -54,9 +54,25 @@ class Spaceship {
 		
 		// Random direction
 		this.spaceship.rotateOnAxis(new THREE.Vector3(0,0,1).normalize(), Math.random() * (Math.PI*2 - 0 + 1) + 0);
+		
+		// Create Spaceship camera
+		this.camera = this.createSpaceshipCamera(H, distance);
 	}
 
 	getSpaceship(){
 		return this.spaceship;
+	}
+
+	createSpaceshipCamera(H, distance){
+		let camera = new THREE.PerspectiveCamera(
+			70,
+			window.innerWidth / window.innerHeight,
+			1,
+			10000
+		);
+		this.spaceship.add(camera);
+		camera.position.setFromSphericalCoords(distance + 2*H, Math.PI/2, Math.PI);
+		camera.lookAt(this.spaceship.position);
+		return camera;
 	}
 }

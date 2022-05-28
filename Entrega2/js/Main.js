@@ -9,18 +9,18 @@ let clock = new THREE.Clock();
 let delta = 0;
 
 let keyHandler = new KeyHandler();
-let sceneCreator = new SceneCreator();
 
+let planet = new Planet(R);
+
+let spaceship = new Spaceship(H, distance, planet);
+spaceship.getSpaceship().scale.set(3,3,3); //TODO remover
+
+let sceneCreator = new SceneCreator();
 let scene = sceneCreator.scene;
 let camera = scene.activeCamera;
 let axes = sceneCreator.axes;
-
-let planet = new Planet(R);
 scene.add(planet.getPlanet());
-
-let spaceship = new Spaceship(H, distance, planet);
 scene.add(spaceship.getSpaceship());
-spaceship.getSpaceship().scale.set(3,3,3); //TODO remover
 
 let renderer;
 
@@ -55,6 +55,7 @@ function animate(current) {
 	keyHandler.doKeyPress(delta);
 	renderer.render(scene, camera);
 	spaceship.getSpaceship().lookAt(planet.getPlanet().position);
+	//camera.lookAt(spaceship.getSpaceship().position);
 
 	requestAnimationFrame(animate);
 }
