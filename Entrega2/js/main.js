@@ -54,7 +54,7 @@ function init() {
 	window.addEventListener("resize", onResize);
 }
 
-function animate(current) {
+function animate() {
 	delta = clock.getDelta();
 
 	keyHandler.doKeyPress(delta);
