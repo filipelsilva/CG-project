@@ -40,16 +40,15 @@ class KeyHandler {
 	}
 
 	getCartesianCoordinates(radius, phi, theta) {
-		return new THREE.Vector3(
-			Math.sin(phi) * radius * Math.sin(theta),
-			Math.cos(phi) * radius,
-			Math.sin(phi) * radius * Math.cos(theta),
-		);
+		let x = Math.sin(phi) * radius * Math.sin(theta);
+		let y = Math.cos(phi) * radius;
+		let z = Math.sin(phi) * radius * Math.cos(theta);
+		return [x, y, z];
 	}
 
 	// Handler for the movement of the objects.
 	doKeyPress(delta) { // TODO delta needs to be used
-		let sphere = this.getPolarCoordinates(
+		let [radius, phi, theta] = this.getPolarCoordinates(
 			spaceship.getSpaceship().position.x,
 			spaceship.getSpaceship().position.y,
 			spaceship.getSpaceship().position.z
@@ -57,44 +56,42 @@ class KeyHandler {
 
 		if (this.keyMap[37]) { // left
 			spaceship.getSpaceship().position.set(
-				this.getCartesianCoordinates(
-					distance,
-					sphere[1],
-					sphere[2]-0.01*Math.PI/8
+				...this.getCartesianCoordinates(
+					radius,
+					phi,
+					theta-0.01*Math.PI/8
 				)
 			);
 		}
 
 		if (this.keyMap[38]) { // up
 			spaceship.getSpaceship().position.set(
-				this.getCartesianCoordinates(
-					distance,
-					sphere[1]+0.01*Math.PI/8,
-					sphere[2]-Math.PI
+				...this.getCartesianCoordinates(
+					radius,
+					phi-0.01*Math.PI/8,
+					theta
 				)
 			);
 		}
 
 		if (this.keyMap[39]) { // right
 			spaceship.getSpaceship().position.set(
-				this.getCartesianCoordinates(
-					distance,
-					sphere[1],
-					sphere[2]+0.01*Math.PI/8
+				...this.getCartesianCoordinates(
+					radius,
+					phi,
+					theta+0.01*Math.PI/8
 				)
 			);
 		}
 
 		if (this.keyMap[40]) { // down
 			spaceship.getSpaceship().position.set(
-				this.getCartesianCoordinates(distance,
-					sphere[1]-0.01*Math.PI/8,
-					sphere[2]-Math.PI
+				...this.getCartesianCoordinates(radius,
+					phi+0.01*Math.PI/8,
+					theta
 				)
 			);
 		}
-
-		console.log(spaceship.getSpaceship().position);
 	}
 
 	// Handler for toggles, e.g. axesHelper.
