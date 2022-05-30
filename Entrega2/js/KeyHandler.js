@@ -15,24 +15,9 @@ class KeyHandler {
 	onKeyUp(event) {
 		const code = event.keyCode;
 		this.keyMap[code] = false;
-		if (code == 38 || code == 40){
+		if (code == 38 || code == 40) {
 			this.inverted = false;
 		}
-	}
-
-	rotateAroundPoint(object, point, axis, rotation) {
-		object.position.sub(point);
-		object.position.applyAxisAngle(axis, rotation);
-		object.position.add(point);
-		object.rotateOnAxis(axis, rotation);
-	}
-
-	getObjectCenterPoint(mesh) {
-		let center = new THREE.Vector3();
-		let geometry = mesh.geometry;
-		geometry.computeBoundingBox();
-		geometry.boundingBox.getCenter(center);
-		return center;
 	}
 
 	// Handler for the movement of the objects.
