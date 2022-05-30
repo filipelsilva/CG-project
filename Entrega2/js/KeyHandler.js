@@ -20,6 +20,14 @@ class KeyHandler {
 		}
 	}
 
+	getCartesianCoordinates(radius, phi, theta) {
+		return new THREE.Vector3(
+			Math.sin(phi) * radius * Math.sin(theta),
+			Math.cos(phi) * radius,
+			Math.sin(phi) * radius * Math.cos(theta),
+		);
+	}
+
 	// Handler for the movement of the objects.
 	doKeyPress(delta) {
 		const vector = new THREE.Vector3(0,0,0);
