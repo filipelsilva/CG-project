@@ -35,50 +35,52 @@ class KeyHandler {
 		sphere.setFromCartesianCoords(spaceship.getSpaceship().position.x, spaceship.getSpaceship().position.y, spaceship.getSpaceship().position.z);
 
 		if (this.keyMap[37]) { // left
-			spaceship.getSpaceship().position.setFromSphericalCoords(distance, sphere.phi, sphere.theta-0.01*Math.PI/8);
+			spaceship.getSpaceship().position.add(this.getCartesianCoordinates(distance, 0, 0-0.01*Math.PI/8));
 		}
 		
 		if (this.keyMap[38]) { // up
 			if(sphere.phi-0.01*Math.PI/8 < 0){
 				this.inverted = !this.inverted;
-				spaceship.getSpaceship().position.setFromSphericalCoords(distance, sphere.phi+0.01*Math.PI/8, sphere.theta-Math.PI);
+				spaceship.getSpaceship().position.add(this.getCartesianCoordinates(distance, 0+0.01*Math.PI/8, 0-Math.PI));
 			}
 			else if (!this.inverted){
-				spaceship.getSpaceship().position.setFromSphericalCoords(distance, sphere.phi-0.01*Math.PI/8, sphere.theta);
+				spaceship.getSpaceship().position.add(this.getCartesianCoordinates(distance, 0-0.01*Math.PI/8, 0));
 			}
 			else if (this.inverted) {
 				if(sphere.phi+0.01*Math.PI/8 > Math.PI){
 					this.inverted = !this.inverted;
-					spaceship.getSpaceship().position.setFromSphericalCoords(distance, sphere.phi-0.01*Math.PI/8, sphere.theta-Math.PI);
+					spaceship.getSpaceship().position.add(this.getCartesianCoordinates(distance, 0-0.01*Math.PI/8, 0-Math.PI));
 				}
 				else {
-					spaceship.getSpaceship().position.setFromSphericalCoords(distance, sphere.phi+0.01*Math.PI/8, sphere.theta);
+					spaceship.getSpaceship().position.add(this.getCartesianCoordinates(distance, 0+0.01*Math.PI/8, 0));
 				}
 			}
 		}
 
 		if (this.keyMap[39]) { // right
-			spaceship.getSpaceship().position.setFromSphericalCoords(distance, sphere.phi, sphere.theta+0.01*Math.PI/8);
+			spaceship.getSpaceship().position.add(this.getCartesianCoordinates(distance, 0, 0+0.01*Math.PI/8));
 		}
 
 		if (this.keyMap[40]) { // down
 			if(sphere.phi+0.01*Math.PI/8 > Math.PI){
 				this.inverted = !this.inverted;
-				spaceship.getSpaceship().position.setFromSphericalCoords(distance, sphere.phi-0.01*Math.PI/8, sphere.theta-Math.PI);
+				spaceship.getSpaceship().position.add(this.getCartesianCoordinates(distance, 0-0.01*Math.PI/8, 0-Math.PI));
 			}
 			else if (!this.inverted){
-				spaceship.getSpaceship().position.setFromSphericalCoords(distance, sphere.phi+0.01*Math.PI/8, sphere.theta);
+				spaceship.getSpaceship().position.add(this.getCartesianCoordinates(distance, 0+0.01*Math.PI/8, 0));
 			}
 			else if (this.inverted) {
 				if(sphere.phi-0.01*Math.PI/8 < 0){
 					this.inverted = !this.inverted;
-					spaceship.getSpaceship().position.setFromSphericalCoords(distance, sphere.phi+0.01*Math.PI/8, sphere.theta-Math.PI);
+					spaceship.getSpaceship().position.add(this.getCartesianCoordinates(distance, 0+0.01*Math.PI/8, 0-Math.PI));
 				}
 				else {
-					spaceship.getSpaceship().position.setFromSphericalCoords(distance, sphere.phi-0.01*Math.PI/8, sphere.theta);
+					spaceship.getSpaceship().position.add(this.getCartesianCoordinates(distance, 0-0.01*Math.PI/8, 0));
 				}
 			}
 		}
+
+		console.log(spaceship.getSpaceship().position);
 
 		if (this.keyMap[68] || this.keyMap[100]) { // D/d
 			vector.add(new THREE.Vector3(0, 0, 1 * delta));
