@@ -128,17 +128,37 @@ class KeyHandler {
 				scene.activeCamera = sceneCreator.cameras[0];
 				camera = scene.activeCamera;
 				this.spaceshipCameraOn = false;
+				renderer.setSize(window.innerWidth, window.innerHeight);
+				if (window.innerHeight > 0 && window.innerWidth > 0) {
+					if (camera === sceneCreator.cameras[0]){
+						camera.left = window.innerWidth/-2;
+						camera.right = window.innerWidth/2;
+						camera.top = window.innerHeight/2;
+						camera.bottom = window.innerHeight/-2;
+					}
+					camera.updateProjectionMatrix();
+				}
 				break;
 			case 50: // 2
 				scene.activeCamera = sceneCreator.cameras[1];
 				camera = scene.activeCamera;
 				this.spaceshipCameraOn = false;
+				renderer.setSize(window.innerWidth, window.innerHeight);
+				if (window.innerHeight > 0 && window.innerWidth > 0) {
+					camera.aspect = window.innerWidth / window.innerHeight;
+					camera.updateProjectionMatrix();
+				}
 				break;
 			case 51: // 3
 				scene.activeCamera = sceneCreator.cameras[2];
 				camera = scene.activeCamera;
 				camera.lookAt(spaceship.getSpaceship().position.x, spaceship.getSpaceship().position.y, spaceship.getSpaceship().position.z);
 				this.spaceshipCameraOn = true;
+				renderer.setSize(window.innerWidth, window.innerHeight);
+				if (window.innerHeight > 0 && window.innerWidth > 0) {
+					camera.aspect = window.innerWidth / window.innerHeight;
+					camera.updateProjectionMatrix();
+				}
 				break;
 			case 52: // 4
 				function changeWireframe(listMesh) {
