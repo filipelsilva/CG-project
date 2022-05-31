@@ -77,8 +77,10 @@ function animate() {
 		spaceship.nose.getWorldPosition(nosePosition);
 		camera.lookAt(nosePosition.x, nosePosition.y, nosePosition.z);
 	}
-	renderer.render(scene, camera);
 	spaceship.getSpaceship().lookAt(planet.getPlanet().position);
+	spaceship.setDirection();
+	
+	renderer.render(scene, camera);
 
 	requestAnimationFrame(animate);
 }

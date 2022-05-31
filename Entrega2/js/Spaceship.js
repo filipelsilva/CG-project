@@ -57,6 +57,17 @@ class Spaceship {
 
 		// Create Spaceship camera
 		this.camera = this.createSpaceshipCamera(H, distance);
+
+		// Moving
+		this.up = false;
+		this.down = false;
+		this.left = false;
+		this.right = false;
+
+		this.lastUp = false;
+		this.lastDown = false;
+		this.lastLeft = false;
+		this.lastRight = false;
 	}
 
 	getSpaceship(){
@@ -76,5 +87,116 @@ class Spaceship {
 		camera.position.copy(spaceshipPosition).add(offset);
 		camera.lookAt(this.spaceship.position.x, this.spaceship.position.y, this.spaceship.position.z);
 		return camera;
+	}
+
+	clearLast(){
+		this.lastUp = false;
+		this.lastDown = false;
+		this.lastLeft = false;
+		this.lastRight = false;
+	}
+
+	lastDirection(){
+		let moved = false;
+		if (!moved && this.lastUp && this.lastLeft) {
+			this.spaceship.rotateOnAxis(new THREE.Vector3(0, 0, 1), -Math.PI/4);
+			moved = true;
+		}
+		if (!moved && this.lastUp && this.lastRight) {
+			this.spaceship.rotateOnAxis(new THREE.Vector3(0, 0, 1), Math.PI/4);
+			moved = true;
+		}
+		if (!moved && this.lastDown && this.lastLeft) {
+			this.spaceship.rotateOnAxis(new THREE.Vector3(0, 0, 1), Math.PI + Math.PI/4);
+			moved = true;
+		}
+		if (!moved && this.lastDown && this.lastRight) {
+			this.spaceship.rotateOnAxis(new THREE.Vector3(0, 0, 1), Math.PI - Math.PI/4);
+			moved = true;
+		}
+		if (!moved && this.lastUp) {
+			this.spaceship.rotateOnAxis(new THREE.Vector3(0, 0, 1), Math.PI);
+			moved = true;
+		}
+		if (!moved && this.lastDown) {
+			this.spaceship.rotateOnAxis(new THREE.Vector3(0, 0, 1), -Math.PI);
+			moved = true;
+		}
+		if (!moved && this.lastLeft) {
+			this.spaceship.rotateOnAxis(new THREE.Vector3(0, 0, 1), -Math.PI/2);
+			moved = true;
+		}
+		if (!moved && this.lastRight) {
+			this.spaceship.rotateOnAxis(new THREE.Vector3(0, 0, 1), Math.PI/2);
+			moved = true;
+		}
+		
+	}
+
+	setDirection(){
+		let moved = false;
+		if (!moved && this.up && this.left) {
+			this.clearLast();
+			this.lastUp = true;
+			this.lastLeft = true;
+			this.spaceship.rotateOnAxis(new THREE.Vector3(0, 0, 1), -Math.PI/4);
+			moved = true;
+		}
+		if (!moved && this.up && this.right) {
+			this.clearLast();
+			this.lastUp = true;
+			this.lastRight = true;
+			this.spaceship.rotateOnAxis(new THREE.Vector3(0, 0, 1), Math.PI/4);
+			moved = true;
+		}
+		if (!moved && this.down && this.left) {
+			this.clearLast();
+			this.lastDown = true;
+			this.lastLeft = true;
+			this.spaceship.rotateOnAxis(new THREE.Vector3(0, 0, 1), Math.PI + Math.PI/4);
+			moved = true;
+		}
+		if (!moved && this.down && this.right) {
+			this.clearLast();
+			this.lastDown = true;
+			this.lastRight = true;
+			this.spaceship.rotateOnAxis(new THREE.Vector3(0, 0, 1), Math.PI - Math.PI/4);
+			moved = true;
+		}
+		if (!moved && keyHandler.inverted) {
+			this.clearLast();
+			this.lastUp = true;
+			this.spaceship.rotateOnAxis(new THREE.Vector3(0, 0, 1), Math.PI);
+			moved = true;
+		}
+		if (!moved && this.up && !keyHandler.inverted) {
+			this.clearLast();
+			moved = true;
+		}
+		if (!moved && this.down) {
+			this.clearLast();
+			this.lastDown = true;
+			this.spaceship.rotateOnAxis(new THREE.Vector3(0, 0, 1), -Math.PI);
+			moved = true;
+		}
+		if (!moved && this.left) {
+			this.clearLast();
+			this.lastLeft = true;
+			this.spaceship.rotateOnAxis(new THREE.Vector3(0, 0, 1), -Math.PI/2);
+			moved = true;
+		}
+		if (!moved && this.right) {
+			this.clearLast();
+			this.lastRight = true;
+			this.spaceship.rotateOnAxis(new THREE.Vector3(0, 0, 1), Math.PI/2);
+			moved = true;
+		}
+		if (!moved) {
+			this.lastDirection();
+		}
+		this.up = false;
+		this.down = false;
+		this.left = false;
+		this.right = false;
 	}
 }

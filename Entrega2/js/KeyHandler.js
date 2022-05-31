@@ -55,10 +55,12 @@ class KeyHandler {
 		let [newRadius, newPhi, newTheta] = [radius, phi, theta];
 
 		if (this.keyMap[37]) { // left
+			spaceship.left = true;
 			newTheta -= 0.01*Math.PI/8;
 		}
 
 		if (this.keyMap[38]) { // up
+			spaceship.up = true;
 			if(phi-0.01*Math.PI/8 < 0){
 				this.inverted = !this.inverted;
 				newPhi += 0.01*Math.PI/8;
@@ -80,10 +82,12 @@ class KeyHandler {
 		}
 
 		if (this.keyMap[39]) { // right
+			spaceship.right = true;
 			newTheta += 0.01*Math.PI/8
 		}
 
 		if (this.keyMap[40]) { // down
+			spaceship.down = true;
 			if(phi+0.01*Math.PI/8 > Math.PI){
 				this.inverted = !this.inverted;
 				newPhi -= 0.01*Math.PI/8;
