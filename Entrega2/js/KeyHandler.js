@@ -52,7 +52,8 @@ class KeyHandler {
 			spaceship.getSpaceship().position.z
 		);
 
-		let [newRadius, newPhi, newTheta] = [radius, phi, theta];
+		let newPhi = 0;
+		let newTheta = 0;
 
 		if (this.keyMap[37]) { // left
 			spaceship.left = true;
@@ -108,11 +109,17 @@ class KeyHandler {
 			}
 		}
 
+		let normalized = new THREE.Vector2(newPhi, newTheta);
+		normalized.normalize();
+
+		newPhi = normalized.x / 100;
+		newTheta = normalized.y / 100;
+
 		spaceship.getSpaceship().position.set(
 			...this.getCartesianCoordinates(
-				newRadius,
-				newPhi,
-				newTheta
+				radius,
+				phi + newPhi,
+				theta + newTheta
 			)
 		);
 	}
