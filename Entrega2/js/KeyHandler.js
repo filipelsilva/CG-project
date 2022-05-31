@@ -25,7 +25,7 @@ class KeyHandler {
 	}
 
 	getPolarCoordinates(x, y, z) {
-		let radius = Math.sqrt(x * x + y * y + z * z);
+		let radius = Math.sqrt(x ** 2 + y ** 2 + z ** 2);
 		let phi = 0;
 		let theta = 0;
 
