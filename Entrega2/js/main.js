@@ -15,12 +15,15 @@ let planet = new Planet(R);
 let spaceship = new Spaceship(H, distance, planet);
 spaceship.getSpaceship().scale.set(3,3,3); //TODO remover
 
+let garbage = new Garbage(C, distance, planet);
+
 let sceneCreator = new SceneCreator();
 let scene = sceneCreator.scene;
 let camera = scene.activeCamera;
 let axes = sceneCreator.axes;
 scene.add(planet.getPlanet());
 scene.add(spaceship.getSpaceship());
+scene.add(garbage.getGarbage());
 
 let renderer;
 
