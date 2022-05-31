@@ -20,76 +20,128 @@ class KeyHandler {
 		}
 	}
 
+	clamp(number, minimum, maximum) {
+		return Math.min(Math.max(number, minimum), maximum);
+	}
+
+	getPolarCoordinates(x, y, z) {
+		let radius, phi, theta;
+		radius = Math.sqrt(x * x + y * y + z * z);
+
+		if (radius === 0) {
+			theta = 0;
+			phi = 0;
+		} else {
+			theta = Math.atan2(x, z);
+			phi = Math.acos(this.clamp(y / radius, - 1, 1));
+		}
+
+		return [radius, phi, theta]
+	}
+
 	getCartesianCoordinates(radius, phi, theta) {
-		return new THREE.Vector3(
-			Math.sin(phi) * radius * Math.sin(theta),
-			Math.cos(phi) * radius,
-			Math.sin(phi) * radius * Math.cos(theta),
-		);
+		let x = Math.sin(phi) * radius * Math.sin(theta);
+		let y = Math.cos(phi) * radius;
+		let z = Math.sin(phi) * radius * Math.cos(theta);
+		return [x, y, z];
+	}
+
+	// Handler for the movement of the objects.
+	doKeyPress(delta) { // TODO delta needs to be used
+
+		if (this.keyMap[37]) { // left
+			spaceship.getSpaceship().position.set(
+				...this.getCartesianCoordinates(
+					radius,
+					phi,
+					theta-0.01*Math.PI/8
+				)
+			);
+		}
+
+		if (this.keyMap[38]) { // up
+			spaceship.getSpaceship().position.set(
+				...this.getCartesianCoordinates(
+					radius,
+					phi-0.01*Math.PI/8,
+					theta
+				)
+			);
+		}
+
+		if (this.keyMap[39]) { // right
+			spaceship.getSpaceship().position.set(
+				...this.getCartesianCoordinates(
+					radius,
+					phi,
+					theta+0.01*Math.PI/8
+				)
+			);
+		}
+
+		if (this.keyMap[40]) { // down
+			spaceship.getSpaceship().position.set(
+				...this.getCartesianCoordinates(radius,
+					phi+0.01*Math.PI/8,
+					theta
+				)
+			);
+		}
 	}
 
 	// Handler for the movement of the objects.
 	doKeyPress(delta) {
-		const vector = new THREE.Vector3(0,0,0);
-		let sphere = new THREE.Spherical();
-		sphere.setFromCartesianCoords(spaceship.getSpaceship().position.x, spaceship.getSpaceship().position.y, spaceship.getSpaceship().position.z);
+		let [radius, phi, theta] = this.getPolarCoordinates(
+			spaceship.getSpaceship().position.x,
+			spaceship.getSpaceship().position.y,
+			spaceship.getSpaceship().position.z
+		);
 
 		if (this.keyMap[37]) { // left
-			spaceship.getSpaceship().position.setFromSphericalCoords(distance, sphere.phi, sphere.theta-0.01*Math.PI/8);
+			spaceship.getSpaceship().position.set(...this.getCartesianCoordinates(radius, phi, theta-0.01*Math.PI/8));
 		}
 		
 		if (this.keyMap[38]) { // up
-			if(sphere.phi-0.01*Math.PI/8 < 0){
+			if(phi-0.01*Math.PI/8 < 0){
 				this.inverted = !this.inverted;
-				spaceship.getSpaceship().position.setFromSphericalCoords(distance, sphere.phi+0.01*Math.PI/8, sphere.theta-Math.PI);
+				spaceship.getSpaceship().position.set(...this.getCartesianCoordinates(radius, phi+0.01*Math.PI/8, theta-Math.PI));
 			}
 			else if (!this.inverted){
-				spaceship.getSpaceship().position.setFromSphericalCoords(distance, sphere.phi-0.01*Math.PI/8, sphere.theta);
+				spaceship.getSpaceship().position.set(...this.getCartesianCoordinates(radius, phi-0.01*Math.PI/8, theta));
 			}
 			else if (this.inverted) {
-				if(sphere.phi+0.01*Math.PI/8 > Math.PI){
+				if(phi+0.01*Math.PI/8 > Math.PI){
 					this.inverted = !this.inverted;
-					spaceship.getSpaceship().position.setFromSphericalCoords(distance, sphere.phi-0.01*Math.PI/8, sphere.theta-Math.PI);
+					spaceship.getSpaceship().position.set(...this.getCartesianCoordinates(radius, phi-0.01*Math.PI/8, theta-Math.PI));
 				}
 				else {
-					spaceship.getSpaceship().position.setFromSphericalCoords(distance, sphere.phi+0.01*Math.PI/8, sphere.theta);
+					spaceship.getSpaceship().position.set(...this.getCartesianCoordinates(radius, phi+0.01*Math.PI/8, theta));
 				}
 			}
 		}
 
 		if (this.keyMap[39]) { // right
-			spaceship.getSpaceship().position.setFromSphericalCoords(distance, sphere.phi, sphere.theta+0.01*Math.PI/8);
+			spaceship.getSpaceship().position.set(...this.getCartesianCoordinates(radius, phi, theta+0.01*Math.PI/8));
 		}
 
 		if (this.keyMap[40]) { // down
-			if(sphere.phi+0.01*Math.PI/8 > Math.PI){
+			if(phi+0.01*Math.PI/8 > Math.PI){
 				this.inverted = !this.inverted;
-				spaceship.getSpaceship().position.setFromSphericalCoords(distance, sphere.phi-0.01*Math.PI/8, sphere.theta-Math.PI);
+				spaceship.getSpaceship().position.set(...this.getCartesianCoordinates(radius, phi-0.01*Math.PI/8, theta-Math.PI));
 			}
 			else if (!this.inverted){
-				spaceship.getSpaceship().position.setFromSphericalCoords(distance, sphere.phi+0.01*Math.PI/8, sphere.theta);
+				spaceship.getSpaceship().position.set(...this.getCartesianCoordinates(radius, phi+0.01*Math.PI/8, theta));
 			}
 			else if (this.inverted) {
-				if(sphere.phi-0.01*Math.PI/8 < 0){
+				if(phi-0.01*Math.PI/8 < 0){
 					this.inverted = !this.inverted;
-					spaceship.getSpaceship().position.setFromSphericalCoords(distance, sphere.phi+0.01*Math.PI/8, sphere.theta-Math.PI);
+					spaceship.getSpaceship().position.set(...this.getCartesianCoordinates(radius, phi+0.01*Math.PI/8, theta-Math.PI));
 				}
 				else {
-					spaceship.getSpaceship().position.setFromSphericalCoords(distance, sphere.phi-0.01*Math.PI/8, sphere.theta);
+					spaceship.getSpaceship().position.set(...this.getCartesianCoordinates(radius, phi-0.01*Math.PI/8, theta));
 				}
 			}
 		}
-
-		if (this.keyMap[68] || this.keyMap[100]) { // D/d
-			vector.add(new THREE.Vector3(0, 0, 1 * delta));
-		}
-
-		if (this.keyMap[67] || this.keyMap[99]) { // C/c
-			vector.add(new THREE.Vector3(0, 0, -1 * delta));
-		}
-
-		vector.normalize();
-		spaceship.getSpaceship().position.add(vector);
 	}
 
 	// Handler for toggles, e.g. axesHelper.
