@@ -100,7 +100,7 @@ class KeyHandler {
 		if (this.keyMap[37]) { // left
 			spaceship.getSpaceship().position.set(...this.getCartesianCoordinates(radius, phi, theta-0.01*Math.PI/8));
 		}
-		
+
 		if (this.keyMap[38]) { // up
 			if(phi-0.01*Math.PI/8 < 0){
 				this.inverted = !this.inverted;

@@ -57,7 +57,7 @@ class Garbage{
 		geometry = new THREE.DodecahedronGeometry(C, 0);
 		this.body = new THREE.Mesh(geometry, material);
         this.setGarbagePosRot(this.body, usedpos);
-        
+
         this.garbage.add(this.body);
 
 
@@ -65,84 +65,84 @@ class Garbage{
 		geometry = new THREE.DodecahedronGeometry(C, 0);
 		this.body = new THREE.Mesh(geometry, material);
         this.setGarbagePosRot(this.body, usedpos);
-        
+
         this.garbage.add(this.body);
 
         material = new THREE.MeshStandardMaterial({ color: 0xbed45b });
 		geometry = new THREE.DodecahedronGeometry(C, 0);
 		this.body = new THREE.Mesh(geometry, material);
         this.setGarbagePosRot(this.body, usedpos);
-        
+
         this.garbage.add(this.body);
 
         material = new THREE.MeshStandardMaterial({ color: 0x1db5a8 });
 		geometry = new THREE.DodecahedronGeometry(C, 0);
 		this.body = new THREE.Mesh(geometry, material);
         this.setGarbagePosRot(this.body, usedpos);
-        
+
         this.garbage.add(this.body);
 
         material = new THREE.MeshStandardMaterial({ color: 0xa5f0eb });
 		geometry = new THREE.IcosahedronGeometry(C, 0);
 		this.body = new THREE.Mesh(geometry, material);
         this.setGarbagePosRot(this.body, usedpos);
-        
+
         this.garbage.add(this.body);
 
         material = new THREE.MeshStandardMaterial({ color: 0xdc6df2});
 		geometry = new THREE.IcosahedronGeometry(C, 0);
 		this.body = new THREE.Mesh(geometry, material);
         this.setGarbagePosRot(this.body, usedpos);
-        
+
         this.garbage.add(this.body);
 
         material = new THREE.MeshStandardMaterial({ color: 0xd4c65b});
 		geometry = new THREE.IcosahedronGeometry(C, 0);
 		this.body = new THREE.Mesh(geometry, material);
         this.setGarbagePosRot(this.body, usedpos);
-        
+
         this.garbage.add(this.body);
 
         material = new THREE.MeshStandardMaterial({ color: 0x00ff3c});
 		geometry = new THREE.OctahedronGeometry(C, 0);
 		this.body = new THREE.Mesh(geometry, material);
         this.setGarbagePosRot(this.body, usedpos);
-        
+
         this.garbage.add(this.body);
 
         material = new THREE.MeshStandardMaterial({ color: 0xff5e00});
 		geometry = new THREE.OctahedronGeometry(C, 0);
 		this.body = new THREE.Mesh(geometry, material);
         this.setGarbagePosRot(this.body, usedpos);
-        
+
         this.garbage.add(this.body);
 
         material = new THREE.MeshStandardMaterial({ color: 0x591010});
 		geometry = new THREE.OctahedronGeometry(C, 0);
 		this.body = new THREE.Mesh(geometry, material);
         this.setGarbagePosRot(this.body, usedpos);
-        
+
         this.garbage.add(this.body);
 
         material = new THREE.MeshStandardMaterial({ color: 0x00ffb3});
 		geometry = new THREE.TetrahedronGeometry(C, 0);
 		this.body = new THREE.Mesh(geometry, material);
         this.setGarbagePosRot(this.body, usedpos);
-        
+
         this.garbage.add(this.body);
 
         material = new THREE.MeshStandardMaterial({ color: 0x8c00ff});
 		geometry = new THREE.TetrahedronGeometry(C, 0);
 		this.body = new THREE.Mesh(geometry, material);
         this.setGarbagePosRot(this.body, usedpos);
-        
+
         this.garbage.add(this.body);
 
         material = new THREE.MeshStandardMaterial({ color: 0xaadbe6});
 		geometry = new THREE.TetrahedronGeometry(C, 0);
 		this.body = new THREE.Mesh(geometry, material);
         this.setGarbagePosRot(this.body, usedpos);
-        
+
         this.garbage.add(this.body);
     }
 
@@ -151,7 +151,7 @@ class Garbage{
     }
 
     setGarbagePosRot(body, usedpos){
-        body.position.setFromSphericalCoords(distance, Math.random() * (Math.PI*2 - 0 + 1) + 0, Math.random() * (Math.PI*2 - 0 + 1) + 0);
+        body.position.set(...this.getCartesianCoordinates(distance, Math.random() * (Math.PI*2 - 0 + 1) + 0, Math.random() * (Math.PI*2 - 0 + 1) + 0));
         if(!(body.position in usedpos)){
             usedpos +=body.position;
             body.rotation.x = Math.random() * Math.PI/2;
