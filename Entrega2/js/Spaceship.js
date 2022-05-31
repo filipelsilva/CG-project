@@ -49,7 +49,7 @@ class Spaceship {
 		this.spaceship.add(this.axes);
 
 		// Random position with correct distance
-		this.spaceship.position.set(...this.getCartesianCoordinates(distance, Math.random() * (Math.PI*2 - 0 + 1) + 0, Math.random() * (Math.PI*2 - 0 + 1) + 0));
+		this.spaceship.position.set(...keyHandler.getCartesianCoordinates(distance, Math.random() * (Math.PI*2 - 0 + 1) + 0, Math.random() * (Math.PI*2 - 0 + 1) + 0));
 		this.spaceship.lookAt(planet.getPlanet().position);
 
 		// Random direction

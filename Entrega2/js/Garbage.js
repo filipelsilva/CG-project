@@ -151,7 +151,7 @@ class Garbage{
     }
 
     setGarbagePosRot(body, usedpos){
-        body.position.set(...this.getCartesianCoordinates(distance, Math.random() * (Math.PI*2 - 0 + 1) + 0, Math.random() * (Math.PI*2 - 0 + 1) + 0));
+        body.position.set(...keyHandler.getCartesianCoordinates(distance, Math.random() * (Math.PI*2 - 0 + 1) + 0, Math.random() * (Math.PI*2 - 0 + 1) + 0));
         if(!(body.position in usedpos)){
             usedpos +=body.position;
             body.rotation.x = Math.random() * Math.PI/2;
