@@ -6,22 +6,16 @@ class Collision{
         this.h4 = new THREE.Group();
         let list = garbage.garbage.children;
         for (let i = list.length-1; i >=0; i--) {
-            console.log(i);
-            console.log(list[i]);
             if (list[i].position.y >= 0 && list[i].position.x >= 0){
-                console.log('a');
                 this.h1.add(list[i]);
             }
             else if (list[i].position.y >= 0 && list[i].position.x < 0){
-                console.log('b');
                 this.h2.add(list[i]);
             }
             else if (list[i].position.y < 0 && list[i].position.x >= 0){
-                console.log('c');
                 this.h3.add(list[i]);
             }
             else if (list[i].position.y < 0 && list[i].position.x < 0){
-                console.log('d');
                 this.h4.add(list[i]);
             }
         }
