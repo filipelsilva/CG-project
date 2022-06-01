@@ -82,7 +82,7 @@ function animate() {
 	}
 	spaceship.getSpaceship().lookAt(planet.getPlanet().position);
 	spaceship.setDirection();
-	
+
 	renderer.render(scene, camera);
 
 	requestAnimationFrame(animate);
