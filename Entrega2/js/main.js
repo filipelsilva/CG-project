@@ -17,7 +17,7 @@ spaceship.getSpaceship().scale.set(3,3,3); //TODO remover
 
 let garbage = new Garbage(C, distance, planet);
 
-let collision = new Collision();
+let collision = new Collision(garbage);
 
 let sceneCreator = new SceneCreator();
 let scene = sceneCreator.scene;
@@ -25,7 +25,7 @@ let camera = scene.activeCamera;
 let axes = sceneCreator.axes;
 scene.add(planet.getPlanet());
 scene.add(spaceship.getSpaceship());
-scene.add(garbage.getGarbage());
+scene.add(collision.h1, collision.h2, collision.h3, collision.h4);
 
 let renderer;
 

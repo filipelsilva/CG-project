@@ -1,36 +1,68 @@
 class Collision{
-    constructor(){}
+    constructor(garbage){
+        this.h1 = new THREE.Group();
+        this.h2 = new THREE.Group();
+        this.h3 = new THREE.Group();
+        this.h4 = new THREE.Group();
+        let list = garbage.garbage.children;
+        for (let i = list.length-1; i >=0; i--) {
+            console.log(i);
+            console.log(list[i]);
+            if (list[i].position.y >= 0 && list[i].position.x >= 0){
+                console.log('a');
+                this.h1.add(list[i]);
+            }
+            else if (list[i].position.y >= 0 && list[i].position.x < 0){
+                console.log('b');
+                this.h2.add(list[i]);
+            }
+            else if (list[i].position.y < 0 && list[i].position.x >= 0){
+                console.log('c');
+                this.h3.add(list[i]);
+            }
+            else if (list[i].position.y < 0 && list[i].position.x < 0){
+                console.log('d');
+                this.h4.add(list[i]);
+            }
+        }
+    }
 
     hasCollision(spaceship_font, garbage_font, h, c){
-        var spaceship = spaceship_font.getSpaceship();
-        var garbage = garbage_font.getGarbage();
-        var r_A = h/2;
+        let spaceship = spaceship_font.getSpaceship();
+        let garbage = garbage_font.getGarbage();
+        let r_A = h/2;
 
-        var r_B = c;
+        let r_B = c;
 
-        var r_sum = (r_A + r_B)**2;
-        var c_A = spaceship.position.toArray();
-        var c_Ax = c_A[0];
-        var c_Ay = c_A[1];
-        var c_Az = c_A[2];
-        var items = garbage_font.getGarbageItems();
+        let r_sum = (r_A + r_B)**2;
+        let c_A = spaceship.position.toArray();
+        let c_Ax = c_A[0];
+        let c_Ay = c_A[1];
+        let c_Az = c_A[2];
+        let items = garbage_font.getGarbageItems();
 
-        // console.log(r_sum);
+        let hToUse;
+        if (spaceship.position.y >= 0 && spaceship.position.x >= 0){
+            hToUse = this.h1;
+        }
+        if (spaceship.position.y >= 0 && spaceship.position.x < 0){
+            hToUse = this.h2;
+        }
+        if (spaceship.position.y < 0 && spaceship.position.x >= 0){
+            hToUse = this.h3;
+        }
+        if (spaceship.position.y < 0 && spaceship.position.x < 0){
+            hToUse = this.h4;
+        }
 
-        for(var id = 0; id < garbage.children.length; id++){
-            var current_item = items[id];
-            var c_B = current_item.position.toArray();
+        for (let i = hToUse.children.length-1; i >= 0; i--) {
+            let c_Bx = hToUse.children[i].position.x;
+            let c_By = hToUse.children[i].position.y;
+            let c_Bz = hToUse.children[i].position.z;
+            let c_sum = (c_Ax - c_Bx)**2 + (c_Ay - c_By)**2 + (c_Az - c_Bz)**2
 
-            var c_Bx = c_B[0];
-            var c_By = c_B[1];
-            var c_Bz = c_B[2];
-
-            var c_sum = (c_Ax - c_Bx)**2 + (c_Ay - c_By)**2 + (c_Az - c_Bz)**2
-
-            // console.log(c_sum);
             if (r_sum >= c_sum){
-                garbage.remove(current_item);
-                break;
+                hToUse.remove(hToUse.children[i]);
             }
         }
     }
