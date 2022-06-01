@@ -24,6 +24,20 @@ class KeyHandler {
 		return Math.min(Math.max(number, minimum), maximum);
 	}
 
+	makeSafe(angle) {
+		const EPS = 0.0001;
+		// TODO falta fazer para Math.PI
+		if (angle < 0 && -angle < EPS) {
+			this.inverted = !this.inverted;
+			return angle+EPS;
+		}
+		if (angle < EPS) {
+			this.inverted = !this.inverted;
+			return angle-EPS;
+		}
+		return angle;
+	}
+
 	getPolarCoordinates(x, y, z) {
 		let radius = Math.sqrt(x ** 2 + y ** 2 + z ** 2);
 		let phi = 0;
@@ -62,23 +76,10 @@ class KeyHandler {
 
 		if (this.keyMap[38]) { // up
 			spaceship.up = true;
-			if(phi-Math.PI/8 < 0){
-				this.inverted = !this.inverted;
+			if (this.inverted) {
 				newPhi += Math.PI/8;
-				newTheta -= Math.PI;
-			}
-			else if (!this.inverted){
+			} else {
 				newPhi -= Math.PI/8;
-			}
-			else if (this.inverted) {
-				if(phi+Math.PI/8 > Math.PI){
-					this.inverted = !this.inverted;
-					newPhi -= Math.PI/8;
-					newTheta -= Math.PI;
-				}
-				else {
-					newPhi += Math.PI/8;
-				}
 			}
 		}
 
@@ -89,23 +90,10 @@ class KeyHandler {
 
 		if (this.keyMap[40]) { // down
 			spaceship.down = true;
-			if(phi+Math.PI/8 > Math.PI){
-				this.inverted = !this.inverted;
+			if (this.inverted) {
 				newPhi -= Math.PI/8;
-				newTheta -= Math.PI;
-			}
-			else if (!this.inverted){
+			} else {
 				newPhi += Math.PI/8;
-			}
-			else if (this.inverted) {
-				if(phi-Math.PI/8 < 0){
-					this.inverted = !this.inverted;
-					newPhi += Math.PI/8;
-					newTheta -= Math.PI;
-				}
-				else {
-					newPhi -= Math.PI/8;
-				}
 			}
 		}
 
@@ -117,7 +105,7 @@ class KeyHandler {
 
 		let [newX, newY, newZ] = this.getCartesianCoordinates(
 			radius,
-			phi + newPhi,
+			this.makeSafe(phi + newPhi),
 			theta + newTheta
 		);
 
