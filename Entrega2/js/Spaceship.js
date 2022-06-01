@@ -63,6 +63,7 @@ class Spaceship {
 		this.down = false;
 		this.left = false;
 		this.right = false;
+		this.rotate = false;
 
 		this.lastUp = false;
 		this.lastDown = false;
@@ -106,6 +107,10 @@ class Spaceship {
 
 	lastDirection(){
 		let moved = false;
+		if (this.rotate){
+			this.spaceship.rotateOnAxis(new THREE.Vector3(0, 0, 1), -Math.PI);
+			this.rotate = false;
+		}
 		if (!moved && this.lastUp && this.lastLeft) {
 			this.spaceship.rotateOnAxis(new THREE.Vector3(0, 0, 1), -Math.PI/4);
 			moved = true;
@@ -143,6 +148,9 @@ class Spaceship {
 
 	setDirection(){
 		let moved = false;
+		if (this.rotate){
+			this.spaceship.rotateOnAxis(new THREE.Vector3(0, 0, 1), -Math.PI);
+		}
 		if (!moved && this.up && this.left) {
 			this.clearLast();
 			this.lastUp = true;
