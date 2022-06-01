@@ -1,7 +1,8 @@
 class SceneCreator {
 	constructor() {
 		this.scene = new THREE.Scene();
-		this.scene.background = new THREE.Color(0x020122);
+		//this.scene.background = new THREE.Color(0x020122);
+		this.scene.background = new THREE.TextureLoader().load( 'js/textures/Hyades.jpg' );
 		this.cameras = [this.createOrthographicCamera(), this.createPerspectiveCamera(), spaceship.camera];
 		this.scene.activeCamera = this.cameras[0];
 		this.axes = this.createAxes();

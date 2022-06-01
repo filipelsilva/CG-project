@@ -15,8 +15,6 @@ class Collision{
         var c_Az = c_A[2];
         var items = garbage_font.getGarbageItems();
 
-        console.log(r_sum);
-
         for(var id = 0; id < garbage.children.length; id++){
             var current_item = items[id];
             var c_B = current_item.position.toArray();
@@ -27,7 +25,6 @@ class Collision{
 
             var c_sum = (c_Ax - c_Bx)**2 + (c_Ay - c_By)**2 + (c_Az - c_Bz)**2
             
-            console.log(c_sum);
             if (r_sum >= c_sum){
                 garbage.remove(current_item);
                 break;
