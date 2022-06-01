@@ -122,6 +122,7 @@ class KeyHandler {
 				theta + newTheta
 			)
 		);
+		collision.hasCollision(spaceship, garbage, H, C);
 	}
 
 	// Handler for toggles, e.g. axesHelper.

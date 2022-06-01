@@ -17,6 +17,8 @@ spaceship.getSpaceship().scale.set(3,3,3); //TODO remover
 
 let garbage = new Garbage(C, distance, planet);
 
+let collision = new Collision();
+
 let sceneCreator = new SceneCreator();
 let scene = sceneCreator.scene;
 let camera = scene.activeCamera;
@@ -56,6 +58,7 @@ function init() {
 	window.addEventListener("keyup", keyHandler.onKeyUp.bind(keyHandler), true);
 	window.addEventListener("resize", onResize);
 }
+
 
 function animate() {
 	delta = clock.getDelta();

@@ -1,7 +1,7 @@
 class Spaceship {
 	constructor(H, distance, planet) {
 		let bodyRadius = 3;
-
+		let r = H;
 		// H spaceship height
 
 		// 4H/6
@@ -72,6 +72,14 @@ class Spaceship {
 
 	getSpaceship(){
 		return this.spaceship;
+	}
+
+	getSpaceshipR(){
+		return this.r/2;
+	}
+
+	getSpaceshipCenter(){
+		return this.spaceship.position.toArray();
 	}
 
 	createSpaceshipCamera(H, distance){

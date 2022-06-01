@@ -5,6 +5,7 @@ class Garbage{
         let usedpos = [];
         let material = new THREE.MeshStandardMaterial({ color: 0x0000ff });
 		let geometry = new THREE.BoxGeometry(C, C, C);
+        let r = C;
 		this.body = new THREE.Mesh(geometry, material);
         this.setGarbagePosRot(this.body, usedpos);
 
@@ -148,6 +149,14 @@ class Garbage{
 
     getGarbage(){
         return this.garbage;
+    }
+
+    getGarbageItems(){
+        return this.garbage.children;
+    }
+
+    getGarbageR(){
+        return this.r;
     }
 
     setGarbagePosRot(body, usedpos){
