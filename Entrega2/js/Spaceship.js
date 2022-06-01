@@ -138,7 +138,7 @@ class Spaceship {
 			this.spaceship.rotateOnAxis(new THREE.Vector3(0, 0, 1), Math.PI/2);
 			moved = true;
 		}
-		
+
 	}
 
 	setDirection(){

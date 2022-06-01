@@ -57,71 +57,80 @@ class KeyHandler {
 
 		if (this.keyMap[37]) { // left
 			spaceship.left = true;
-			newTheta -= 0.01*Math.PI/8;
+			newTheta -= Math.PI/8;
 		}
 
 		if (this.keyMap[38]) { // up
 			spaceship.up = true;
-			if(phi-0.01*Math.PI/8 < 0){
+			if(phi-Math.PI/8 < 0){
 				this.inverted = !this.inverted;
-				newPhi += 0.01*Math.PI/8;
+				newPhi += Math.PI/8;
 				newTheta -= Math.PI;
 			}
 			else if (!this.inverted){
-				newPhi -= 0.01*Math.PI/8;
+				newPhi -= Math.PI/8;
 			}
 			else if (this.inverted) {
-				if(phi+0.01*Math.PI/8 > Math.PI){
+				if(phi+Math.PI/8 > Math.PI){
 					this.inverted = !this.inverted;
-					newPhi -= 0.01*Math.PI/8;
+					newPhi -= Math.PI/8;
 					newTheta -= Math.PI;
 				}
 				else {
-					newPhi += 0.01*Math.PI/8;
+					newPhi += Math.PI/8;
 				}
 			}
 		}
 
 		if (this.keyMap[39]) { // right
 			spaceship.right = true;
-			newTheta += 0.01*Math.PI/8
+			newTheta += Math.PI/8
 		}
 
 		if (this.keyMap[40]) { // down
 			spaceship.down = true;
-			if(phi+0.01*Math.PI/8 > Math.PI){
+			if(phi+Math.PI/8 > Math.PI){
 				this.inverted = !this.inverted;
-				newPhi -= 0.01*Math.PI/8;
+				newPhi -= Math.PI/8;
 				newTheta -= Math.PI;
 			}
 			else if (!this.inverted){
-				newPhi += 0.01*Math.PI/8;
+				newPhi += Math.PI/8;
 			}
 			else if (this.inverted) {
-				if(phi-0.01*Math.PI/8 < 0){
+				if(phi-Math.PI/8 < 0){
 					this.inverted = !this.inverted;
-					newPhi += 0.01*Math.PI/8;
+					newPhi += Math.PI/8;
 					newTheta -= Math.PI;
 				}
 				else {
-					newPhi -= 0.01*Math.PI/8;
+					newPhi -= Math.PI/8;
 				}
 			}
 		}
 
-		let normalized = new THREE.Vector2(newPhi, newTheta);
+		let normalized = new THREE.Vector2(newPhi * delta, newTheta * delta);
 		normalized.normalize();
 
 		newPhi = normalized.x / 100;
 		newTheta = normalized.y / 100;
 
-		spaceship.getSpaceship().position.set(
-			...this.getCartesianCoordinates(
-				radius,
-				phi + newPhi,
-				theta + newTheta
-			)
+		let [newX, newY, newZ] = this.getCartesianCoordinates(
+			radius,
+			phi + newPhi,
+			theta + newTheta
 		);
+
+		// console.log("0----------0");
+		// if (newPhi != 0 || newTheta != 0) {
+		// 	console.log(spaceship.getSpaceship().position.x, spaceship.getSpaceship().position.y, spaceship.getSpaceship().position.z);
+		// 	console.log(phi, theta);
+		// 	console.log(phi + newPhi, theta + newTheta);
+		// 	console.log(newX, newY, newZ);
+		// }
+
+		spaceship.getSpaceship().position.set(newX, newY, newZ);
+
 		collision.hasCollision(spaceship, garbage, H, C);
 	}
 
