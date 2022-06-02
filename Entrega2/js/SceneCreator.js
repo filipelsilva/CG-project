@@ -1,8 +1,7 @@
 class SceneCreator {
 	constructor() {
 		this.scene = new THREE.Scene();
-		//this.scene.background = new THREE.Color(0x020122);
-		this.scene.background = new THREE.TextureLoader().load( 'js/textures/Hyades.jpg' );
+		this.scene.background = new THREE.Color(0x020122);
 		this.cameras = [this.createOrthographicCamera(), this.createPerspectiveCamera(), spaceship.camera];
 		this.scene.activeCamera = this.cameras[0];
 		this.axes = this.createAxes();
@@ -27,6 +26,11 @@ class SceneCreator {
 		light2.position.set(-1000, 1000, -1000);
 		light2.castShadow = true;
 		this.scene.add(light2);
+
+		const light3 = new THREE.DirectionalLight(0xffffff, 1);
+		light3.position.set(0, 500, 0);
+		light3.castShadow = true;
+		this.scene.add(light3);
 	}
 
 	createOrthographicCamera() {

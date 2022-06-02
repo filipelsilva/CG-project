@@ -12,7 +12,7 @@ class Spaceship {
 
 		// H/6
 		material = new THREE.MeshStandardMaterial({ color: 0xff0000 });
-		geometry = new THREE.CylinderGeometry(bodyRadius, bodyRadius, H/6, 30);
+		geometry = new THREE.CylinderGeometry(bodyRadius/4, bodyRadius, H/6, 30);
 		this.nose = new THREE.Mesh(geometry, material);
 		this.nose.position.set(0, (4*H/6)/2 + (H/6)/2, 0);
 		this.body.add(this.nose);
@@ -20,7 +20,7 @@ class Spaceship {
 		// H/6
 		this.capsules = new THREE.Group();
 
-		material = new THREE.MeshStandardMaterial({ color: 0xffffff });
+		material = new THREE.MeshStandardMaterial({ color: 0xff0000 });
 		geometry = new THREE.CapsuleGeometry((H/6)/2, (H/6)/2, 6, 9);
 
 		let capsule = new THREE.Mesh(geometry, material);
