@@ -28,7 +28,7 @@ class SceneCreator {
 		this.scene.add(light2);
 
 		const light3 = new THREE.DirectionalLight(0xffffff, 1);
-		light3.position.set(0, 500, 0);
+		light3.position.set(0, -500, 0);
 		light3.castShadow = true;
 		this.scene.add(light3);
 	}
