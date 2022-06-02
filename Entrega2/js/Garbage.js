@@ -4,7 +4,7 @@ class Garbage{
 
 		this.usedpos = [spaceship.getSpaceship().position];
 		let material = new THREE.MeshStandardMaterial({ color: 0x0000ff });
-		let geometry = new THREE.BoxGeometry(C, C, C);
+		let geometry = new THREE.BoxGeometry((C*2)/Math.sqrt(3), (C*2)/Math.sqrt(3), (C*2)/Math.sqrt(3));
 		let r = C;
 		this.body = new THREE.Mesh(geometry, material);
 		this.setGarbagePosRot(this.body, this.usedpos);
@@ -13,14 +13,14 @@ class Garbage{
 		this.garbage.add(this.body);
 
 		material = new THREE.MeshStandardMaterial({ color: 0xff0000 });
-		geometry = new THREE.BoxGeometry(C, C, C);
+		geometry = new THREE.BoxGeometry((C*2)/Math.sqrt(3), (C*2)/Math.sqrt(3), (C*2)/Math.sqrt(3));
 		this.body = new THREE.Mesh(geometry, material);
 		this.setGarbagePosRot(this.body, this.usedpos);
 
 		this.garbage.add(this.body);
 
 		material = new THREE.MeshStandardMaterial({ color: 0xced6d1 });
-		geometry = new THREE.BoxGeometry(C, C, C);
+		geometry = new THREE.BoxGeometry((C*2)/Math.sqrt(3), (C*2)/Math.sqrt(3), (C*2)/Math.sqrt(3));
 		this.body = new THREE.Mesh(geometry, material);
 		this.setGarbagePosRot(this.body, this.usedpos);
 
