@@ -13,7 +13,7 @@ let keyHandler = new KeyHandler();
 let planet = new Planet(R);
 
 let spaceship = new Spaceship(H, distance, planet);
-spaceship.getSpaceship().scale.set(3,3,3); //TODO remover
+//spaceship.getSpaceship().scale.set(3,3,3); //TODO remover
 
 let garbage = new Garbage(C, distance, planet);
 

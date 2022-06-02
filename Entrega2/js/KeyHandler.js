@@ -134,7 +134,7 @@ class KeyHandler {
 
 		spaceship.getSpaceship().position.set(newX, newY, newZ);
 
-		collision.hasCollision(spaceship, garbage, H, C);
+		collision.hasCollision(spaceship, garbage, H, C/2);
 	}
 
 	// Handler for toggles, e.g. axesHelper.
