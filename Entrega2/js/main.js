@@ -17,18 +17,16 @@ let spaceship = new Spaceship(H, distance, planet);
 
 let garbage = new Garbage(C, distance, planet);
 
-let collision = new Collision(garbage);
-
 let sceneCreator = new SceneCreator();
 let scene = sceneCreator.scene;
 let camera = scene.activeCamera;
 let axes = sceneCreator.axes;
 scene.add(planet.getPlanet());
 scene.add(spaceship.getSpaceship());
-scene.add(collision.h1, collision.h2, collision.h3, collision.h4);
+scene.add(garbage.h1, garbage.h2, garbage.h3, garbage.h4);
 // TODO Remove
-const helper = new THREE.CameraHelper(spaceship.camera);
-scene.add(helper);
+//const helper = new THREE.CameraHelper(spaceship.camera);
+//scene.add(helper);
 
 let renderer;
 
@@ -68,7 +66,7 @@ function update(delta) {
 	spaceship.setDirection();
 	let nosePosition = new THREE.Vector3();
 	spaceship.nose.getWorldPosition(nosePosition);
-	spaceship.camera.lookAt(nosePosition.x, nosePosition.y, nosePosition.z);
+	spaceship.camera.updateProjectionMatrix();
 }
 
 function animate() {

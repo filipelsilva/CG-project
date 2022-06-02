@@ -8,7 +8,7 @@ class Spaceship {
 		let material = new THREE.MeshStandardMaterial({ color: 0xcccccc });
 		let geometry = new THREE.CylinderGeometry(bodyRadius, bodyRadius, 4*H/6, 30);
 		this.body = new THREE.Mesh(geometry, material);
-		this.body.position.set(0, 0, 0);
+		//this.body.position.set(0, 0, 0);
 
 		// H/6
 		material = new THREE.MeshStandardMaterial({ color: 0xff0000 });
@@ -50,14 +50,25 @@ class Spaceship {
 
 		// Random position with correct distance
 		this.spaceship.position.set(...keyHandler.getCartesianCoordinates(distance, Math.random() * (Math.PI*2 - 0 + 1) + 0, Math.random() * (Math.PI*2 - 0 + 1) + 0));
-		this.spaceship.lookAt(planet.getPlanet().position);
-
-		// Random direction
-		this.spaceship.rotateOnAxis(new THREE.Vector3(0,0,1).normalize(), Math.random() * (Math.PI*2 - 0 + 1) + 0);
 
 		// Create Spaceship camera
 		this.camera = this.createSpaceshipCamera(H, distance);
 		this.spaceship.add(this.camera);
+		this.camera.position.set(0, -30, -60);
+		let nosePosition = new THREE.Vector3();
+		this.nose.getWorldPosition(nosePosition);
+		let vec = new THREE.Vector3();
+		this.camera.getWorldPosition(vec);
+		this.camera.lookAt(nosePosition.x, nosePosition.y, nosePosition.z);
+		if(vec.y < 0){
+			this.camera.up.set(0, -1, 0);
+		}
+		this.camera.updateProjectionMatrix();
+
+		this.spaceship.lookAt(planet.getPlanet().position);
+
+		// Random direction
+		this.spaceship.rotateOnAxis(new THREE.Vector3(0,0,1).normalize(), Math.random() * (Math.PI*2 - 0 + 1) + 0);
 
 		// Moving
 		this.up = false;
@@ -91,10 +102,6 @@ class Spaceship {
 			1,
 			10000
 		);
-		let nosePosition = new THREE.Vector3();
-		this.nose.getWorldPosition(nosePosition);
-		camera.position.set(0, -30, -30);
-		camera.lookAt(nosePosition.x, nosePosition.y, nosePosition.z);
 		return camera;
 	}
 

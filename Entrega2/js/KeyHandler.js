@@ -25,11 +25,11 @@ class KeyHandler {
 	}
 
 	makeSafe(angle) {
-		const epsilon = 0.007;
+		const epsilon = 0.01;
 		let minusPi = angle - Math.PI;
 		if (Math.abs(minusPi) < epsilon) {
 			this.inverted = !this.inverted;
-			//spaceship.camera.up.set(0, this.inverted ? -1 : 0, 0);
+			spaceship.camera.up.set(0, keyHandler.inverted ? -1 : 1, 0);
 			if (minusPi < 0) {
 				return angle+epsilon;
 			} else {
@@ -37,7 +37,7 @@ class KeyHandler {
 			}
 		} else if (Math.abs(angle) < epsilon) {
 			this.inverted = !this.inverted;
-			//spaceship.camera.up.set(0, this.inverted ? -1 : 0, 0);
+			spaceship.camera.up.set(0, keyHandler.inverted ? -1 : 1, 0);
 			if (angle < 0) {
 				return angle+epsilon;
 			} else {
@@ -123,7 +123,7 @@ class KeyHandler {
 
 		let normalized = new THREE.Vector2(newPhi * delta, newTheta * delta);
 		normalized.normalize();
-		normalized.divideScalar(100);
+		normalized.divideScalar(300);
 
 		newPhi = normalized.x;
 		newTheta = normalized.y;
@@ -136,7 +136,7 @@ class KeyHandler {
 
 		spaceship.getSpaceship().position.set(newX, newY, newZ);
 
-		collision.hasCollision(spaceship, garbage, H, C/2);
+		garbage.hasCollision(spaceship.getSpaceship());
 	}
 
 	// Handler for toggles, e.g. axesHelper.
@@ -162,7 +162,6 @@ class KeyHandler {
 			case 51: // 3
 				scene.activeCamera = spaceship.camera;
 				camera = scene.activeCamera;
-				camera.lookAt(spaceship.getSpaceship().position.x, spaceship.getSpaceship().position.y, spaceship.getSpaceship().position.z);
 				this.spaceshipCameraOn = true;
 				onResize();
 				break;
