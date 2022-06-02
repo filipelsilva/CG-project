@@ -26,6 +26,9 @@ let axes = sceneCreator.axes;
 scene.add(planet.getPlanet());
 scene.add(spaceship.getSpaceship());
 scene.add(collision.h1, collision.h2, collision.h3, collision.h4);
+// TODO Remove
+const helper = new THREE.CameraHelper(spaceship.camera);
+scene.add(helper);
 
 let renderer;
 
@@ -61,29 +64,11 @@ function init() {
 
 function update(delta) {
 	keyHandler.doKeyPress(delta);
-
-	if (keyHandler.spaceshipCameraOn){
-		let offset = new THREE.Vector3(0,0,0);
-		let spaceshipPosition = new THREE.Vector3();
-
-		spaceship.getSpaceship().getWorldPosition(spaceshipPosition);
-
-		if (spaceshipPosition.y < 0) {
-			offset.y = -100;
-		}
-		else {
-			offset.y = 100;
-		}
-
-		camera.position.copy(spaceshipPosition).add(offset);
-
-		let nosePosition = new THREE.Vector3();
-		spaceship.nose.getWorldPosition(nosePosition);
-		camera.lookAt(nosePosition.x, nosePosition.y, nosePosition.z);
-	}
-
 	spaceship.getSpaceship().lookAt(planet.getPlanet().position);
 	spaceship.setDirection();
+	let nosePosition = new THREE.Vector3();
+	spaceship.nose.getWorldPosition(nosePosition);
+	spaceship.camera.lookAt(nosePosition.x, nosePosition.y, nosePosition.z);
 }
 
 function animate() {

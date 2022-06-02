@@ -29,6 +29,7 @@ class KeyHandler {
 		let minusPi = angle - Math.PI;
 		if (Math.abs(minusPi) < epsilon) {
 			this.inverted = !this.inverted;
+			//spaceship.camera.up.set(0, this.inverted ? -1 : 0, 0);
 			if (minusPi < 0) {
 				return angle+epsilon;
 			} else {
@@ -36,6 +37,7 @@ class KeyHandler {
 			}
 		} else if (Math.abs(angle) < epsilon) {
 			this.inverted = !this.inverted;
+			//spaceship.camera.up.set(0, this.inverted ? -1 : 0, 0);
 			if (angle < 0) {
 				return angle+epsilon;
 			} else {
@@ -158,7 +160,7 @@ class KeyHandler {
 				onResize();
 				break;
 			case 51: // 3
-				scene.activeCamera = sceneCreator.cameras[2];
+				scene.activeCamera = spaceship.camera;
 				camera = scene.activeCamera;
 				camera.lookAt(spaceship.getSpaceship().position.x, spaceship.getSpaceship().position.y, spaceship.getSpaceship().position.z);
 				this.spaceshipCameraOn = true;

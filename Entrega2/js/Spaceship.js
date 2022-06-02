@@ -57,6 +57,7 @@ class Spaceship {
 
 		// Create Spaceship camera
 		this.camera = this.createSpaceshipCamera(H, distance);
+		this.spaceship.add(this.camera);
 
 		// Moving
 		this.up = false;
@@ -90,11 +91,10 @@ class Spaceship {
 			1,
 			10000
 		);
-		let offset = new THREE.Vector3(0, 100, 0);
-		let spaceshipPosition = new THREE.Vector3();
-		this.spaceship.getWorldPosition(spaceshipPosition);
-		camera.position.copy(spaceshipPosition).add(offset);
-		camera.lookAt(this.spaceship.position.x, this.spaceship.position.y, this.spaceship.position.z);
+		let nosePosition = new THREE.Vector3();
+		this.nose.getWorldPosition(nosePosition);
+		camera.position.set(0, -30, -30);
+		camera.lookAt(nosePosition.x, nosePosition.y, nosePosition.z);
 		return camera;
 	}
 
