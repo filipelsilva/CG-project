@@ -45,7 +45,7 @@ class Spaceship {
 		this.spaceship.add(this.body);
 
 		this.axes = new THREE.AxesHelper(100);
-		this.axes.visible = true;
+		this.axes.visible = false;
 		this.spaceship.add(this.axes);
 
 		// Random position with correct distance

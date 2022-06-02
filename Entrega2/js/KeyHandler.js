@@ -131,14 +131,6 @@ class KeyHandler {
 			theta + newTheta
 		);
 
-		// console.log("0----------0");
-		// if (newPhi != 0 || newTheta != 0) {
-		// 	console.log(spaceship.getSpaceship().position.x, spaceship.getSpaceship().position.y, spaceship.getSpaceship().position.z);
-		// 	console.log(phi, theta);
-		// 	console.log(phi + newPhi, theta + newTheta);
-		// 	console.log(newX, newY, newZ);
-		// }
-
 		spaceship.getSpaceship().position.set(newX, newY, newZ);
 
 		collision.hasCollision(spaceship, garbage, H, C);
@@ -150,6 +142,7 @@ class KeyHandler {
 			case 69:  // E
 			case 101: // e
 				axes.visible = !axes.visible;
+				spaceship.axes.visible = !spaceship.axes.visible;
 				break;
 			case 49: // 1
 				scene.activeCamera = sceneCreator.cameras[0];
@@ -169,17 +162,6 @@ class KeyHandler {
 				camera.lookAt(spaceship.getSpaceship().position.x, spaceship.getSpaceship().position.y, spaceship.getSpaceship().position.z);
 				this.spaceshipCameraOn = true;
 				onResize();
-				break;
-			case 52: // 4
-				function changeWireframe(listMesh) {
-					listMesh.children.map(child => {
-						child.material.wireframe = !child.material.wireframe;
-						if (child.children.length != 0) {
-							changeWireframe(child);
-						}
-					});
-				}
-				changeWireframe(group);
 				break;
 			default:
 				return false;
