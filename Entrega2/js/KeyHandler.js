@@ -25,18 +25,22 @@ class KeyHandler {
 	}
 
 	makeSafe(angle) {
-		const EPS = 0.0001;
-		if (angle > Math.PI && angle > EPS) {
+		const EPS = 0.01;
+		let minusPi = angle - Math.PI;
+		if (Math.abs(minusPi) < EPS) {
 			this.inverted = !this.inverted;
-			return angle-EPS;
-		}
-		if (angle < 0 && -angle < EPS) {
+			if (minusPi < 0) {
+				return angle+EPS;
+			} else {
+				return angle-EPS;
+			}
+		} else if (Math.abs(angle) < EPS) {
 			this.inverted = !this.inverted;
-			return angle+EPS;
-		}
-		if (angle < EPS) {
-			this.inverted = !this.inverted;
-			return angle-EPS;
+			if (angle < 0) {
+				return angle+EPS;
+			} else {
+				return angle-EPS;
+			}
 		}
 		return angle;
 	}
@@ -74,7 +78,12 @@ class KeyHandler {
 
 		if (this.keyMap[37]) { // left
 			spaceship.left = true;
-			newTheta -= Math.PI/8;
+			if (this.inverted) {
+				newTheta += Math.PI/8;
+			}
+			else {
+				newTheta -= Math.PI/8;
+			}
 			spaceship.rotate = false;
 		}
 
@@ -90,7 +99,12 @@ class KeyHandler {
 
 		if (this.keyMap[39]) { // right
 			spaceship.right = true;
-			newTheta += Math.PI/8
+			if (this.inverted) {
+				newTheta -= Math.PI/8;
+			}
+			else {
+				newTheta += Math.PI/8;
+			}
 			spaceship.rotate = false;
 		}
 
