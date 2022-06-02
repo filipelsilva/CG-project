@@ -59,33 +59,37 @@ function init() {
 	window.addEventListener("resize", onResize);
 }
 
-function update() {
+function update(delta) {
 	keyHandler.doKeyPress(delta);
+
 	if (keyHandler.spaceshipCameraOn){
 		let offset = new THREE.Vector3(0,0,0);
 		let spaceshipPosition = new THREE.Vector3();
+
 		spaceship.getSpaceship().getWorldPosition(spaceshipPosition);
+
 		if (spaceshipPosition.y < 0) {
 			offset.y = -100;
 		}
 		else {
 			offset.y = 100;
 		}
+
 		camera.position.copy(spaceshipPosition).add(offset);
 
 		let nosePosition = new THREE.Vector3();
 		spaceship.nose.getWorldPosition(nosePosition);
 		camera.lookAt(nosePosition.x, nosePosition.y, nosePosition.z);
 	}
+
 	spaceship.getSpaceship().lookAt(planet.getPlanet().position);
 	spaceship.setDirection();
-
 }
 
 function animate() {
 	delta = clock.getDelta();
 
-	update();
+	update(delta);
 
 	renderer.render(scene, camera);
 
