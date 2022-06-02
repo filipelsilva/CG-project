@@ -25,21 +25,21 @@ class KeyHandler {
 	}
 
 	makeSafe(angle) {
-		const EPS = 0.01;
+		const epsilon = 0.007;
 		let minusPi = angle - Math.PI;
-		if (Math.abs(minusPi) < EPS) {
+		if (Math.abs(minusPi) < epsilon) {
 			this.inverted = !this.inverted;
 			if (minusPi < 0) {
-				return angle+EPS;
+				return angle+epsilon;
 			} else {
-				return angle-EPS;
+				return angle-epsilon;
 			}
-		} else if (Math.abs(angle) < EPS) {
+		} else if (Math.abs(angle) < epsilon) {
 			this.inverted = !this.inverted;
 			if (angle < 0) {
-				return angle+EPS;
+				return angle+epsilon;
 			} else {
-				return angle-EPS;
+				return angle-epsilon;
 			}
 		}
 		return angle;
@@ -121,9 +121,10 @@ class KeyHandler {
 
 		let normalized = new THREE.Vector2(newPhi * delta, newTheta * delta);
 		normalized.normalize();
+		normalized.divideScalar(100);
 
-		newPhi = normalized.x / 100;
-		newTheta = normalized.y / 100;
+		newPhi = normalized.x;
+		newTheta = normalized.y;
 
 		let [newX, newY, newZ] = this.getCartesianCoordinates(
 			radius,
