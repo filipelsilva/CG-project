@@ -59,10 +59,7 @@ function init() {
 	window.addEventListener("resize", onResize);
 }
 
-
-function animate() {
-	delta = clock.getDelta();
-
+function update() {
 	keyHandler.doKeyPress(delta);
 	if (keyHandler.spaceshipCameraOn){
 		let offset = new THREE.Vector3(0,0,0);
@@ -82,6 +79,13 @@ function animate() {
 	}
 	spaceship.getSpaceship().lookAt(planet.getPlanet().position);
 	spaceship.setDirection();
+
+}
+
+function animate() {
+	delta = clock.getDelta();
+
+	update();
 
 	renderer.render(scene, camera);
 
