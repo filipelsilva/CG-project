@@ -173,7 +173,8 @@ class Garbage{
 		else{
 			r_A = C;
 		}
-		let r_B = C;
+		r_A *=  spaceship.getSpaceship().scale.x;
+		let r_B = C * spaceship.getSpaceship().scale.x;
 		let min_distance = r_A + r_B;
 		let c_Ax = o1.position.x;
 		let c_Ay = o1.position.y;
