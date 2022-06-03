@@ -22,16 +22,15 @@ let camera = scene.activeCamera;
 let axes = sceneCreator.axes;
 
 let renderer;
+let group = new THREE.Group();	
 
-scene.add(planet.getPlanet());
-scene.add(spaceship.getSpaceship());
-scene.add(garbage.h1, garbage.h2, garbage.h3, garbage.h4);
-
-planet.getPlanet().add(garbage.h1);
-planet.getPlanet().add(garbage.h2);
-planet.getPlanet().add(garbage.h3);
-planet.getPlanet().add(garbage.h4);
-planet.getPlanet().add(spaceship.getSpaceship());
+group.add(garbage.h1);
+group.add(garbage.h2);
+group.add(garbage.h3);
+group.add(garbage.h4);
+group.add(planet.getPlanet());
+group.add(spaceship.getSpaceship());
+scene.add(group);
 
 function onResize() {
 	renderer.setSize(window.innerWidth, window.innerHeight);
