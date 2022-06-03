@@ -13,7 +13,6 @@ let keyHandler = new KeyHandler();
 let planet = new Planet(R);
 
 let spaceship = new Spaceship(H, distance, planet);
-//spaceship.getSpaceship().scale.set(3,3,3); //TODO remover
 
 let garbage = new Garbage(C, distance, planet);
 
@@ -21,6 +20,8 @@ let sceneCreator = new SceneCreator();
 let scene = sceneCreator.scene;
 let camera = scene.activeCamera;
 let axes = sceneCreator.axes;
+
+let renderer;
 
 scene.add(planet.getPlanet());
 scene.add(spaceship.getSpaceship());
@@ -31,12 +32,6 @@ planet.getPlanet().add(garbage.h2);
 planet.getPlanet().add(garbage.h3);
 planet.getPlanet().add(garbage.h4);
 planet.getPlanet().add(spaceship.getSpaceship());
-
-// TODO Remove
-//const helper = new THREE.CameraHelper(spaceship.camera);
-//scene.add(helper);
-
-let renderer;
 
 function onResize() {
 	renderer.setSize(window.innerWidth, window.innerHeight);
