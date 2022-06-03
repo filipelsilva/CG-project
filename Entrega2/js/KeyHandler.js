@@ -31,17 +31,17 @@ class KeyHandler {
 			this.inverted = !this.inverted;
 			spaceship.camera.up.set(0, keyHandler.inverted ? -1 : 1, 0);
 			if (minusPi < 0) {
-				return angle+epsilon;
+				return Math.PI + epsilon;
 			} else {
-				return angle-epsilon;
+				return Math.PI - epsilon;
 			}
 		} else if (Math.abs(angle) < epsilon) {
 			this.inverted = !this.inverted;
 			spaceship.camera.up.set(0, keyHandler.inverted ? -1 : 1, 0);
 			if (angle < 0) {
-				return angle+epsilon;
+				return epsilon;
 			} else {
-				return angle-epsilon;
+				return -epsilon;
 			}
 		}
 		return angle;
@@ -122,8 +122,7 @@ class KeyHandler {
 		}
 
 		let normalized = new THREE.Vector2(newPhi, newTheta);
-		normalized.normalize();
-		normalized.multiplyScalar(delta * 0.7);
+		normalized.normalize().multiplyScalar(delta * 0.7);
 
 		newPhi = normalized.x;
 		newTheta = normalized.y;
