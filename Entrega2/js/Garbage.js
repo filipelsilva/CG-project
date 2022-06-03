@@ -7,7 +7,7 @@ let gToRemove;
 let toRemove = [];
 class Garbage{
 
-	constructor(C, distance, planet){
+	constructor(C){
 		this.h1 = new THREE.Group();
 		this.h2 = new THREE.Group();
 		this.h3 = new THREE.Group();

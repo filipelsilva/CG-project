@@ -1,8 +1,7 @@
 class Spaceship {
 	constructor(H, distance, planet) {
 		let bodyRadius = 3;
-		let r = H;
-		// H spaceship height
+		// H -> spaceship height
 
 		// 4H/6
 		let material = new THREE.MeshStandardMaterial({ color: 0xcccccc });
@@ -52,7 +51,7 @@ class Spaceship {
 		this.spaceship.position.set(...keyHandler.getCartesianCoordinates(distance, Math.random() * (Math.PI*2 - 0 + 1) + 0, Math.random() * (Math.PI*2 - 0 + 1) + 0));
 
 		// Create Spaceship camera
-		this.camera = this.createSpaceshipCamera(H, distance);
+		this.camera = this.createSpaceshipCamera();
 		this.spaceship.add(this.camera);
 		this.camera.position.set(0, -30, -60);
 		let nosePosition = new THREE.Vector3();
@@ -95,7 +94,7 @@ class Spaceship {
 		return this.spaceship.position.toArray();
 	}
 
-	createSpaceshipCamera(H, distance){
+	createSpaceshipCamera(){
 		let camera = new THREE.PerspectiveCamera(
 			70,
 			window.innerWidth / window.innerHeight,

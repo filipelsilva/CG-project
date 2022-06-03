@@ -14,7 +14,7 @@ let planet = new Planet(R);
 
 let spaceship = new Spaceship(H, distance, planet);
 
-let garbage = new Garbage(C, distance, planet);
+let garbage = new Garbage(C);
 
 let sceneCreator = new SceneCreator();
 let scene = sceneCreator.scene;
