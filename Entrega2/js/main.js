@@ -21,14 +21,17 @@ let sceneCreator = new SceneCreator();
 let scene = sceneCreator.scene;
 let camera = scene.activeCamera;
 let axes = sceneCreator.axes;
+
 scene.add(planet.getPlanet());
 scene.add(spaceship.getSpaceship());
 scene.add(garbage.h1, garbage.h2, garbage.h3, garbage.h4);
+
 planet.getPlanet().add(garbage.h1);
 planet.getPlanet().add(garbage.h2);
 planet.getPlanet().add(garbage.h3);
 planet.getPlanet().add(garbage.h4);
 planet.getPlanet().add(spaceship.getSpaceship());
+
 // TODO Remove
 //const helper = new THREE.CameraHelper(spaceship.camera);
 //scene.add(helper);
