@@ -192,8 +192,8 @@ class Garbage{
 		let real_distance = Math.sqrt((c_Ax - c_Bx)**2 + (c_Ay - c_By)**2 + (c_Az - c_Bz)**2);
 		if (min_distance >= real_distance){
 			let movement = new THREE.Vector3(c_Ax - c_Bx, c_Ay - c_By, c_Az - c_Bz);
-			movement.normalize().multiplyScalar(min_distance - real_distance);
-			o2.position.add(movement);
+			movement.normalize().multiplyScalar(-(min_distance - real_distance));
+			spaceship.getSpaceship().position.add(movement);
 			return true;
 		}
 		return false;
