@@ -1,3 +1,10 @@
+let removed = false;
+let removeH1 = false;
+let removeH2 = false;
+let removeH3 = false;
+let removeH4 = false;
+let gToRemove;
+let toRemove = [];
 class Garbage{
 
 	constructor(C, distance, planet){
@@ -190,6 +197,14 @@ class Garbage{
 	}
 
 	hasCollision(o){
+		if(removed){
+			toRemove = [];
+			removeH1 = false;
+			removeH2 = false;
+			removeH3 = false;
+			removeH4 = false;
+			removed = false;
+		}
 		let hToUse;
 		if (o.position.y >= 0 && o.position.x >= 0){
 			hToUse = this.h1;
@@ -206,7 +221,19 @@ class Garbage{
 
 		for (let i = hToUse.children.length-1; i >= 0; i--) {
 			if (this.collides(o, hToUse.children[i])) {
-				hToUse.remove(hToUse.children[i]);
+				toRemove.push(i);
+				if (hToUse === this.h1){
+					removeH1 = true;
+				}
+				else if (hToUse === this.h2){
+					removeH2 = true;
+				}
+				else if (hToUse === this.h3){
+					removeH3 = true;
+				}
+				else if (hToUse === this.h4){
+					removeH4 = true;
+				}
 			}
 		}
 	}

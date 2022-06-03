@@ -64,6 +64,25 @@ function init() {
 }
 
 function update(delta) {
+	if(!removed){
+		let hToUse;
+		if (removeH1 == true){
+			hToUse = garbage.h1;
+		}
+		else if (removeH2 == true){
+			hToUse = garbage.h2;
+		}
+		else if (removeH3 == true){
+			hToUse = garbage.h3;
+		}
+		else if (removeH4 == true){
+			hToUse = garbage.h4;
+		}
+		for (let i = toRemove.length-1; i >= 0; i--) {
+			hToUse.remove(hToUse.children[toRemove[i]]);
+		}
+		removed = true;
+	}
 	keyHandler.doKeyPress(delta);
 	spaceship.getSpaceship().lookAt(planet.getPlanet().position);
 	spaceship.setDirection();

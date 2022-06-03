@@ -123,7 +123,7 @@ class KeyHandler {
 
 		let normalized = new THREE.Vector2(newPhi * delta, newTheta * delta);
 		normalized.normalize();
-		normalized.divideScalar(100);
+		normalized.divideScalar(270);
 
 		newPhi = normalized.x;
 		newTheta = normalized.y;
