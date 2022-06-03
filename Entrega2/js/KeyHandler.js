@@ -121,9 +121,9 @@ class KeyHandler {
 			}
 		}
 
-		let normalized = new THREE.Vector2(newPhi * delta, newTheta * delta);
+		let normalized = new THREE.Vector2(newPhi, newTheta);
 		normalized.normalize();
-		normalized.divideScalar(270);
+		normalized.multiplyScalar(delta);
 
 		newPhi = normalized.x;
 		newTheta = normalized.y;
