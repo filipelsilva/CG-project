@@ -1,5 +1,6 @@
 'use strict';
 
+let id;
 let clock = new THREE.Clock();
 let delta = 0;
 
@@ -52,5 +53,5 @@ function animate() {
 
 	renderer.render(scene, camera);
 
-	requestAnimationFrame(animate);
+	id = requestAnimationFrame(animate);
 }
