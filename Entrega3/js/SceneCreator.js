@@ -29,25 +29,26 @@ class SceneCreator {
 		let group = new THREE.Group();
 		light = new THREE.SpotLight(0xffffff, 0.6);
 		light.castShadow = true;
-		light.position.set(-300, 1000, -100);
+		light.position.set(-300, 1000, 600);
 		light.angle = Math.PI/16;
 		light.target = objects.children[0];
 		group.add(light);
 		light = new THREE.SpotLight(0xffffff, 0.6);
 		light.castShadow = true;
-		light.position.set(0, 1000, -100);
+		light.position.set(0, 1000, 600);
 		light.angle = Math.PI/16;
 		light.target = objects.children[1];
 		group.add(light);
 		light = new THREE.SpotLight(0xffffff, 0.6);
 		light.castShadow = true;
-		light.position.set(300, 1000, -100);
+		light.position.set(300, 1000, 600);
 		light.angle = Math.PI/16;
 		light.target = objects.children[2];
 		group.add(light);
 		let material, geometry, mesh;
 		let spotlight = new THREE.Group();
 		material = new THREE.MeshStandardMaterial({color: 0x666666});
+		material.castShadow = true;
 		geometry = new THREE.SphereGeometry(30, 20 ,20);
 		mesh = new THREE.Mesh(geometry, material);
 		spotlight.add(mesh);
@@ -55,7 +56,8 @@ class SceneCreator {
 		mesh = new THREE.Mesh(geometry, material);
 		mesh.position.set(0,-55,0);
 		spotlight.add(mesh);
-		spotlight.position.set(-300, 1100, -100);
+		spotlight.position.set(-300, 650, 600);
+		spotlight.lookAt(...objects.children[0].position);
 		group.add(spotlight);
 		spotlight = new THREE.Group();
 		geometry = new THREE.SphereGeometry(30, 20 ,20);
@@ -65,7 +67,8 @@ class SceneCreator {
 		mesh = new THREE.Mesh(geometry, material);
 		mesh.position.set(0,-55,0);
 		spotlight.add(mesh);
-		spotlight.position.set(0, 1100, -100);
+		spotlight.position.set(0, 650, 600);
+		spotlight.lookAt(...objects.children[1].position);
 		group.add(spotlight);
 		spotlight = new THREE.Group();
 		geometry = new THREE.SphereGeometry(30, 20 ,20);
@@ -75,7 +78,8 @@ class SceneCreator {
 		mesh = new THREE.Mesh(geometry, material);
 		mesh.position.set(0,-55,0);
 		spotlight.add(mesh);
-		spotlight.position.set(300, 1100, -100);
+		spotlight.position.set(300, 650, 600);
+		spotlight.lookAt(...objects.children[2].position);
 		group.add(spotlight);
 		this.scene.add(group);
 		return group;
@@ -89,8 +93,8 @@ class SceneCreator {
 			10000
 		);
 		camera.position.x = 0;
-		camera.position.y = 1000;
-		camera.position.z = 2000;
+		camera.position.y = 300;
+		camera.position.z = 1500;
 		camera.lookAt(this.scene.position);
 		return camera;
 	}

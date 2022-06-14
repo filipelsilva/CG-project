@@ -52,13 +52,13 @@ class ObjectCreator {
 	
 		] );
 		geometry.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
-		material = new THREE.MeshPhongMaterial( { color: 0xff0000 } );
+		geometry.computeVertexNormals();
+		geometry.normalizeNormals();
+		material = new THREE.MeshPhongMaterial( { color: 0xff0000, side: THREE.DoubleSide});
 		objects[0] = new THREE.Mesh( geometry, material );
 
 		objects[0].position.set(-300, 300, 0);
 		objects[0].scale.set(2,2,2);
-		objects[0].castShadow = true;
-		objects[0].receiveShadow = true;
 
 		geometry = new THREE.BufferGeometry();
 		vertices = new Float32Array( [
@@ -97,13 +97,13 @@ class ObjectCreator {
 			
 		] );
 		geometry.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
-		material = new THREE.MeshPhongMaterial( { color: 0x00ff00 } );
+		geometry.computeVertexNormals();
+		geometry.normalizeNormals();
+		material = new THREE.MeshPhongMaterial( { color: 0x00ff00, side: THREE.DoubleSide } );
 		objects[1] = new THREE.Mesh( geometry, material );
 
 		objects[1].position.set(0, 300, 0);
 		objects[1].scale.set(2,2,2);
-		objects[1].castShadow = true;
-		objects[1].receiveShadow = true;
 
 		geometry = new THREE.BufferGeometry();
 		vertices = new Float32Array( [
@@ -181,13 +181,13 @@ class ObjectCreator {
 			
 		] );
 		geometry.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
-		material = new THREE.MeshPhongMaterial( { color: 0x0000ff } );
+		geometry.computeVertexNormals();
+		geometry.normalizeNormals();
+		material = new THREE.MeshPhongMaterial( { color: 0x0000ff, side: THREE.DoubleSide } );
 		objects[2] = new THREE.Mesh( geometry, material );
 
 		objects[2].position.set(300, 300, 0);
 		objects[2].scale.set(4,4,4);
-		objects[2].castShadow = true;
-		objects[2].receiveShadow = true;
 
 		objects.map(obj => {
 			this.group.add(obj);
