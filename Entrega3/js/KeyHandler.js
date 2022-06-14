@@ -43,7 +43,6 @@ class KeyHandler {
 		}
 	}
 
-	// Handler for toggles, e.g. axesHelper.
 	doOneTimeEvent(code) {
 		switch (code) {
 			case 65:  // A
@@ -71,9 +70,15 @@ class KeyHandler {
 			case 112: // p
 				// play/pause
 				if (clock.running) {
+					scene.visible = false;
+					scenePause.visible = true;
 					cancelAnimationFrame(id);
+					id = requestAnimationFrame(animatePause);
 					clock.stop();
 				} else {
+					scene.visible = true;
+					scenePause.visible = false;
+					cancelAnimationFrame(id);
 					id = requestAnimationFrame(animate);
 					clock.start();
 				}

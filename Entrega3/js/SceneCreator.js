@@ -3,16 +3,14 @@ class SceneCreator {
 		this.scene = new THREE.Scene();
 		this.scene.background = new THREE.Color(0x020122);
 		this.camera = this.createCamera();
-		this.axes = this.createAxes();
+		this.scene.add(this.camera);
 		this.globalLight = this.createLight();
 		this.spotlights = this.createSpotlights();
-	}
-
-	createAxes() {
-		this.axes = new THREE.AxesHelper(100);
-		this.axes.visible = false;
-		this.scene.add(this.axes);
-		return this.axes;
+		// this.scenePause = new THREE.Scene();
+		// console.log(this.scenePause);
+		// this.scenePause.visible = false;
+		// this.cameraPause = this.createCamera();
+		// this.scenePause.add(this.cameraPause);
 	}
 
 	createLight() {
@@ -42,7 +40,7 @@ class SceneCreator {
 	}
 
 	createCamera() {
-		this.camera = new THREE.OrthographicCamera(
+		return new THREE.OrthographicCamera(
 			window.innerWidth/-2,
 			window.innerWidth/2,
 			window.innerHeight/2,
@@ -50,7 +48,5 @@ class SceneCreator {
 			-1000,
 			1000
 		);
-		this.scene.add(this.camera);
-		return this.camera;
 	}
 }

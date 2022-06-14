@@ -4,13 +4,16 @@ let id;
 let clock = new THREE.Clock();
 let delta = 0;
 
+let renderer;
+
 let keyHandler = new KeyHandler();
 let sceneCreator = new SceneCreator();
 let objectCreator = new ObjectCreator();
 
 let scene = sceneCreator.scene;
 let camera = sceneCreator.camera;
-let axes = sceneCreator.axes;
+// let scenePause = sceneCreator.scenePause;
+// let cameraPause = sceneCreator.cameraPause;
 
 let group = objectCreator.group;
 
@@ -21,11 +24,9 @@ scene.add(floor);
 
 scene.add(group);
 
-let renderer;
-
 const texture = new THREE.TextureLoader().load("media/pause_menu.png");
 texture.repeat.set(1, 1);
-scene.add(new THREE.Mesh(new THREE.PlaneGeometry(window.innerWidth, window.innerHeight), new THREE.MeshStandardMaterial({map: texture})));
+// scenePause.add(new THREE.Mesh(new THREE.PlaneGeometry(window.innerWidth, window.innerHeight), new THREE.MeshStandardMaterial({map: texture})));
 
 function onResize() {
 	texture.updateMatrix();
@@ -61,4 +62,10 @@ function animate() {
 	renderer.render(scene, camera);
 
 	id = requestAnimationFrame(animate);
+}
+
+function animatePause() {
+	renderer.render(scenePause, cameraPause);
+
+	id = requestAnimationFrame(animatePause);
 }
