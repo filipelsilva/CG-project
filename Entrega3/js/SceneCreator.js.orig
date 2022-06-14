@@ -2,6 +2,7 @@ class SceneCreator {
 	constructor() {
 		this.scene = new THREE.Scene();
 		this.scene.background = new THREE.Color(0x020122);
+<<<<<<< HEAD
 		this.camera = this.createCamera();
 		this.scene.add(this.camera);
 		this.globalLight = this.createLight();
@@ -11,6 +12,19 @@ class SceneCreator {
 		// this.scenePause.visible = false;
 		// this.cameraPause = this.createCamera();
 		// this.scenePause.add(this.cameraPause);
+=======
+		this.camera = this.createPerspectiveCamera();
+		this.axes = this.createAxes();
+		this.globalLight = this.createLight();
+		this.spotlights;
+	}
+
+	createAxes() {
+		this.axes = new THREE.AxesHelper(100);
+		this.axes.visible = false;
+		this.scene.add(this.axes);
+		return this.axes;
+>>>>>>> main
 	}
 
 	createLight() {
@@ -79,6 +93,7 @@ class SceneCreator {
 		return group;
 	}
 
+<<<<<<< HEAD
 	createCamera() {
 		return new THREE.OrthographicCamera(
 			window.innerWidth/-2,
@@ -88,8 +103,7 @@ class SceneCreator {
 			-1000,
 			1000
 		);
-	}
-
+=======
 	createPerspectiveCamera() {
 		let camera = new THREE.PerspectiveCamera(
 			70,
@@ -102,5 +116,6 @@ class SceneCreator {
 		camera.position.z = 2000;
 		camera.lookAt(this.scene.position);
 		return camera;
+>>>>>>> main
 	}
 }

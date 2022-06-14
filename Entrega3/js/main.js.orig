@@ -23,11 +23,15 @@ scene.add(palanque);
 scene.add(floor);
 scene.add(group);
 
+<<<<<<< HEAD
 const texture = new THREE.TextureLoader().load("media/pause_menu.png");
 texture.repeat.set(1, 1);
 // scenePause.add(new THREE.Mesh(new THREE.PlaneGeometry(window.innerWidth, window.innerHeight), new THREE.MeshStandardMaterial({map: texture})));
-
+=======
 sceneCreator.spotlights = sceneCreator.createSpotlights(group);
+
+let renderer;
+>>>>>>> main
 
 function onResize() {
 	texture.updateMatrix();
