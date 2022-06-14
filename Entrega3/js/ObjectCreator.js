@@ -2,8 +2,8 @@ class ObjectCreator {
 	constructor() {
 		this.group = new THREE.Group();
 
-		this.palanque = this.createPalanque();
-		this.floor = this.createFloor();
+		//this.palanque = this.createPalanque();
+		//this.floor = this.createFloor();
 		this.createObjects();
 	}
 
@@ -50,10 +50,11 @@ class ObjectCreator {
 	
 		] );
 		geometry.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
-		material = new THREE.MeshLambertMaterial( { color: 0xff0000 } );
+		material = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
 		objects[0] = new THREE.Mesh( geometry, material );
 
 		objects[0].position.set(-350, 0 ,0);
+		objects[0].scale.set(2,2,2);
 
 		geometry = new THREE.BufferGeometry();
 		vertices = new Float32Array( [
@@ -96,6 +97,89 @@ class ObjectCreator {
 		objects[1] = new THREE.Mesh( geometry, material );
 
 		objects[1].position.set(0, 0 ,0);
+		objects[1].scale.set(2,2,2);
+
+		geometry = new THREE.BufferGeometry();
+		vertices = new Float32Array( [
+			-50.0, 0.0,  0.0,
+			-15.24, -33.14, 20.0,
+			50, 0.0, 0.0,
+
+			-15.24, -33.14, 20.0,
+			41.09, -21.20,  20.0,
+			50, 0.0, 0.0,
+
+			-50.0, 0.0,  0.0,
+			-15.24, -33.14, -20.0,
+			50, 0.0, 0.0,
+
+			-15.24, -33.14, -20.0,
+			41.09, -21.20,  -20.0,
+			50, 0.0, 0.0,
+
+			-15.24, -33.14, 20.0,
+			41.09, -21.20,  20.0,
+			0.0, 0.0, 25.0,
+
+			0.0, 0.0, 25.0,
+			41.09, -21.20,  20.0,
+			50.0, 0, 25.0,
+
+			-15.24, -33.14, -20.0,
+			41.09, -21.20,  -20.0,
+			0.0, 0.0, -25.0,
+
+			0.0, 0.0, -25.0,
+			41.09, -21.20,  -20.0,
+			50.0, 0, -25.0,
+
+			0.0, 0.0, 25.0,
+			9.28, -27.17, 25.0,
+			41.09, -21.20,  25.0,
+
+			0.0, 0.0, 25.0,
+			41.09, -21.20,  25.0,
+			50.0, 0, 25.0,
+
+			0.0, 0.0, -25.0,
+			9.28, -27.17, -25.0,
+			41.09, -21.20,  -25.0,
+
+			0.0, 0.0, -25.0,
+			41.09, -21.20, -25.0,
+			50.0, 0, -25.0,
+
+			9.28, 32.47, 15.0,
+			41.09, -21.20, 25.0,
+			50.0, 0, 25.0,
+
+			9.28, 32.47, 15.0,
+			50.0, 0, 25.0,
+			15.24, 40.42, 0.0,
+
+			9.28, 32.47, -15.0,
+			41.09, -21.20, -25.0,
+			50.0, 0, -25.0,
+
+			9.28, 32.47, -15.0,
+			50.0, 0, -25.0,
+			15.24, 40.42, 0.0,
+
+			15.24, 40.42, 0.0,
+			9.28, 32.47, 15.0,
+			50.0, 26.21, 0.0,
+
+			15.24, 40.42, 0.0,
+			9.28, 32.47, -15.0,
+			50.0, 26.21, 0.0,
+			
+		] );
+		geometry.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
+		material = new THREE.MeshBasicMaterial( { color: 0x0000ff } );
+		objects[2] = new THREE.Mesh( geometry, material );
+
+		objects[2].position.set(300, 0 ,0);
+		objects[2].scale.set(4,4,4);
 
 		objects.map(obj => {
 			this.group.add(obj);
