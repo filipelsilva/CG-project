@@ -15,136 +15,71 @@ class KeyHandler {
 		this.keyMap[code] = false;
 	}
 
-	rotateAroundPoint(object, point, axis, rotation) {
-		object.position.sub(point);
-		object.position.applyAxisAngle(axis, rotation);
-		object.position.add(point);
-		object.rotateOnAxis(axis, rotation);
-	}
-
-	getObjectCenterPoint(mesh) {
-		let center = new THREE.Vector3();
-		let geometry = mesh.geometry;
-		geometry.computeBoundingBox();
-		geometry.boundingBox.getCenter(center);
-		return center;
-	}
-
 	// Handler for the movement of the objects.
 	doKeyPress(delta) {
 		if (this.keyMap[81] || this.keyMap[113]) { // Q/q
-			articulate.rotation.x += 1 * delta;
+			// rodar peça 1
 		}
 
 		if (this.keyMap[87] || this.keyMap[119]) { // W/w
-			articulate.rotation.x -= 1 * delta;
+			// rodar peça 1
 		}
 
-		if (this.keyMap[65] || this.keyMap[97]) { // A/a
-			let rotation = new THREE.Vector3(-1.5, 0.5, 0);
-			this.rotateAroundPoint(
-				articulate.children[0],
-				this.getObjectCenterPoint(articulate),
-				rotation.normalize(),
-				1 * delta
-			);
+		if (this.keyMap[69] || this.keyMap[101]) { // E/e
+			// rodar peça 2
 		}
 
-		if (this.keyMap[83] || this.keyMap[115]) { // S/s
-			let rotation = new THREE.Vector3(-1.5, 0.5, 0);
-			this.rotateAroundPoint(
-				articulate.children[0],
-				this.getObjectCenterPoint(articulate),
-				rotation.normalize(),
-				-1 * delta
-			);
+		if (this.keyMap[82] || this.keyMap[114]) { // R/r
+			// rodar peça 2
 		}
 
-		if (this.keyMap[90] || this.keyMap[122]) { // Z/z
-			let rotation = new THREE.Vector3(1, 1, 1);
-			this.rotateAroundPoint(
-				articulate.children[0].children[0],
-				this.getObjectCenterPoint(articulate.children[0]),
-				rotation.normalize(),
-				1 * delta
-			);
+		if (this.keyMap[84] || this.keyMap[116]) { // T/t
+			// rodar peça 3
 		}
 
-		if (this.keyMap[88] || this.keyMap[120]) { // X/x
-			let rotation = new THREE.Vector3(1, 1, 1);
-			this.rotateAroundPoint(
-				articulate.children[0].children[0],
-				this.getObjectCenterPoint(articulate.children[0]),
-				rotation.normalize(),
-				-1 * delta
-			);
+		if (this.keyMap[89] || this.keyMap[121]) { // Y/y
+			// rodar peça 3
 		}
-
-		const vector = new THREE.Vector3(0,0,0);
-
-		if (this.keyMap[37]) { // left
-			vector.add(new THREE.Vector3(-1 * delta, 0, 0));
-		}
-
-		if (this.keyMap[38]) { // up
-			vector.add(new THREE.Vector3(0, 1 * delta, 0));
-		}
-
-		if (this.keyMap[39]) { // right
-			vector.add(new THREE.Vector3(1 * delta, 0, 0));
-		}
-
-		if (this.keyMap[40]) { // down
-			vector.add(new THREE.Vector3(0, -1 * delta, 0));
-		}
-
-		if (this.keyMap[68] || this.keyMap[100]) { // D/d
-			vector.add(new THREE.Vector3(0, 0, 1 * delta));
-		}
-
-		if (this.keyMap[67] || this.keyMap[99]) { // C/c
-			vector.add(new THREE.Vector3(0, 0, -1 * delta));
-		}
-
-		vector.normalize();
-		articulate.position.add(vector);
 	}
 
 	// Handler for toggles, e.g. axesHelper.
 	doOneTimeEvent(code) {
 		switch (code) {
-			case 69:  // E
-			case 101: // e
-				axes.visible = !axes.visible;
+			case 65:  // A
+			case 97:  // a
+				// alternar sombreamento
+				break;
+			case 83:  // S
+			case 115: // s
+				// toggle calculo da iluminação
+				break;
+			case 90:  // Z
+			case 122: // z
+				// toggle 1 spotlight
+				break;
+			case 88:  // X
+			case 120: // x
+				// toggle 2 spotlight
+				break;
+			case 67:  // C
+			case 99:  // c
+				// toggle 3 spotlight
+				break;
+			// devia ser S
+			case 80:  // P
+			case 112: // p
+				// play/pause
+				break;
+			// devia ser R
+			case 79:  // O
+			case 111: // o
+				// reset
 				break;
 			case 49: // 1
-				camera.position.x = 0;
-				camera.position.y = 0;
-				camera.position.z = 1;
-				camera.lookAt(0, 0, 0);
+				// perspetiva
 				break;
 			case 50: // 2
-				camera.position.x = 0;
-				camera.position.y = 1;
-				camera.position.z = 0;
-				camera.lookAt(0, 0, 0);
-				break;
-			case 51: // 3
-				camera.position.x = 1;
-				camera.position.y = 0;
-				camera.position.z = 0;
-				camera.lookAt(0, 0, 0);
-				break;
-			case 52: // 4
-				function changeWireframe(listMesh) {
-					listMesh.children.map(child => {
-						child.material.wireframe = !child.material.wireframe;
-						if (child.children.length != 0) {
-							changeWireframe(child);
-						}
-					});
-				}
-				changeWireframe(group);
+				// fixa, ortogonal
 				break;
 			default:
 				return false;
