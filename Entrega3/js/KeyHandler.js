@@ -18,6 +18,7 @@ class KeyHandler {
 	// Handler for the movement of the objects.
 	doKeyPress(delta) {
 		if (this.keyMap[81] || this.keyMap[113]) { // Q/q
+			articulate.position.x += 1;
 			// rodar peça 1
 		}
 
@@ -69,6 +70,13 @@ class KeyHandler {
 			case 80:  // P
 			case 112: // p
 				// play/pause
+				if (clock.running) {
+					cancelAnimationFrame(id);
+					clock.stop();
+				} else {
+					id = requestAnimationFrame(animate);
+					clock.start();
+				}
 				break;
 			// devia ser R
 			case 79:  // O

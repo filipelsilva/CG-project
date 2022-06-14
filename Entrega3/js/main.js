@@ -1,5 +1,6 @@
 'use strict';
 
+let id;
 let clock = new THREE.Clock();
 let delta = 0;
 
@@ -12,7 +13,12 @@ let camera = sceneCreator.camera;
 let axes = sceneCreator.axes;
 
 let group = objectCreator.group;
-//let articulate = objectCreator.articulate;
+
+let palanque = objectCreator.palanque;
+let floor = objectCreator.floor;
+scene.add(palanque);
+scene.add(floor);
+
 scene.add(group);
 
 let renderer;
@@ -49,5 +55,5 @@ function animate() {
 
 	renderer.render(scene, camera);
 
-	requestAnimationFrame(animate);
+	id = requestAnimationFrame(animate);
 }

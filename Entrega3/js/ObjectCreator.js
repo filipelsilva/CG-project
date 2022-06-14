@@ -1,66 +1,37 @@
-class CustomSinCurve extends THREE.Curve {
-	constructor(scale = 1) {
-		super();
-		this.scale = scale;
-	}
-
-	getPoint(t, optionalTarget = new THREE.Vector3()) {
-		const tx = t * 3 - 1.5;
-		const ty = Math.sin(Math.PI/1.1 * t);
-		const tz = 0;
-		return optionalTarget.set(tx, ty, tz).multiplyScalar(this.scale);
-	}
-}
-
 class ObjectCreator {
 	constructor() {
 		this.group = new THREE.Group();
-		/*this.articulate = this.createArticulateObject();*/
+
+		this.palanque = this.createPalanque();
+		this.floor = this.createFloor();
 		this.createObjects();
 	}
 
-	createArticulateObject() {
-		let material, geometry;
-		let obj1, obj2_1, obj2_2, obj3;
+	createPalanque() {
+		let material, geometry, mesh;
+		let group = new THREE.Group();
+		material = new THREE.MeshStandardMaterial({ color: 0x994b00 });
+		geometry = new THREE.BoxGeometry(900, 120, 120);
+		mesh = new THREE.Mesh(geometry, material);
+		group.add(mesh);
+		material = new THREE.MeshStandardMaterial({ color: 0x884b00 });
+		geometry = new THREE.BoxGeometry(600, 80, 120);
+		mesh = new THREE.Mesh(geometry, material);
+		mesh.position.set(0,-20,0);
+		group.add(mesh);
+		material = new THREE.MeshStandardMaterial({ color: 0x774b00 });
+		geometry = new THREE.BoxGeometry(300, 40, 120);
+		mesh = new THREE.Mesh(geometry, material);
+		mesh.position.set(0,-40,0);
+		group.add(mesh);
+		return group;
+	}
 
-		// avô
-		material = new THREE.MeshStandardMaterial({ color: 0xffb700 });
-		geometry = new THREE.BoxGeometry(110, 110, 110);
-		obj1 = new THREE.Mesh(geometry, material);
-
-		obj1.position.set(0, 0, 0);
-		obj1.rotation.z = Math.PI/4;
-		obj1.rotation.x = Math.PI/4;
-
-		// pai1
-		material = new THREE.MeshStandardMaterial({ color: 0x00ff00 });
-		geometry = new THREE.SphereGeometry(60, 20, 20);
-		obj2_1 = new THREE.Mesh(geometry, material);
-
-		obj2_1.position.set(-100, -270, 0);
-
-		// pai2
-		material = new THREE.MeshStandardMaterial({ color: 0xffffff });
-		geometry = new THREE.TorusGeometry(120, 11, 30, 30);
-		obj2_2 = new THREE.Mesh(geometry, material);
-
-		obj2_2.position.set(0, 0, 0);
-		obj2_2.rotation.x = -Math.PI/2.5;
-		obj2_2.rotation.y = Math.PI/4;
-
-		// neto
-		material = new THREE.MeshStandardMaterial({ color: 0xff0000 });
-		geometry = new THREE.ConeGeometry(25, 100, 50);
-		obj3 = new THREE.Mesh(geometry, material);
-
-		obj3.position.set(80, -70, 0);
-
-		obj2_1.add(obj3);
-		obj1.add(obj2_1);
-		obj1.add(obj2_2);
-
-		this.group.add(obj1);
-		return obj1;
+	createFloor() {
+		let geometry, material;
+		geometry = new THREE.PlaneGeometry(1000, 600);
+		material = new THREE.MeshBasicMaterial({color: 0x555555, side: THREE.DoubleSide});
+		return new THREE.Mesh(geometry, material);
 	}
 
 	createObjects() {

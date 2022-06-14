@@ -4,7 +4,8 @@ class SceneCreator {
 		this.scene.background = new THREE.Color(0x020122);
 		this.camera = this.createCamera();
 		this.axes = this.createAxes();
-		this.createLights();
+		this.globalLight = this.createLight();
+		this.spotlights = this.createSpotlights();
 	}
 
 	createAxes() {
@@ -14,16 +15,30 @@ class SceneCreator {
 		return this.axes;
 	}
 
-	createLights() {
-		const light1 = new THREE.DirectionalLight(0xffffff, 1);
-		light1.position.set(1000, 1000, 1000);
-		light1.castShadow = true;
-		this.scene.add(light1);
+	createLight() {
+		const light = new THREE.DirectionalLight(0xffffff, 1);
+		light.position.set(0, 1000, 1000);
+		light.castShadow = true;
+		this.scene.add(light);
+		return light;
+	}
 
-		const light2 = new THREE.DirectionalLight(0xffffff, 1);
-		light2.position.set(-1000, 1000, -1000);
-		light2.castShadow = true;
-		this.scene.add(light2);
+	createSpotlights() {
+		let light;
+		let group = new THREE.Group();
+		light = new THREE.SpotLight(0xffffff);
+		light.castShadow = true;
+		light.position.set(150, 1000, 0);
+		group.add(light);
+		light = new THREE.SpotLight(0xffffff);
+		light.castShadow = true;
+		light.position.set(450, 1000, 0);
+		group.add(light);
+		light = new THREE.SpotLight(0xffffff);
+		light.castShadow = true;
+		light.position.set(750, 1000, 0);
+		group.add(light);
+		return group;
 	}
 
 	createCamera() {
