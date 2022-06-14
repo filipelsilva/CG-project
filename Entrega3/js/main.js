@@ -12,8 +12,8 @@ let objectCreator = new ObjectCreator();
 
 let scene = sceneCreator.scene;
 let camera = sceneCreator.camera;
-// let scenePause = sceneCreator.scenePause;
-// let cameraPause = sceneCreator.cameraPause;
+let scenePause = sceneCreator.scenePause;
+let cameraPause = sceneCreator.cameraPause;
 
 let group = objectCreator.group;
 
@@ -25,7 +25,7 @@ scene.add(group);
 
 const texture = new THREE.TextureLoader().load("media/pause_menu.png");
 texture.repeat.set(1, 1);
-// scenePause.add(new THREE.Mesh(new THREE.PlaneGeometry(window.innerWidth, window.innerHeight), new THREE.MeshStandardMaterial({map: texture})));
+scenePause.add(new THREE.Mesh(new THREE.PlaneGeometry(window.innerWidth, window.innerHeight), new THREE.MeshStandardMaterial({map: texture})));
 
 sceneCreator.spotlights = sceneCreator.createSpotlights(group);
 

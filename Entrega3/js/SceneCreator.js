@@ -2,15 +2,14 @@ class SceneCreator {
 	constructor() {
 		this.scene = new THREE.Scene();
 		this.scene.background = new THREE.Color(0x020122);
-		this.camera = this.createCamera();
+		this.camera = this.createPerspectiveCamera();
 		this.scene.add(this.camera);
 		this.globalLight = this.createLight();
-		this.spotlights = this.createSpotlights();
-		// this.scenePause = new THREE.Scene();
-		// console.log(this.scenePause);
-		// this.scenePause.visible = false;
-		// this.cameraPause = this.createCamera();
-		// this.scenePause.add(this.cameraPause);
+		this.spotlights;
+		this.scenePause = new THREE.Scene();
+		this.scenePause.visible = false;
+		this.cameraPause = this.createCamera();
+		this.scenePause.add(this.cameraPause);
 	}
 
 	createLight() {
