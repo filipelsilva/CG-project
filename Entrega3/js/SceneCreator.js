@@ -5,7 +5,7 @@ class SceneCreator {
 		this.camera = this.createPerspectiveCamera();
 		this.axes = this.createAxes();
 		this.globalLight = this.createLight();
-		this.spotlights = this.createSpotlights();
+		this.spotlights;
 	}
 
 	createAxes() {
@@ -17,30 +17,36 @@ class SceneCreator {
 
 	createLight() {
 		const light = new THREE.DirectionalLight(0xffffff, 1);
-		light.position.set(0, 1000, 1000);
+		light.position.set(0, 1000, -1000);
 		light.castShadow = true;
+		light.target = this.scene;
 		this.scene.add(light);
 		return light;
 	}
 
-	createSpotlights() {
+	createSpotlights(objects) {
 		let light;
 		let group = new THREE.Group();
-		light = new THREE.SpotLight(0xffffff);
+		light = new THREE.SpotLight(0xffffff, 0.6);
 		light.castShadow = true;
 		light.position.set(-225, 1000, 0);
-		light.lookAt(-225, 0, 0);
+		light.angle = Math.PI/16;
+		light.target = objects.children[0];
 		group.add(light);
-		light = new THREE.SpotLight(0xffffff);
+		light = new THREE.SpotLight(0xffffff, 0.6);
 		light.castShadow = true;
 		light.position.set(0, 1000, 0);
-		light.lookAt(0, 0, 0);
+		light.angle = Math.PI/16;
+		light.target = objects.children[1];
 		group.add(light);
-		light = new THREE.SpotLight(0xffffff);
+		/*
+		light = new THREE.SpotLight(0xffffff, 0.6);
 		light.castShadow = true;
 		light.position.set(225, 1000, 0);
-		light.lookAt(225, 0, 0);
+		light.angle = Math.PI/16;
+		light.target = objects.children[2];
 		group.add(light);
+		*/
 		let material, geometry, mesh;
 		let spotlight = new THREE.Group();
 		material = new THREE.MeshStandardMaterial({color: 0x666666});
@@ -85,7 +91,7 @@ class SceneCreator {
 			10000
 		);
 		camera.position.x = 0;
-		camera.position.y = 300;
+		camera.position.y = 1000;
 		camera.position.z = 2000;
 		camera.lookAt(this.scene.position);
 		return camera;

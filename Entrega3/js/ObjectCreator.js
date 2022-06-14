@@ -9,28 +9,31 @@ class ObjectCreator {
 	createPalanque() {
 		let material, geometry, mesh;
 		let group = new THREE.Group();
-		material = new THREE.MeshStandardMaterial({ color: 0x994b00 });
-		geometry = new THREE.BoxGeometry(900, 120, 120);
+		material = new THREE.MeshStandardMaterial({color: 0x994b00});
+		geometry = new THREE.BoxGeometry(1200, 120, 600);
 		mesh = new THREE.Mesh(geometry, material);
 		group.add(mesh);
-		material = new THREE.MeshStandardMaterial({ color: 0x884b00 });
-		geometry = new THREE.BoxGeometry(600, 80, 120);
+		material = new THREE.MeshStandardMaterial({color: 0x994b00});
+		geometry = new THREE.BoxGeometry(900, 80, 120);
 		mesh = new THREE.Mesh(geometry, material);
-		mesh.position.set(0,-20,0);
+		mesh.position.set(0,-20,360);
 		group.add(mesh);
-		material = new THREE.MeshStandardMaterial({ color: 0x774b00 });
-		geometry = new THREE.BoxGeometry(300, 40, 120);
+		material = new THREE.MeshStandardMaterial({color: 0x994b00});
+		geometry = new THREE.BoxGeometry(600, 40, 120);
 		mesh = new THREE.Mesh(geometry, material);
-		mesh.position.set(0,-40,0);
+		mesh.position.set(0,-40,420);
 		group.add(mesh);
 		return group;
 	}
 
 	createFloor() {
 		let geometry, material;
-		geometry = new THREE.PlaneGeometry(1000, 600);
-		material = new THREE.MeshBasicMaterial({color: 0x555555, side: THREE.DoubleSide});
-		return new THREE.Mesh(geometry, material);
+		geometry = new THREE.PlaneGeometry(10000, 10000);
+		material = new THREE.MeshStandardMaterial({color: 0x555555, side: THREE.DoubleSide});
+		let floor = new THREE.Mesh(geometry, material);
+		floor.rotation.x = Math.PI/2;
+		floor.position.set(0,-60,0);
+		return floor;
 	}
 
 	createObjects() {
