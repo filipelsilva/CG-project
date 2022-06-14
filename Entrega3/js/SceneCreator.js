@@ -26,15 +26,15 @@ class SceneCreator {
 	createSpotlights() {
 		let light;
 		let group = new THREE.Group();
-		light = new THREE.DirectionalLight(0xffffff, 1);
+		light = new THREE.SpotLight(0xffffff);
 		light.castShadow = true;
 		light.position.set(150, 1000, 0);
 		group.add(light);
-		light = new THREE.DirectionalLight(0xffffff, 1);
+		light = new THREE.SpotLight(0xffffff);
 		light.castShadow = true;
 		light.position.set(450, 1000, 0);
 		group.add(light);
-		light = new THREE.DirectionalLight(0xffffff, 1);
+		light = new THREE.SpotLight(0xffffff);
 		light.castShadow = true;
 		light.position.set(750, 1000, 0);
 		group.add(light);
