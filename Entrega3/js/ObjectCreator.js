@@ -2,9 +2,8 @@ class ObjectCreator {
 	constructor() {
 		this.group = new THREE.Group();
 
-		//this.palanque = this.createPalanque();
-		
-		//this.floor = this.createFloor();
+		this.palanque = this.createPalanque();
+		this.floor = this.createFloor();
 		this.createObjects();
 	}
 
