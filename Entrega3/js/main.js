@@ -12,7 +12,7 @@ let camera = sceneCreator.camera;
 let axes = sceneCreator.axes;
 
 let group = objectCreator.group;
-let articulate = objectCreator.articulate;
+//let articulate = objectCreator.articulate;
 scene.add(group);
 
 let renderer;
