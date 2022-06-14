@@ -1,25 +1,24 @@
 class ObjectCreator {
 	constructor() {
 		this.group = new THREE.Group();
-
-		//this.palanque = this.createPalanque();
-		//this.floor = this.createFloor();
+		this.palanque = this.createPalanque();
+		this.floor = this.createFloor();
 		this.createObjects();
 	}
 
 	createPalanque() {
 		let material, geometry, mesh;
 		let group = new THREE.Group();
-		material = new THREE.MeshStandardMaterial({color: 0x994b00});
+		material = new THREE.MeshPhongMaterial({color: 0x994b00});
 		geometry = new THREE.BoxGeometry(1200, 120, 600);
 		mesh = new THREE.Mesh(geometry, material);
 		group.add(mesh);
-		material = new THREE.MeshStandardMaterial({color: 0x994b00});
+		material = new THREE.MeshPhongMaterial({color: 0x994b00});
 		geometry = new THREE.BoxGeometry(900, 80, 120);
 		mesh = new THREE.Mesh(geometry, material);
 		mesh.position.set(0,-20,360);
 		group.add(mesh);
-		material = new THREE.MeshStandardMaterial({color: 0x994b00});
+		material = new THREE.MeshPhongMaterial({color: 0x994b00});
 		geometry = new THREE.BoxGeometry(600, 40, 120);
 		mesh = new THREE.Mesh(geometry, material);
 		mesh.position.set(0,-40,420);
@@ -29,8 +28,8 @@ class ObjectCreator {
 
 	createFloor() {
 		let geometry, material;
-		geometry = new THREE.PlaneGeometry(10000, 10000);
-		material = new THREE.MeshStandardMaterial({color: 0x555555, side: THREE.DoubleSide});
+		geometry = new THREE.PlaneGeometry(15000, 10000);
+		material = new THREE.MeshPhongMaterial({color: 0x555555, side: THREE.DoubleSide});
 		let floor = new THREE.Mesh(geometry, material);
 		floor.rotation.x = Math.PI/2;
 		floor.position.set(0,-60,0);
@@ -38,7 +37,7 @@ class ObjectCreator {
 	}
 
 	createObjects() {
-		let material, geometry, path, vertices;
+		let material, geometry, vertices;
 		let objects = [];
 
 		geometry = new THREE.BufferGeometry();
@@ -53,11 +52,13 @@ class ObjectCreator {
 	
 		] );
 		geometry.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
-		material = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
+		material = new THREE.MeshPhongMaterial( { color: 0xff0000 } );
 		objects[0] = new THREE.Mesh( geometry, material );
 
-		objects[0].position.set(-350, 0 ,0);
+		objects[0].position.set(-300, 300, 0);
 		objects[0].scale.set(2,2,2);
+		objects[0].castShadow = true;
+		objects[0].receiveShadow = true;
 
 		geometry = new THREE.BufferGeometry();
 		vertices = new Float32Array( [
@@ -96,11 +97,13 @@ class ObjectCreator {
 			
 		] );
 		geometry.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
-		material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+		material = new THREE.MeshPhongMaterial( { color: 0x00ff00 } );
 		objects[1] = new THREE.Mesh( geometry, material );
 
-		objects[1].position.set(0, 0 ,0);
+		objects[1].position.set(0, 300, 0);
 		objects[1].scale.set(2,2,2);
+		objects[1].castShadow = true;
+		objects[1].receiveShadow = true;
 
 		geometry = new THREE.BufferGeometry();
 		vertices = new Float32Array( [
@@ -178,11 +181,13 @@ class ObjectCreator {
 			
 		] );
 		geometry.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
-		material = new THREE.MeshBasicMaterial( { color: 0x0000ff } );
+		material = new THREE.MeshPhongMaterial( { color: 0x0000ff } );
 		objects[2] = new THREE.Mesh( geometry, material );
 
-		objects[2].position.set(300, 0 ,0);
+		objects[2].position.set(300, 300, 0);
 		objects[2].scale.set(4,4,4);
+		objects[2].castShadow = true;
+		objects[2].receiveShadow = true;
 
 		objects.map(obj => {
 			this.group.add(obj);

@@ -29,24 +29,22 @@ class SceneCreator {
 		let group = new THREE.Group();
 		light = new THREE.SpotLight(0xffffff, 0.6);
 		light.castShadow = true;
-		light.position.set(-225, 1000, 0);
+		light.position.set(-300, 1000, -100);
 		light.angle = Math.PI/16;
 		light.target = objects.children[0];
 		group.add(light);
 		light = new THREE.SpotLight(0xffffff, 0.6);
 		light.castShadow = true;
-		light.position.set(0, 1000, 0);
+		light.position.set(0, 1000, -100);
 		light.angle = Math.PI/16;
 		light.target = objects.children[1];
 		group.add(light);
-		/*
 		light = new THREE.SpotLight(0xffffff, 0.6);
 		light.castShadow = true;
-		light.position.set(225, 1000, 0);
+		light.position.set(300, 1000, -100);
 		light.angle = Math.PI/16;
 		light.target = objects.children[2];
 		group.add(light);
-		*/
 		let material, geometry, mesh;
 		let spotlight = new THREE.Group();
 		material = new THREE.MeshStandardMaterial({color: 0x666666});
@@ -57,7 +55,7 @@ class SceneCreator {
 		mesh = new THREE.Mesh(geometry, material);
 		mesh.position.set(0,-55,0);
 		spotlight.add(mesh);
-		spotlight.position.set(-225, 1100, 0);
+		spotlight.position.set(-300, 1100, -100);
 		group.add(spotlight);
 		spotlight = new THREE.Group();
 		geometry = new THREE.SphereGeometry(30, 20 ,20);
@@ -67,7 +65,7 @@ class SceneCreator {
 		mesh = new THREE.Mesh(geometry, material);
 		mesh.position.set(0,-55,0);
 		spotlight.add(mesh);
-		spotlight.position.set(0, 1100, 0);
+		spotlight.position.set(0, 1100, -100);
 		group.add(spotlight);
 		spotlight = new THREE.Group();
 		geometry = new THREE.SphereGeometry(30, 20 ,20);
@@ -77,7 +75,7 @@ class SceneCreator {
 		mesh = new THREE.Mesh(geometry, material);
 		mesh.position.set(0,-55,0);
 		spotlight.add(mesh);
-		spotlight.position.set(225, 1100, 0);
+		spotlight.position.set(300, 1100, -100);
 		group.add(spotlight);
 		this.scene.add(group);
 		return group;
