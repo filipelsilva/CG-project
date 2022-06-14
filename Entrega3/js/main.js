@@ -23,7 +23,12 @@ scene.add(group);
 
 let renderer;
 
+const texture = new THREE.TextureLoader().load("media/pause_menu.png");
+texture.repeat.set(1, 1);
+scene.add(new THREE.Mesh(new THREE.PlaneGeometry(window.innerWidth, window.innerHeight), new THREE.MeshStandardMaterial({map: texture})));
+
 function onResize() {
+	texture.updateMatrix();
 	renderer.setSize(window.innerWidth, window.innerHeight);
 
 	if (window.innerHeight > 0 && window.innerWidth > 0) {
