@@ -8,6 +8,7 @@ class SceneCreator {
 		this.spotlights;
 		this.scenePause = new THREE.Scene();
 		this.cameraPause = this.createCamera();
+		this.scenePause.add(this.cameraPause);
 	}
 
 	createLight() {

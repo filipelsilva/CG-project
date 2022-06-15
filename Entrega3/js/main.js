@@ -13,6 +13,8 @@ let objectCreator = new ObjectCreator();
 
 let scene = sceneCreator.scene;
 let camera = sceneCreator.camera;
+// let scenePause = sceneCreator.scenePause;
+// let cameraPause = sceneCreator.cameraPause;
 let scenePause = new THREE.Scene();
 let cameraPause = new THREE.OrthographicCamera(
 	window.innerWidth/-2,
@@ -22,6 +24,7 @@ let cameraPause = new THREE.OrthographicCamera(
 	-1000,
 	1000
 );
+scenePause.add(cameraPause);
 
 let group = objectCreator.group;
 
