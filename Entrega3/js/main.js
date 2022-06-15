@@ -13,18 +13,6 @@ let objectCreator = new ObjectCreator();
 
 let scene = sceneCreator.scene;
 let camera = sceneCreator.camera;
-// let scenePause = sceneCreator.scenePause;
-// let cameraPause = sceneCreator.cameraPause;
-let scenePause = new THREE.Scene();
-let cameraPause = new THREE.OrthographicCamera(
-	window.innerWidth/-2,
-	window.innerWidth/2,
-	window.innerHeight/2,
-	window.innerHeight/-2,
-	-1000,
-	1000
-);
-scenePause.add(cameraPause);
 
 let group = objectCreator.group;
 
@@ -34,14 +22,33 @@ scene.add(palanque);
 scene.add(floor);
 scene.add(group);
 
-let texture = new THREE.TextureLoader().load("media/pause_menu.png");
-let material = new THREE.MeshStandardMaterial({map: texture});
-let geometry = new THREE.PlaneGeometry(window.innerWidth, window.innerHeight);
-let pauseMenu = new THREE.Mesh(geometry, material);
-texture.repeat.set(1, 1);
-scenePause.add(pauseMenu);
-
 sceneCreator.spotlights = sceneCreator.createSpotlights(group);
+
+// Pause menu
+let scenePause = new THREE.Scene();
+let cameraPause = new THREE.OrthographicCamera(
+	window.innerWidth/-2,
+	window.innerWidth/2,
+	window.innerHeight/2,
+	window.innerHeight/-2,
+	-1000,
+	1000
+);
+
+scenePause.add(cameraPause);
+let texture = new THREE.TextureLoader().load("media/pause_menu.png");
+texture.wrapS = THREE.RepeatWrapping;
+texture.wrapT = THREE.RepeatWrapping;
+
+let material = new THREE.MeshStandardMaterial({map: texture, transparent: true});
+let geometry = new THREE.PlaneGeometry(500, 500);
+
+let pauseMenu = new THREE.Mesh(geometry, material);
+// pauseMenu.position.y -= 400;
+
+scenePause.add(pauseMenu);
+cameraPause.lookAt(scenePause.position);
+// End of pause menu
 
 function onResize() {
 	texture.updateMatrix();
@@ -58,6 +65,7 @@ function onResize() {
 
 function init() {
 	renderer = new THREE.WebGLRenderer({
+		alpha: true,
 		antialias: true
 	});
 
