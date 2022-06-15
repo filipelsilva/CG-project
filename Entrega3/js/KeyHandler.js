@@ -15,21 +15,6 @@ class KeyHandler {
 		this.keyMap[code] = false;
 	}
 
-	rotateAroundPoint(object, point, axis, rotation) {
-		object.position.sub(point);
-		object.position.applyAxisAngle(axis, rotation);
-		object.position.add(point);
-		object.rotateOnAxis(axis, rotation);
-	}
-
-	getObjectCenterPoint(mesh) {
-		let center = new THREE.Vector3();
-		let geometry = mesh.geometry;
-		geometry.computeBoundingBox();
-		geometry.boundingBox.getCenter(center);
-		return center;
-	}
-
 	// Handler for the movement of the objects.
 	doKeyPress(delta, objects) {
 		if (this.keyMap[81] || this.keyMap[113]) { // Q/q
@@ -63,7 +48,6 @@ class KeyHandler {
 		}
 	}
 
-	// Handler for toggles, e.g. axesHelper.
 	doOneTimeEvent(code) {
 		switch (code) {
 			case 65:  // A
@@ -90,11 +74,10 @@ class KeyHandler {
 			case 80:  // P
 			case 112: // p
 				// play/pause
-				if (clock.running) {
-					cancelAnimationFrame(id);
+				isPaused = !isPaused;
+				if (isPaused) {
 					clock.stop();
 				} else {
-					id = requestAnimationFrame(animate);
 					clock.start();
 				}
 				break;
@@ -102,6 +85,7 @@ class KeyHandler {
 			case 79:  // O
 			case 111: // o
 				// reset
+				initObjects();
 				break;
 			case 49: // 1
 				// perspetiva

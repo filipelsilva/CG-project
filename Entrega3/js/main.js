@@ -3,28 +3,73 @@
 let id;
 let clock = new THREE.Clock();
 let delta = 0;
-
-let keyHandler = new KeyHandler();
-let sceneCreator = new SceneCreator();
-let objectCreator = new ObjectCreator();
-
-let scene = sceneCreator.scene;
-let camera = sceneCreator.camera;
-let axes = sceneCreator.axes;
-
-let group = objectCreator.group;
-
-let palanque = objectCreator.palanque;
-let floor = objectCreator.floor;
-scene.add(palanque);
-scene.add(floor);
-scene.add(group);
-
-sceneCreator.spotlights = sceneCreator.createSpotlights(group);
+let isPaused = false;
 
 let renderer;
 
+let keyHandler = new KeyHandler();
+let sceneCreator = new SceneCreator();
+let objectCreator;
+
+let scene = sceneCreator.scene;
+let camera = sceneCreator.camera;
+
+let group;
+let palanque;
+let floor;
+
+function initObjects() {
+	scene.remove(group);
+	scene.remove(palanque);
+	scene.remove(floor);
+	scene.remove(sceneCreator.spotlights);
+
+	objectCreator = new ObjectCreator();
+
+	group = objectCreator.group;
+	palanque = objectCreator.palanque;
+	floor = objectCreator.floor;
+
+	scene.add(palanque);
+	scene.add(floor);
+	scene.add(group);
+
+	sceneCreator.spotlights = sceneCreator.createSpotlights(group);
+}
+
+// Pause menu
+let scenePause = new THREE.Scene();
+let cameraPause = new THREE.OrthographicCamera(
+	window.innerWidth/-2,
+	window.innerWidth/2,
+	window.innerHeight/2,
+	window.innerHeight/-2,
+	-1000,
+	1000
+);
+
+let light = new THREE.DirectionalLight(0xffffff, 1);
+light.position.set(0, 1000, 1000);
+light.castShadow = true;
+light.target = scenePause;
+scenePause.add(light);
+
+scenePause.add(cameraPause);
+let texture = new THREE.TextureLoader().load("media/pause_menu2.png");
+texture.wrapS = THREE.RepeatWrapping;
+texture.wrapT = THREE.RepeatWrapping;
+
+let material = new THREE.MeshStandardMaterial({map: texture, transparent: true});
+let geometry = new THREE.PlaneGeometry(480, 360);
+
+let pauseMenu = new THREE.Mesh(geometry, material);
+
+scenePause.add(pauseMenu);
+cameraPause.lookAt(scenePause.position);
+// End of pause menu
+
 function onResize() {
+	texture.updateMatrix();
 	renderer.setSize(window.innerWidth, window.innerHeight);
 
 	if (window.innerHeight > 0 && window.innerWidth > 0) {
@@ -37,10 +82,14 @@ function onResize() {
 }
 
 function init() {
+	initObjects();
+
 	renderer = new THREE.WebGLRenderer({
+		alpha: true,
 		antialias: true
 	});
 
+	renderer.autoClear = false;
 	renderer.setSize(window.innerWidth, window.innerHeight);
 	document.body.appendChild(renderer.domElement);
 
@@ -49,12 +98,22 @@ function init() {
 	window.addEventListener("resize", onResize);
 }
 
+function render() {
+	renderer.clear();
+	renderer.render(scene, camera);
+
+	if (isPaused) {
+		renderer.clearDepth();
+		renderer.render(scenePause, cameraPause);
+	}
+}
+
 function animate() {
 	delta = clock.getDelta();
 
 	keyHandler.doKeyPress(delta, group);
 
-	renderer.render(scene, camera);
+	render();
 
-	id = requestAnimationFrame(animate);
+	requestAnimationFrame(animate);
 }
