@@ -107,9 +107,9 @@ class ObjectCreator {
 
 		geometry = new THREE.BufferGeometry();
 		vertices = new Float32Array( [
-			-100.0, 0.0,  0.0,
+			-50.0, 0.0,  0.0,
 			-15.24, -33.14, 20.0,
-			100, 0.0, 0.0,
+			50, 0.0, 0.0,
 
 			-15.24, -33.14, 20.0,
 			41.09, -21.20,  20.0,
