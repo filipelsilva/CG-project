@@ -52,7 +52,7 @@ function init() {
 function animate() {
 	delta = clock.getDelta();
 
-	keyHandler.doKeyPress(delta);
+	keyHandler.doKeyPress(delta, group);
 
 	renderer.render(scene, camera);
 

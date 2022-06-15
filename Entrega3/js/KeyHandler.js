@@ -15,30 +15,50 @@ class KeyHandler {
 		this.keyMap[code] = false;
 	}
 
+	rotateAroundPoint(object, point, axis, rotation) {
+		object.position.sub(point);
+		object.position.applyAxisAngle(axis, rotation);
+		object.position.add(point);
+		object.rotateOnAxis(axis, rotation);
+	}
+
+	getObjectCenterPoint(mesh) {
+		let center = new THREE.Vector3();
+		let geometry = mesh.geometry;
+		geometry.computeBoundingBox();
+		geometry.boundingBox.getCenter(center);
+		return center;
+	}
+
 	// Handler for the movement of the objects.
-	doKeyPress(delta) {
+	doKeyPress(delta, objects) {
 		if (this.keyMap[81] || this.keyMap[113]) { // Q/q
-			articulate.position.x += 1;
+			objects.children[0].rotateY(3 * delta)
 			// rodar peça 1
 		}
 
 		if (this.keyMap[87] || this.keyMap[119]) { // W/w
+			objects.children[0].rotateY(-3 * delta)
 			// rodar peça 1
 		}
 
 		if (this.keyMap[69] || this.keyMap[101]) { // E/e
+			objects.children[1].rotateY(3 * delta)
 			// rodar peça 2
 		}
 
 		if (this.keyMap[82] || this.keyMap[114]) { // R/r
+			objects.children[1].rotateY(-3 * delta)
 			// rodar peça 2
 		}
 
 		if (this.keyMap[84] || this.keyMap[116]) { // T/t
+			objects.children[2].rotateY(3 * delta)
 			// rodar peça 3
 		}
 
 		if (this.keyMap[89] || this.keyMap[121]) { // Y/y
+			objects.children[2].rotateY(-3 * delta)
 			// rodar peça 3
 		}
 	}
