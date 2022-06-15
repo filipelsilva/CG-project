@@ -18,8 +18,9 @@ let palanque = objectCreator.palanque;
 let floor = objectCreator.floor;
 scene.add(palanque);
 scene.add(floor);
-
 scene.add(group);
+
+sceneCreator.spotlights = sceneCreator.createSpotlights(group);
 
 let renderer;
 
