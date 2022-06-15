@@ -69,17 +69,10 @@ class KeyHandler {
 			case 80:  // P
 			case 112: // p
 				// play/pause
-				if (clock.running) {
-					scene.visible = false;
-					scenePause.visible = true;
-					cancelAnimationFrame(id);
-					id = requestAnimationFrame(animatePause);
+				isPaused = !isPaused;
+				if (isPaused) {
 					clock.stop();
 				} else {
-					scene.visible = true;
-					scenePause.visible = false;
-					cancelAnimationFrame(id);
-					id = requestAnimationFrame(animate);
 					clock.start();
 				}
 				break;
