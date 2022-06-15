@@ -35,8 +35,14 @@ let cameraPause = new THREE.OrthographicCamera(
 	1000
 );
 
+let light = new THREE.DirectionalLight(0xffffff, 1);
+light.position.set(0, 1000, 1000);
+light.castShadow = true;
+light.target = scenePause;
+scenePause.add(light);
+
 scenePause.add(cameraPause);
-let texture = new THREE.TextureLoader().load("media/pause_menu.png");
+let texture = new THREE.TextureLoader().load("media/pause_menu2.png");
 texture.wrapS = THREE.RepeatWrapping;
 texture.wrapT = THREE.RepeatWrapping;
 
