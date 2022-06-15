@@ -86,6 +86,10 @@ class KeyHandler {
 			case 111: // o
 				// reset
 				initObjects();
+				if (isPaused) {
+					isPaused = false;
+					clock.start();
+				}
 				break;
 			case 49: // 1
 				// perspetiva
