@@ -18,7 +18,6 @@ class KeyHandler {
 	// Handler for the movement of the objects.
 	doKeyPress(delta) {
 		if (this.keyMap[81] || this.keyMap[113]) { // Q/q
-			articulate.position.x += 1;
 			// rodar peça 1
 		}
 
@@ -80,6 +79,7 @@ class KeyHandler {
 			case 79:  // O
 			case 111: // o
 				// reset
+				initObjects();
 				break;
 			case 49: // 1
 				// perspetiva
