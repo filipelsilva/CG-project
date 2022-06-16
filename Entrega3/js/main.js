@@ -114,10 +114,9 @@ function init() {
 		alpha: true,
 		antialias: true
 	});
-	// renderer.shadowMap.enabled = true;
-	// renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
 	renderer.xr.enabled = true;
+	renderer.xr.updateCamera(sceneCreator.createPerspectiveCamera());
 	renderer.autoClear = false;
 	renderer.setSize(window.innerWidth, window.innerHeight);
 

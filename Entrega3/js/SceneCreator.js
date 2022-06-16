@@ -20,7 +20,7 @@ class SceneCreator {
 		light.shadow.camera.near = 0.5;
 		light.shadow.camera.far = 500000;
 		this.scene.add(light);
-		let h = new THREE.CameraHelper( light.shadow.camera );
+		let h = new THREE.CameraHelper(light.shadow.camera);
 		this.scene.add(h);
 		return light;
 	}
