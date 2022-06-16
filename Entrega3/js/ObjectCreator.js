@@ -9,19 +9,25 @@ class ObjectCreator {
 	createPalanque() {
 		let material, geometry, mesh;
 		let group = new THREE.Group();
-		material = new THREE.MeshPhongMaterial({color: 0x994b00});
+		material = new THREE.MeshStandardMaterial({color: 0x994b00});
 		geometry = new THREE.BoxGeometry(1200, 120, 600);
 		mesh = new THREE.Mesh(geometry, material);
+		mesh.castShadow = true;
+		mesh.receiveShadow = true;
 		group.add(mesh);
-		material = new THREE.MeshPhongMaterial({color: 0x994b00});
+		material = new THREE.MeshStandardMaterial({color: 0x994b00});
 		geometry = new THREE.BoxGeometry(900, 80, 120);
 		mesh = new THREE.Mesh(geometry, material);
 		mesh.position.set(0,-20,360);
+		mesh.castShadow = true;
+		mesh.receiveShadow = true;
 		group.add(mesh);
-		material = new THREE.MeshPhongMaterial({color: 0x994b00});
+		material = new THREE.MeshStandardMaterial({color: 0x994b00});
 		geometry = new THREE.BoxGeometry(600, 40, 120);
 		mesh = new THREE.Mesh(geometry, material);
 		mesh.position.set(0,-40,420);
+		mesh.castShadow = true;
+		mesh.receiveShadow = true;
 		group.add(mesh);
 		return group;
 	}
@@ -29,8 +35,10 @@ class ObjectCreator {
 	createFloor() {
 		let geometry, material;
 		geometry = new THREE.PlaneGeometry(15000, 10000);
-		material = new THREE.MeshPhongMaterial({color: 0x555555, side: THREE.DoubleSide});
+		material = new THREE.MeshStandardMaterial({color: 0x555555, side: THREE.DoubleSide});
 		let floor = new THREE.Mesh(geometry, material);
+		floor.castShadow = true;
+		floor.receiveShadow = true;
 		floor.rotation.x = Math.PI/2;
 		floor.position.set(0,-60,0);
 		return floor;
@@ -56,6 +64,8 @@ class ObjectCreator {
 		geometry.normalizeNormals();
 		material = new THREE.MeshPhongMaterial( { color: 0xff0000, side: THREE.DoubleSide});
 		objects[0] = new THREE.Mesh( geometry, material );
+		objects[0].castShadow = true;
+		objects[0].receiveShadow = true;
 
 		objects[0].position.set(-300, 300, 0);
 		objects[0].scale.set(2,2,2);
@@ -101,6 +111,8 @@ class ObjectCreator {
 		geometry.normalizeNormals();
 		material = new THREE.MeshPhongMaterial( { color: 0x00ff00, side: THREE.DoubleSide } );
 		objects[1] = new THREE.Mesh( geometry, material );
+		objects[1].castShadow = true;
+		objects[1].receiveShadow = true;
 
 		objects[1].position.set(0, 300, 0);
 		objects[1].scale.set(2,2,2);
@@ -201,6 +213,8 @@ class ObjectCreator {
 		geometry.normalizeNormals();
 		material = new THREE.MeshPhongMaterial( { color: 0x0000ff, side: THREE.DoubleSide } );
 		objects[2] = new THREE.Mesh( geometry, material );
+		objects[2].castShadow = true;
+		objects[2].receiveShadow = true;
 
 		objects[2].position.set(300, 300, 0);
 		objects[2].scale.set(2,2,2);

@@ -4,6 +4,10 @@ let id;
 let clock = new THREE.Clock();
 let delta = 0;
 let isPaused = false;
+let isGlobalLight = true;
+let isSpotlight1 = true;
+let isSpotlight2 = true;
+let isSpotlight3 = true;
 
 let renderer;
 
@@ -81,8 +85,22 @@ function onResize() {
 			camera.right = window.innerWidth/2;
 			camera.top = window.innerHeight/2;
 			camera.bottom = window.innerHeight/-2;
+			group.scale.set(window.innerWidth / window.innerHeight,window.innerWidth / window.innerHeight,window.innerWidth / window.innerHeight);
+			palanque.scale.set(window.innerWidth / window.innerHeight,window.innerWidth / window.innerHeight,window.innerWidth / window.innerHeight);
+			floor.scale.set(window.innerWidth / window.innerHeight,window.innerWidth / window.innerHeight,window.innerWidth / window.innerHeight);
+			sceneCreator.spotlights.scale.set(window.innerWidth / window.innerHeight,window.innerWidth / window.innerHeight,window.innerWidth / window.innerHeight);
 		}
 		else{
+			group.scale.set(1,1,1);
+			palanque.scale.set(1,1,1);
+			floor.scale.set(1,1,1);
+			sceneCreator.spotlights.scale.set(1,1,1);
+			/* TDOD check intended behaviour
+			group.scale.set(window.innerWidth / window.innerHeight,window.innerWidth / window.innerHeight,window.innerWidth / window.innerHeight);
+			palanque.scale.set(window.innerWidth / window.innerHeight,window.innerWidth / window.innerHeight,window.innerWidth / window.innerHeight);
+			floor.scale.set(window.innerWidth / window.innerHeight,window.innerWidth / window.innerHeight,window.innerWidth / window.innerHeight);
+			sceneCreator.spotlights.scale.set(window.innerWidth / window.innerHeight,window.innerWidth / window.innerHeight,window.innerWidth / window.innerHeight);
+			*/
 			camera.aspect = window.innerWidth / window.innerHeight;
 		}
 		camera.updateProjectionMatrix();
@@ -96,6 +114,8 @@ function init() {
 		alpha: true,
 		antialias: true
 	});
+	renderer.shadowMap.enabled = true;
+	renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
 	renderer.autoClear = false;
 	renderer.setSize(window.innerWidth, window.innerHeight);

@@ -11,11 +11,17 @@ class SceneCreator {
 	}
 
 	createLight() {
-		const light = new THREE.DirectionalLight(0xffffff, 1);
-		light.position.set(0, 1000, -1000);
+		let light = new THREE.DirectionalLight(0xffffff, 1);
+		light.position.set(0, 500, 1000);
 		light.castShadow = true;
 		light.target = this.scene;
+		light.shadow.mapSize.width = 512000;  
+		light.shadow.mapSize.height = 512000; 
+		light.shadow.camera.near = 0.5;
+		light.shadow.camera.far = 500000     
 		this.scene.add(light);
+		let h = new THREE.CameraHelper( light.shadow.camera );
+		this.scene.add(h);
 		return light;
 	}
 
@@ -81,14 +87,20 @@ class SceneCreator {
 	}
 
 	createOrthographicCamera() {
-		return new THREE.OrthographicCamera(
+		let camera = new THREE.OrthographicCamera(
 			window.innerWidth/-2,
 			window.innerWidth/2,
 			window.innerHeight/2,
 			window.innerHeight/-2,
-			-1000,
-			1000
+			-10000,
+			10000
 		);
+		camera.position.x = 0;
+		camera.position.y = 300;
+		camera.position.z = 1500;
+		camera.zoom = 0.5;
+		camera.lookAt(...this.scene.position);
+		return camera;
 	}
 
 	createPerspectiveCamera() {
@@ -101,7 +113,7 @@ class SceneCreator {
 		camera.position.x = 0;
 		camera.position.y = 300;
 		camera.position.z = 1500;
-		camera.lookAt(this.scene.position);
+		camera.lookAt(...this.scene.position);
 		return camera;
 	}
 }

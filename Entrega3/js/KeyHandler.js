@@ -61,14 +61,32 @@ class KeyHandler {
 			case 90:  // Z
 			case 122: // z
 				// toggle 1 spotlight
+				isSpotlight1 = !isSpotlight1;
+				if (isSpotlight1) {
+					sceneCreator.spotlights.children[0].intensity = 0.6;
+				} else {
+					sceneCreator.spotlights.children[0].intensity = 0;
+				}
 				break;
 			case 88:  // X
 			case 120: // x
 				// toggle 2 spotlight
+				isSpotlight2 = !isSpotlight2;
+				if (isSpotlight2) {
+					sceneCreator.spotlights.children[1].intensity = 0.6;
+				} else {
+					sceneCreator.spotlights.children[1].intensity = 0;
+				}
 				break;
 			case 67:  // C
 			case 99:  // c
 				// toggle 3 spotlight
+				isSpotlight3 = !isSpotlight3;
+				if (isSpotlight3) {
+					sceneCreator.spotlights.children[2].intensity = 0.6;
+				} else {
+					sceneCreator.spotlights.children[2].intensity = 0;
+				}
 				break;
 			// devia ser S
 			case 80:  // P
@@ -93,9 +111,15 @@ class KeyHandler {
 				break;
 			case 49: // 1
 				// perspetiva
+				scene.activeCamera = sceneCreator.perspectiveCamera;
+				camera = scene.activeCamera;
+				onResize();
 				break;
 			case 50: // 2
 				// fixa, ortogonal
+				scene.activeCamera = sceneCreator.orthographicCamera;
+				camera = scene.activeCamera;
+				onResize();
 				break;
 			default:
 				return false;
