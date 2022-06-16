@@ -45,10 +45,19 @@ class ObjectCreator {
 	}
 
 	createObjects() {
-		let material, geometry, vertices;
+		let phongMaterial, lambertMaterial, geometry, vertices;
+		let phongMaterials, lambertMaterials;
 		let objects = [];
 
 		const texture = new THREE.TextureLoader().load( "media/origami.jpg" );
+
+		phongMaterial = new THREE.MeshPhongMaterial( { color: 0xffffff, side: THREE.FrontSide });
+		phongMaterial.map = texture;
+		phongMaterials = [phongMaterial, new THREE.MeshPhongMaterial( { color: 0xffffff, side: THREE.BackSide })];
+
+		lambertMaterial = new THREE.MeshLambertMaterial( { color: 0xffffff, side: THREE.FrontSide });
+		lambertMaterial.map = texture;
+		lambertMaterials = [lambertMaterial, new THREE.MeshLambertMaterial( { color: 0xffffff, side: THREE.BackSide })];
 
 		geometry = new THREE.BufferGeometry();
 		vertices = new Float32Array( [
@@ -76,10 +85,7 @@ class ObjectCreator {
 		geometry.normalizeNormals();
 		geometry.addGroup(0, 6, 0);
 		geometry.addGroup(0, 6, 1);
-		material = new THREE.MeshPhongMaterial( { color: 0xffffff, side: THREE.FrontSide});
-		material.map = texture;
-		let materials = [material, new THREE.MeshPhongMaterial( { color: 0xffffff, side: THREE.BackSide})];
-		objects[0] = new THREE.Mesh( geometry, materials );
+		objects[0] = new THREE.Mesh( geometry, phongMaterials );
 		objects[0].castShadow = true;
 		objects[0].receiveShadow = true;
 
@@ -160,10 +166,7 @@ class ObjectCreator {
 		geometry.normalizeNormals();
 		geometry.addGroup(0, 24, 0);
 		geometry.addGroup(0, 24, 1);
-		material = new THREE.MeshPhongMaterial( { color: 0xffffff, side: THREE.FrontSide});
-		material.map = texture;
-		materials = [material, new THREE.MeshPhongMaterial( { color: 0xffffff, side: THREE.BackSide})];
-		objects[1] = new THREE.Mesh( geometry, materials );
+		objects[1] = new THREE.Mesh( geometry, phongMaterials );
 		objects[1].castShadow = true;
 		objects[1].receiveShadow = true;
 
@@ -356,10 +359,7 @@ class ObjectCreator {
 		geometry.normalizeNormals();
 		geometry.addGroup(0, 66, 0);
 		geometry.addGroup(0, 66, 1);
-		material = new THREE.MeshPhongMaterial( { color: 0xffffff, side: THREE.FrontSide});
-		material.map = texture;
-		materials = [material, new THREE.MeshPhongMaterial( { color: 0xffffff, side: THREE.BackSide})];
-		objects[2] = new THREE.Mesh( geometry, materials );
+		objects[2] = new THREE.Mesh( geometry, phongMaterials );
 		objects[2].castShadow = true;
 		objects[2].receiveShadow = true;
 
