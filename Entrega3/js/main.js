@@ -11,9 +11,9 @@ let isSpotlight3 = true;
 
 let renderer;
 
-let keyHandler;
 let objectCreator;
 let sceneCreator = new SceneCreator();
+let keyHandler = new KeyHandler();
 
 let scene = sceneCreator.scene;
 let perspectiveCamera = sceneCreator.perspectiveCamera;
@@ -45,7 +45,6 @@ function initObjects() {
 
 	sceneCreator.globalLight = sceneCreator.createLight();
 	sceneCreator.spotlights = sceneCreator.createSpotlights(group);
-	keyHandler = new KeyHandler(group);
 }
 
 // Pause menu
