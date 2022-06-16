@@ -56,8 +56,8 @@ class ObjectCreator {
 			100 , 0,  -30,
 			0,  100,  0,
 			
-			0, -100,  0,
 			-100, 0,  -30,
+			0, -100,  0,
 			0,  100,  0
 	
 		] );
@@ -66,15 +66,15 @@ class ObjectCreator {
 			1.0, 0.0,
 			1.0, 1.0,
 
-			0.0, 0.0,
 			0.0, 1.0,
+			0.0, 0.0,
 			1.0, 1.0,	
 		]);
 		geometry.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
 		geometry.addAttribute( 'uv', new THREE.BufferAttribute( uvs, 2 ) );
 		geometry.computeVertexNormals();
 		geometry.normalizeNormals();
-		material = new THREE.MeshPhongMaterial( { side: THREE.DoubleSide});
+		material = new THREE.MeshPhongMaterial( {side: THREE.DoubleSide });
 		material.map = texture;
 		objects[0] = new THREE.Mesh( geometry, material );
 		objects[0].castShadow = true;
@@ -124,32 +124,32 @@ class ObjectCreator {
 			1.0, 0.0,
 			1.0, 1.0,
 
-			0.0, 0.0,
 			0.0, 1.0,
+			0.0, 0.0,
 			1.0, 1.0,
 
 			0.0, 0.0,
 			1.0, 0.0,
 			1.0, 1.0,
 
-			0.0, 0.0,
 			0.0, 1.0,
+			0.0, 0.0,
 			1.0, 1.0,
 
 			0.0, 0.0,
 			1.0, 0.0,
 			1.0, 1.0,
 
-			0.0, 0.0,
 			0.0, 1.0,
+			0.0, 0.0,
 			1.0, 1.0,
 
 			0.0, 0.0,
 			1.0, 0.0,
 			1.0, 1.0,
 
-			0.0, 0.0,
 			0.0, 1.0,
+			0.0, 0.0,
 			1.0, 1.0,
 			]);
 		geometry.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
@@ -262,88 +262,88 @@ class ObjectCreator {
 			1.0, 0.0,
 			1.0, 1.0,
 
-			0.0, 0.0,
 			0.0, 1.0,
+			0.0, 0.0,
 			1.0, 1.0,
 
 			0.0, 0.0,
 			1.0, 0.0,
 			1.0, 1.0,
 
-			0.0, 0.0,
 			0.0, 1.0,
+			0.0, 0.0,
 			1.0, 1.0,
 
 			0.0, 0.0,
 			1.0, 0.0,
 			1.0, 1.0,
 
-			0.0, 0.0,
 			0.0, 1.0,
+			0.0, 0.0,
 			1.0, 1.0,
 			
 			0.0, 0.0,
 			1.0, 0.0,
 			1.0, 1.0,
 
-			0.0, 0.0,
 			0.0, 1.0,
+			0.0, 0.0,
 			1.0, 1.0,
 
 			0.0, 0.0,
 			1.0, 0.0,
 			1.0, 1.0,
 
-			0.0, 0.0,
 			0.0, 1.0,
+			0.0, 0.0,
 			1.0, 1.0,
 			
 			0.0, 0.0,
 			1.0, 0.0,
 			1.0, 1.0,
 
-			0.0, 0.0,
 			0.0, 1.0,
+			0.0, 0.0,
 			1.0, 1.0,
 			
 			0.0, 0.0,
 			1.0, 0.0,
 			1.0, 1.0,
 
-			0.0, 0.0,
 			0.0, 1.0,
+			0.0, 0.0,
 			1.0, 1.0,
 			
 			0.0, 0.0,
 			1.0, 0.0,
 			1.0, 1.0,
 
-			0.0, 0.0,
 			0.0, 1.0,
+			0.0, 0.0,
 			1.0, 1.0,
 			
 			0.0, 0.0,
 			1.0, 0.0,
 			1.0, 1.0,
 
-			0.0, 0.0,
 			0.0, 1.0,
+			0.0, 0.0,
 			1.0, 1.0,
 			
 			0.0, 0.0,
 			1.0, 0.0,
 			1.0, 1.0,
 
-			0.0, 0.0,
 			0.0, 1.0,
+			0.0, 0.0,
 			1.0, 1.0,
 			
 			0.0, 0.0,
 			1.0, 0.0,
 			1.0, 1.0,
 
-			0.0, 0.0,
 			0.0, 1.0,
+			0.0, 0.0,
 			1.0, 1.0,
 			]);
 		geometry.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
