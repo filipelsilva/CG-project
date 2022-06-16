@@ -71,12 +71,15 @@ class ObjectCreator {
 			1.0, 1.0,	
 		]);
 		geometry.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
-		geometry.addAttribute( 'uv', new THREE.BufferAttribute( uvs, 2 ) );
+		geometry.setAttribute( 'uv', new THREE.BufferAttribute( uvs, 2 ) );
 		geometry.computeVertexNormals();
 		geometry.normalizeNormals();
-		material = new THREE.MeshPhongMaterial( {side: THREE.DoubleSide });
+		geometry.addGroup(0, 6, 0);
+		geometry.addGroup(0, 6, 1);
+		material = new THREE.MeshPhongMaterial( { color: 0xffffff, side: THREE.FrontSide});
 		material.map = texture;
-		objects[0] = new THREE.Mesh( geometry, material );
+		let materials = [material, new THREE.MeshPhongMaterial( { color: 0xffffff, side: THREE.BackSide})];
+		objects[0] = new THREE.Mesh( geometry, materials );
 		objects[0].castShadow = true;
 		objects[0].receiveShadow = true;
 
@@ -88,7 +91,6 @@ class ObjectCreator {
 			0.0, -100.0,  0.0,
 			0.0,  100.0,  0.0,
 			-33.136 , 66.26,  0.0,
-			
 			
 			0.0, -100.0,  0.0,
 			33.136 , 66.26,  0.0,
@@ -153,13 +155,15 @@ class ObjectCreator {
 			1.0, 1.0,
 			]);
 		geometry.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
-		geometry.addAttribute( 'uv', new THREE.BufferAttribute( uvs, 2 ) );
+		geometry.setAttribute( 'uv', new THREE.BufferAttribute( uvs, 2 ) );
 		geometry.computeVertexNormals();
 		geometry.normalizeNormals();
-		material = new THREE.MeshPhongMaterial( { color: 0x00ff00, side: THREE.DoubleSide } );
-		material = new THREE.MeshPhongMaterial( { side: THREE.DoubleSide});
+		geometry.addGroup(0, 24, 0);
+		geometry.addGroup(0, 24, 1);
+		material = new THREE.MeshPhongMaterial( { color: 0xffffff, side: THREE.FrontSide});
 		material.map = texture;
-		objects[1] = new THREE.Mesh( geometry, material );
+		materials = [material, new THREE.MeshPhongMaterial( { color: 0xffffff, side: THREE.BackSide})];
+		objects[1] = new THREE.Mesh( geometry, materials );
 		objects[1].castShadow = true;
 		objects[1].receiveShadow = true;
 
@@ -347,13 +351,15 @@ class ObjectCreator {
 			1.0, 1.0,
 			]);
 		geometry.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
-		geometry.addAttribute( 'uv', new THREE.BufferAttribute( uvs, 2 ) );
+		geometry.setAttribute( 'uv', new THREE.BufferAttribute( uvs, 2 ) );
 		geometry.computeVertexNormals();
 		geometry.normalizeNormals();
-		material = new THREE.MeshPhongMaterial( { color: 0x0000ff, side: THREE.DoubleSide } );
-		material = new THREE.MeshPhongMaterial( { side: THREE.DoubleSide});
+		geometry.addGroup(0, 66, 0);
+		geometry.addGroup(0, 66, 1);
+		material = new THREE.MeshPhongMaterial( { color: 0xffffff, side: THREE.FrontSide});
 		material.map = texture;
-		objects[2] = new THREE.Mesh( geometry, material );
+		materials = [material, new THREE.MeshPhongMaterial( { color: 0xffffff, side: THREE.BackSide})];
+		objects[2] = new THREE.Mesh( geometry, materials );
 		objects[2].castShadow = true;
 		objects[2].receiveShadow = true;
 
