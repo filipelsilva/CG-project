@@ -117,13 +117,18 @@ function init() {
 	// renderer.shadowMap.enabled = true;
 	// renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
+	renderer.xr.enabled = true;
 	renderer.autoClear = false;
 	renderer.setSize(window.innerWidth, window.innerHeight);
+
 	document.body.appendChild(renderer.domElement);
+	document.body.appendChild(VRButton.createButton(renderer));
 
 	window.addEventListener("keydown", keyHandler.onKeyDown.bind(keyHandler), true);
 	window.addEventListener("keyup", keyHandler.onKeyUp.bind(keyHandler), true);
 	window.addEventListener("resize", onResize);
+
+	renderer.setAnimationLoop(animate);
 }
 
 function render() {
@@ -142,6 +147,4 @@ function animate() {
 	keyHandler.doKeyPress(delta, group);
 
 	render();
-
-	requestAnimationFrame(animate);
 }
