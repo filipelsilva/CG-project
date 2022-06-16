@@ -59,6 +59,7 @@ class KeyHandler {
 					} else {
 						child.material = objectCreator.phongMaterials;
 					}
+					console.log(child.material);
 				});
 				// alternar sombreamento
 				break;
@@ -71,6 +72,7 @@ class KeyHandler {
 						this.lastMaterialUsed = child.material;
 						child.material = objectCreator.normalMaterials;
 					}
+					console.log(child.material);
 				});
 				// toggle calculo da iluminação
 				break;
