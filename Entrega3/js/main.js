@@ -37,6 +37,7 @@ function initObjects() {
 	group = objectCreator.group;
 	palanque = objectCreator.palanque;
 	floor = objectCreator.floor;
+	camera = perspectiveCamera;
 
 	scene.add(palanque);
 	scene.add(floor);
