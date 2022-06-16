@@ -116,7 +116,6 @@ function init() {
 	});
 
 	renderer.xr.enabled = true;
-	renderer.xr.updateCamera(sceneCreator.createPerspectiveCamera());
 	renderer.autoClear = false;
 	renderer.setSize(window.innerWidth, window.innerHeight);
 
