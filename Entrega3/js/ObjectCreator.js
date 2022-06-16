@@ -54,6 +54,10 @@ class ObjectCreator {
 		phongMaterial.map = texture;
 		this.phongMaterials = [phongMaterial, new THREE.MeshPhongMaterial({color: 0xffffff, side: THREE.BackSide})];
 
+		this.phongMaterials.forEach((mat) => {
+			mat.needsUpdate = true;
+		});
+
 		lambertMaterial = new THREE.MeshLambertMaterial({color: 0xffffff, side: THREE.FrontSide});
 		lambertMaterial.map = texture;
 		this.lambertMaterials = [lambertMaterial, new THREE.MeshLambertMaterial({color: 0xffffff, side: THREE.BackSide})];
