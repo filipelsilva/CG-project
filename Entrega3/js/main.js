@@ -30,6 +30,7 @@ function initObjects() {
 	scene.remove(palanque);
 	scene.remove(floor);
 	scene.remove(sceneCreator.spotlights);
+	scene.remove(sceneCreator.globalLight);
 
 	objectCreator = new ObjectCreator();
 
@@ -41,6 +42,7 @@ function initObjects() {
 	scene.add(floor);
 	scene.add(group);
 
+	sceneCreator.globalLight = sceneCreator.createLight();
 	sceneCreator.spotlights = sceneCreator.createSpotlights(group);
 	keyHandler = new KeyHandler(group);
 }
