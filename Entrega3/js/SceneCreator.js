@@ -15,10 +15,10 @@ class SceneCreator {
 		light.position.set(0, 500, 1000);
 		light.castShadow = true;
 		light.target = this.scene;
-		light.shadow.mapSize.width = 512000;  
-		light.shadow.mapSize.height = 512000; 
+		light.shadow.mapSize.width = 512000;
+		light.shadow.mapSize.height = 512000;
 		light.shadow.camera.near = 0.5;
-		light.shadow.camera.far = 500000     
+		light.shadow.camera.far = 500000;
 		this.scene.add(light);
 		let h = new THREE.CameraHelper( light.shadow.camera );
 		this.scene.add(h);
