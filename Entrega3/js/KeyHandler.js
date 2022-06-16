@@ -58,6 +58,16 @@ class KeyHandler {
 			case 115: // s
 				// toggle calculo da iluminação
 				break;
+			case 68:  // D
+			case 100: // d
+				// toggle calculo da iluminação global
+				isGlobalLight = !isGlobalLight;
+				if (isGlobalLight) {
+					sceneCreator.globalLight.intensity = 1;
+				} else {
+					sceneCreator.globalLight.intensity = 0;
+				}
+				break;
 			case 90:  // Z
 			case 122: // z
 				// toggle 1 spotlight
