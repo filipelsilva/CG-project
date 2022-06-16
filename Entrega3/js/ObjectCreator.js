@@ -3,6 +3,7 @@ class ObjectCreator {
 		this.group = new THREE.Group();
 		this.palanque = this.createPalanque();
 		this.floor = this.createFloor();
+		this.createMaterials();
 		this.createObjects();
 	}
 
@@ -44,21 +45,26 @@ class ObjectCreator {
 		return floor;
 	}
 
-	createObjects() {
-		let phongMaterial, lambertMaterial, geometry, vertices;
-		let phongMaterials, lambertMaterials;
-		let objects = [];
+	createMaterials() {
+		let phongMaterial, lambertMaterial, normalMaterial;
 
 		const texture = new THREE.TextureLoader().load( "media/origami.jpg" );
 
-		phongMaterial = new THREE.MeshPhongMaterial( { color: 0xffffff, side: THREE.FrontSide });
+		phongMaterial = new THREE.MeshPhongMaterial({color: 0xffffff, side: THREE.FrontSide});
 		phongMaterial.map = texture;
-		phongMaterials = [phongMaterial, new THREE.MeshPhongMaterial( { color: 0xffffff, side: THREE.BackSide })];
+		this.phongMaterials = [phongMaterial, new THREE.MeshPhongMaterial({color: 0xffffff, side: THREE.BackSide})];
 
-		lambertMaterial = new THREE.MeshLambertMaterial( { color: 0xffffff, side: THREE.FrontSide });
+		lambertMaterial = new THREE.MeshLambertMaterial({color: 0xffffff, side: THREE.FrontSide});
 		lambertMaterial.map = texture;
-		lambertMaterials = [lambertMaterial, new THREE.MeshLambertMaterial( { color: 0xffffff, side: THREE.BackSide })];
+		this.lambertMaterials = [lambertMaterial, new THREE.MeshLambertMaterial({color: 0xffffff, side: THREE.BackSide})];
 
+		normalMaterial = new THREE.MeshStandardMaterial({color: 0xffffff, side: THREE.FrontSide});
+		normalMaterial.map = texture;
+		this.normalMaterials = [normalMaterial, new THREE.MeshStandardMaterial({color: 0xffffff, side: THREE.BackSide})];
+	}
+
+	createObjects() {
+		let geometry, vertices, objects = [];
 		geometry = new THREE.BufferGeometry();
 		vertices = new Float32Array( [
 			0, -100,  0,
@@ -85,7 +91,7 @@ class ObjectCreator {
 		geometry.normalizeNormals();
 		geometry.addGroup(0, 6, 0);
 		geometry.addGroup(0, 6, 1);
-		objects[0] = new THREE.Mesh( geometry, phongMaterials );
+		objects[0] = new THREE.Mesh( geometry, this.phongMaterials );
 		objects[0].castShadow = true;
 		objects[0].receiveShadow = true;
 
@@ -166,7 +172,7 @@ class ObjectCreator {
 		geometry.normalizeNormals();
 		geometry.addGroup(0, 24, 0);
 		geometry.addGroup(0, 24, 1);
-		objects[1] = new THREE.Mesh( geometry, phongMaterials );
+		objects[1] = new THREE.Mesh( geometry, this.phongMaterials );
 		objects[1].castShadow = true;
 		objects[1].receiveShadow = true;
 
@@ -359,7 +365,7 @@ class ObjectCreator {
 		geometry.normalizeNormals();
 		geometry.addGroup(0, 66, 0);
 		geometry.addGroup(0, 66, 1);
-		objects[2] = new THREE.Mesh( geometry, phongMaterials );
+		objects[2] = new THREE.Mesh( geometry, this.phongMaterials );
 		objects[2].castShadow = true;
 		objects[2].receiveShadow = true;
 

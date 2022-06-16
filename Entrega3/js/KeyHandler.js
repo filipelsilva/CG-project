@@ -1,6 +1,7 @@
 class KeyHandler {
 	constructor() {
 		this.keyMap = [];
+		this.lastMaterialUsed = [];
 	}
 
 	onKeyDown(event) {
@@ -52,10 +53,25 @@ class KeyHandler {
 		switch (code) {
 			case 65:  // A
 			case 97:  // a
+				group.children.forEach((child) => {
+					if (child.material === objectCreator.phongMaterials) {
+						child.material = objectCreator.lambertMaterials;
+					} else {
+						child.material = objectCreator.phongMaterials;
+					}
+				});
 				// alternar sombreamento
 				break;
 			case 83:  // S
 			case 115: // s
+				group.children.forEach((child) => {
+					if (child.material === objectCreator.normalMaterials) {
+						child.material = this.lastMaterialUsed;
+					} else {
+						this.lastMaterialUsed = child.material;
+						child.material = objectCreator.normalMaterials;
+					}
+				});
 				// toggle calculo da iluminação
 				break;
 			case 68:  // D
