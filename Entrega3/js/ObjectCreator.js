@@ -48,7 +48,7 @@ class ObjectCreator {
 	createMaterials() {
 		let phongMaterial, lambertMaterial, normalMaterial;
 
-		const texture = new THREE.TextureLoader().load( "media/origami_blue.png" );
+		const texture = new THREE.TextureLoader().load( "media/origami.jpg" );
 
 		phongMaterial = new THREE.MeshPhongMaterial({color: 0xffffff, side: THREE.FrontSide});
 		phongMaterial.map = texture;
