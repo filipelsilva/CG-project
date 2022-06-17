@@ -10,6 +10,7 @@ let isSpotlight2 = true;
 let isSpotlight3 = true;
 
 let renderer;
+let mainGroup = new THREE.Group();
 
 let objectCreator;
 let sceneCreator = new SceneCreator();
@@ -21,30 +22,29 @@ let orthographicCamera = sceneCreator.orthographicCamera;
 
 let camera = perspectiveCamera;
 
-let group;
+let origamis;
 let palanque;
 let floor;
 
 function initObjects() {
-	scene.remove(group);
-	scene.remove(palanque);
-	scene.remove(floor);
-	scene.remove(sceneCreator.spotlights);
-	scene.remove(sceneCreator.globalLight);
+	scene.remove(mainGroup);
+	mainGroup = new THREE.Group();
 
 	objectCreator = new ObjectCreator();
 
-	group = objectCreator.group;
+	origamis = objectCreator.group;
 	palanque = objectCreator.palanque;
 	floor = objectCreator.floor;
 	camera = perspectiveCamera;
+	mainGroup.add(origamis);
+	mainGroup.add(palanque);
+	mainGroup.add(floor);
 
-	scene.add(palanque);
-	scene.add(floor);
-	scene.add(group);
+	scene.add(mainGroup);
+	scene.add(camera);
 
 	sceneCreator.globalLight = sceneCreator.createLight();
-	sceneCreator.spotlights = sceneCreator.createSpotlights(group);
+	sceneCreator.spotlights = sceneCreator.createSpotlights(origamis);
 }
 
 // Pause menu
@@ -83,27 +83,15 @@ function onResize() {
 	renderer.setSize(window.innerWidth, window.innerHeight);
 
 	if (window.innerHeight > 0 && window.innerWidth > 0) {
-		if (camera === sceneCreator.orthographicCamera) {
+		if (camera === sceneCreator.orthographicCamera || camera === cameraPause) {
 			camera.left = window.innerWidth/-2;
 			camera.right = window.innerWidth/2;
 			camera.top = window.innerHeight/2;
 			camera.bottom = window.innerHeight/-2;
-			group.scale.set(window.innerWidth / window.innerHeight,window.innerWidth / window.innerHeight,window.innerWidth / window.innerHeight);
-			palanque.scale.set(window.innerWidth / window.innerHeight,window.innerWidth / window.innerHeight,window.innerWidth / window.innerHeight);
-			floor.scale.set(window.innerWidth / window.innerHeight,window.innerWidth / window.innerHeight,window.innerWidth / window.innerHeight);
-			sceneCreator.spotlights.scale.set(window.innerWidth / window.innerHeight,window.innerWidth / window.innerHeight,window.innerWidth / window.innerHeight);
+			mainGroup.scale.set(window.innerWidth / window.innerHeight,window.innerWidth / window.innerHeight,window.innerWidth / window.innerHeight);
 		}
 		else{
-			group.scale.set(1,1,1);
-			palanque.scale.set(1,1,1);
-			floor.scale.set(1,1,1);
-			sceneCreator.spotlights.scale.set(1,1,1);
-			/* TDOD check intended behaviour
-			group.scale.set(window.innerWidth / window.innerHeight,window.innerWidth / window.innerHeight,window.innerWidth / window.innerHeight);
-			palanque.scale.set(window.innerWidth / window.innerHeight,window.innerWidth / window.innerHeight,window.innerWidth / window.innerHeight);
-			floor.scale.set(window.innerWidth / window.innerHeight,window.innerWidth / window.innerHeight,window.innerWidth / window.innerHeight);
-			sceneCreator.spotlights.scale.set(window.innerWidth / window.innerHeight,window.innerWidth / window.innerHeight,window.innerWidth / window.innerHeight);
-			*/
+			mainGroup.scale.set(1,1,1);
 			camera.aspect = window.innerWidth / window.innerHeight;
 		}
 		camera.updateProjectionMatrix();

@@ -19,32 +19,32 @@ class KeyHandler {
 	// Handler for the movement of the objects.
 	doKeyPress(delta) {
 		if (this.keyMap[81] || this.keyMap[113]) { // Q/q
-			group.children[0].rotateY(3 * delta)
+			origamis.children[0].rotateY(3 * delta)
 			// rodar peça 1
 		}
 
 		if (this.keyMap[87] || this.keyMap[119]) { // W/w
-			group.children[0].rotateY(-3 * delta)
+			origamis.children[0].rotateY(-3 * delta)
 			// rodar peça 1
 		}
 
 		if (this.keyMap[69] || this.keyMap[101]) { // E/e
-			group.children[1].rotateY(3 * delta)
+			origamis.children[1].rotateY(3 * delta)
 			// rodar peça 2
 		}
 
 		if (this.keyMap[82] || this.keyMap[114]) { // R/r
-			group.children[1].rotateY(-3 * delta)
+			origamis.children[1].rotateY(-3 * delta)
 			// rodar peça 2
 		}
 
 		if (this.keyMap[84] || this.keyMap[116]) { // T/t
-			group.children[2].rotateY(3 * delta)
+			origamis.children[2].rotateY(3 * delta)
 			// rodar peça 3
 		}
 
 		if (this.keyMap[89] || this.keyMap[121]) { // Y/y
-			group.children[2].rotateY(-3 * delta)
+			origamis.children[2].rotateY(-3 * delta)
 			// rodar peça 3
 		}
 	}
@@ -53,26 +53,24 @@ class KeyHandler {
 		switch (code) {
 			case 65:  // A
 			case 97:  // a
-				group.children.forEach((child) => {
+				origamis.children.forEach((child) => {
 					if (child.material === objectCreator.phongMaterials) {
 						child.material = objectCreator.lambertMaterials;
 					} else {
 						child.material = objectCreator.phongMaterials;
 					}
-					console.log(child.material);
 				});
 				// alternar sombreamento
 				break;
 			case 83:  // S
 			case 115: // s
-				group.children.forEach((child) => {
+				origamis.children.forEach((child) => {
 					if (child.material === objectCreator.normalMaterials) {
 						child.material = this.lastMaterialUsed;
 					} else {
 						this.lastMaterialUsed = child.material;
 						child.material = objectCreator.normalMaterials;
 					}
-					console.log(child.material);
 				});
 				// toggle calculo da iluminação
 				break;

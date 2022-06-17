@@ -6,7 +6,7 @@ class SceneCreator {
 		this.orthographicCamera = this.createOrthographicCamera();
 		this.scene.add(this.perspectiveCamera);
 		this.scene.add(this.orthographicCamera);
-		this.globalLight = this.createLight();
+		this.globalLight;
 		this.spotlights;
 	}
 
@@ -15,7 +15,7 @@ class SceneCreator {
 		light.position.set(0, 500, 1000);
 		light.castShadow = true;
 		light.target = this.scene;
-		this.scene.add(light);
+		mainGroup.add(light);
 		return light;
 	}
 
@@ -82,7 +82,7 @@ class SceneCreator {
 		spotlight.position.set(500, 650, 600);
 		spotlight.lookAt(...objects.children[2].position);
 		group.add(spotlight);
-		this.scene.add(group);
+		mainGroup.add(group);
 		return group;
 	}
 
