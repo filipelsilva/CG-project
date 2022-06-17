@@ -11,22 +11,22 @@ class ObjectCreator {
 		let material, geometry, mesh;
 		let group = new THREE.Group();
 		material = new THREE.MeshStandardMaterial({color: 0x994b00});
-		geometry = new THREE.BoxGeometry(1200, 120, 600);
+		geometry = new THREE.BoxGeometry(1500, 120, 1200);
 		mesh = new THREE.Mesh(geometry, material);
 		mesh.castShadow = true;
 		mesh.receiveShadow = true;
 		group.add(mesh);
 		material = new THREE.MeshStandardMaterial({color: 0x994b00});
-		geometry = new THREE.BoxGeometry(900, 80, 120);
+		geometry = new THREE.BoxGeometry(1200, 80, 120);
 		mesh = new THREE.Mesh(geometry, material);
-		mesh.position.set(0,-20,360);
+		mesh.position.set(0,-20,660);
 		mesh.castShadow = true;
 		mesh.receiveShadow = true;
 		group.add(mesh);
 		material = new THREE.MeshStandardMaterial({color: 0x994b00});
-		geometry = new THREE.BoxGeometry(600, 40, 120);
+		geometry = new THREE.BoxGeometry(900, 40, 120);
 		mesh = new THREE.Mesh(geometry, material);
-		mesh.position.set(0,-40,420);
+		mesh.position.set(0,-40,720);
 		mesh.castShadow = true;
 		mesh.receiveShadow = true;
 		group.add(mesh);
@@ -62,9 +62,9 @@ class ObjectCreator {
 		lambertMaterial.map = texture;
 		this.lambertMaterials = [lambertMaterial, new THREE.MeshLambertMaterial({color: 0xffffff, side: THREE.BackSide})];
 
-		normalMaterial = new THREE.MeshStandardMaterial({color: 0xffffff, side: THREE.FrontSide});
+		normalMaterial = new THREE.MeshBasicMaterial({color: 0xffffff, side: THREE.FrontSide});
 		normalMaterial.map = texture;
-		this.normalMaterials = [normalMaterial, new THREE.MeshStandardMaterial({color: 0xffffff, side: THREE.BackSide})];
+		this.normalMaterials = [normalMaterial, new THREE.MeshBasicMaterial({color: 0xffffff, side: THREE.BackSide})];
 	}
 
 	createObjects() {
@@ -99,7 +99,7 @@ class ObjectCreator {
 		objects[0].castShadow = true;
 		objects[0].receiveShadow = true;
 
-		objects[0].position.set(-300, 300, 0);
+		objects[0].position.set(-450, 300, 0);
 		objects[0].scale.set(2,2,2);
 
 		geometry = new THREE.BufferGeometry();
@@ -373,7 +373,7 @@ class ObjectCreator {
 		objects[2].castShadow = true;
 		objects[2].receiveShadow = true;
 
-		objects[2].position.set(300, 300, 0);
+		objects[2].position.set(450, 300, 0);
 		objects[2].scale.set(2,2,2);
 
 

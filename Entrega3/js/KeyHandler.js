@@ -116,9 +116,7 @@ class KeyHandler {
 					sceneCreator.spotlights.children[2].intensity = 0;
 				}
 				break;
-			// devia ser S
-			case 80:  // P
-			case 112: // p
+			case 32:  // space
 				// play/pause
 				isPaused = !isPaused;
 				if (isPaused) {
@@ -127,9 +125,7 @@ class KeyHandler {
 					clock.start();
 				}
 				break;
-			// devia ser R
-			case 79:  // O
-			case 111: // o
+			case 51:  // 3
 				// reset
 				initObjects();
 				if (isPaused) {
