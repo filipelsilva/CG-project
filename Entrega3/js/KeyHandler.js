@@ -116,6 +116,18 @@ class KeyHandler {
 					sceneCreator.spotlights.children[2].intensity = 0;
 				}
 				break;
+			case 49: // 1
+				// perspetiva
+				scene.activeCamera = sceneCreator.perspectiveCamera;
+				camera = scene.activeCamera;
+				onResize();
+				break;
+			case 50: // 2
+				// fixa, ortogonal
+				scene.activeCamera = sceneCreator.orthographicCamera;
+				camera = scene.activeCamera;
+				onResize();
+				break;
 			case 32:  // space
 				// play/pause
 				isPaused = !isPaused;
@@ -132,18 +144,6 @@ class KeyHandler {
 					isPaused = false;
 					clock.start();
 				}
-				break;
-			case 49: // 1
-				// perspetiva
-				scene.activeCamera = sceneCreator.perspectiveCamera;
-				camera = scene.activeCamera;
-				onResize();
-				break;
-			case 50: // 2
-				// fixa, ortogonal
-				scene.activeCamera = sceneCreator.orthographicCamera;
-				camera = scene.activeCamera;
-				onResize();
 				break;
 			default:
 				return false;
